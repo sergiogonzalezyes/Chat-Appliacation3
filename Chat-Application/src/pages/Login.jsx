@@ -9,7 +9,7 @@ export const Login = () => {
                 </br>
                 <label>
                     Password:
-                    <input type="text" name="name" />
+                    <input type="text" name="password" />
                 </label>
                 <br>
                 </br>
