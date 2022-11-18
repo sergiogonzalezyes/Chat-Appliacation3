@@ -5,14 +5,13 @@ import { Login } from "./pages/Login";
 function App() {
     return (
         <div className="App">
-            <Router>
-               
+            <Router> 
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
-                <div>
-                    {/* <Link to="/">Home</Link> */}
+                <div className="textLogin">
+                    <Link to="/">Home</Link>
                     <Link to="/Login">Login</Link>
                 </div>
             </Router>

@@ -1,1 +1,32 @@
-
+* {
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+}
+.welcomeLogo {
+    margin-top: 20%;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Alfa Slab One", cursive;
+}
+.textLogin {
+    text-align: center;
+    font-family: "Alfa Slab One", cursive;
+}
+.loginComponent {
+    margin-top: 20%;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Alfa Slab One", cursive;
+}
+input {
+    font-size: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: white;
+}
+.button {
+    text-align: center;
+    font-family: "Alfa Slab One", cursive;
+    font-size: 30px;
+}
