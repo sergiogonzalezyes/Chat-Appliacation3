@@ -1,4 +1,3 @@
-// import myImage from "./realpicture.png"
 
 export const Home = () => {
     return <section>

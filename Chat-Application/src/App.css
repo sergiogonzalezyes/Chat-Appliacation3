@@ -14,16 +14,20 @@
     font-family: "Alfa Slab One", cursive;
 }
 .loginComponent {
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 20%;
     text-align: center;
     font-size: 40px;
     font-family: "Alfa Slab One", cursive;
+    max-width: fit-content;
+    /* background-color: white; */
 }
 input {
     font-size: 20px;
     margin-top: auto;
     margin-bottom: auto;
-    background-color: white;
+    /* background-color: white; */
 }
 .button {
     text-align: center;

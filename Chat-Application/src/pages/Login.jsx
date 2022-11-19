@@ -1,3 +1,6 @@
+// import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+// import { UserPage } from "./UserPage";
+
 export const Login = () => {
     return <div className="loginComponent">
             <form >
@@ -8,9 +11,9 @@ export const Login = () => {
                 <br/>
                 <label className="name">
                     Password:
-                    <input type="text" name="password" />
+                    <input type="text" name="password" className="input" />
                 </label>   
             </form>
-            <button className="button">Submit</button>
+            <button className="button">button</button>
            </div>;
 };
