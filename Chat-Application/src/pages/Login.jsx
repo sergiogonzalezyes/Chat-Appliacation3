@@ -1,7 +1,15 @@
-// import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-// import { UserPage } from "./UserPage";
+import { Navigate } from "react-router-dom";
+
+import { useState } from "react";
 
 export const Login = () => {
+    const [userLoginVerify, setuserLoginVerify] = useState(false)
+
+    if (userLoginVerify) {
+        return <Navigate to="/UserPage" />
+    }
+
+
     return <div className="loginComponent">
             <form >
                 <label className="name">
@@ -14,6 +22,8 @@ export const Login = () => {
                     <input type="text" name="password" className="input" />
                 </label>   
             </form>
-            <button className="button">button</button>
+            <button className="button" onClick={() => {
+                setuserLoginVerify(true);
+            }}>button</button>
            </div>;
 };

@@ -27,10 +27,14 @@ input {
     font-size: 20px;
     margin-top: auto;
     margin-bottom: auto;
-    /* background-color: white; */
 }
 .button {
     text-align: center;
     font-family: "Alfa Slab One", cursive;
     font-size: 30px;
+}
+.UserPageDiv {
+    text-align: center;
+    margin-top: 20%;
+    display: flex;
 }

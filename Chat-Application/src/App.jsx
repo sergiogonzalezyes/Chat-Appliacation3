@@ -8,18 +8,17 @@ function App() {
     return (
         <div className="App">
             <Router> 
+                
+                <div className="textLogin">
+                    {/* <Link to="/">Home</Link> */}
+                    <Link to="/Login">Login</Link>
+                </div>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/UserPage" element={<UserPage />} />
 
                 </Routes>
-                <div className="textLogin">
-                    <Link to="/">Home</Link>
-                    <Link to="/Login">Login</Link>
-                    <Link to="/UserPage">UserPage</Link>
-
-                </div>
             </Router>
         </div>
       
