@@ -38,3 +38,10 @@ input {
     margin-top: 20%;
     display: flex;
 }
+
+.UserInfoPage {
+    margin-top: 20%;
+    text-align: center;
+    font-size: 10px;
+    font-family: "Alfa Slab One", cursive;
+}
