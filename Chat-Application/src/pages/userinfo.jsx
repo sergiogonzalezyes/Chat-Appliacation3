@@ -23,9 +23,8 @@ export const UserInfo = () => { // setting up page for export into app.jsx
                 <thead>
                     <tr>
                         <th style={{textAlign: "center"}}>No.</th>
-                        <th style={{textAlign: "center"}}>Name</th>
-                        <th style={{textAlign: "center"}}>Email</th>
-                        <th style={{textAlign: "center"}}>Contact</th>
+                        <th style={{textAlign: "center"}}>Username</th>
+                        <th style={{textAlign: "center"}}>Password</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +41,7 @@ export const UserInfo = () => { // setting up page for export into app.jsx
                 </tbody>
             </table>
             <h2> UserInfo </h2>
-            <h1 className="UserInfoPage">Hello,we got some jobs ready for you.</h1>
+            <h1 className="UserInfoPage">Hello, we got some jobs ready for you.</h1>
         </div>       
     )
 };
