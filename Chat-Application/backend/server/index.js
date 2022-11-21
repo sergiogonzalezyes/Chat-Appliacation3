@@ -49,19 +49,6 @@ app.get("/api/get", (req, res) => {
 // });
 
 
-// DELETE FROM `node_twitterclone`.`contact_db` WHERE (`id` = '13');
-
-app.get("/", (req, res) => {
-    const sqlGet = "DELETE FROM contact_db WHERE 'id' = '13'";
-    db.query(sqlGet, (error, result) => {
-        
-        console.log("error", error);
-        console.log("result", result);
-        res.send("Hello Express");
-    });
-});
-
-
 app.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
