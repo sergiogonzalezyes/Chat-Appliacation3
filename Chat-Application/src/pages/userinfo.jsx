@@ -1,11 +1,12 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react"; // This tells the component that it needs to do something after its been rendered.
+                                             // "hook into" react features. useState lets you add react state to function components. 
+                                             // preserves variables too. 
+import axios from "axios"; // used to fetch data
 
 // console.log(axios.isCancel('something'));  research what this is later..
 
-export const UserInfo = () => {
-    const [data, setData] = useState([]);
+export const UserInfo = () => { // setting up page for export into app.jsx
+    const [data, setData] = useState([]); 
 
     const loadData = async () => {
         const response = await axios.get("http://localhost:5000/api/get")
