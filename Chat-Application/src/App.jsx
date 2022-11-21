@@ -8,8 +8,7 @@ import { UserInfo } from "./pages/UserInfo";
 function App() {
     return (
         <div className="App">
-            <Router> 
-                
+            <Router>
                 <div className="textLogin">
                     {/* <Link to="/">Home</Link> */}
                     <Link to="/Login">Login</Link>
@@ -22,11 +21,9 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/UserPage" element={<UserPage />} />
                     <Route path="/UserInfo" element={<UserInfo />} />
-
                 </Routes>
             </Router>
         </div>
-      
     );
 }
 
