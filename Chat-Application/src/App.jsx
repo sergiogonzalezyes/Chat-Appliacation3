@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { UserPage } from "./pages/UserPage";
 import { UserInfo } from "./pages/UserInfo";
+import { CreateUser } from "./pages/CreateUser";
 
 function App() {
     return (
@@ -13,14 +14,15 @@ function App() {
                     {/* <Link to="/">Home</Link> */}
                     <Link to="/Login">Login</Link>
                 </div>
-                <div>
+                {/* <div>
                     <Link to="/UserInfo">User Info</Link>
-                </div>
+                </div> */}
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/UserPage" element={<UserPage />} />
                     <Route path="/UserInfo" element={<UserInfo />} />
+                    <Route path="/CreateUser" element={<CreateUser />} />
                 </Routes>
             </Router>
         </div>

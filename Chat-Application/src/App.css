@@ -33,6 +33,11 @@ input {
     font-family: "Alfa Slab One", cursive;
     font-size: 30px;
 }
+.createUser {
+    text-align: center;
+    font-family: "Alfa Slab One", cursive;
+    font-size: 30px;
+}
 .UserPageDiv {
     text-align: center;
     margin-top: 20%;

@@ -35,15 +35,21 @@ app.get("/api/get", (req, res) => {
 }); 
 
 // Insert into DB table contact_db tested and works 
-// app.get("/", (req, res) => {
-//     const sqlInsert = "INSERT INTO contact_db (name, email, contact) VALUES ('beans', 'beans@gmail.com', 'beansiii')"; // These are hardcoded paramaeters that will be inserted into table when page is refreshed or opened. 
-//     db.query(sqlInsert, (error, result) => {
-//         console.log("error", error);
-//         console.log("result", result);
-//         res.send("Hello Express");
-//     });
-// });
+app.get("/", (req, res) => {
+    const sqlInsert = "INSERT INTO contact_db (name, email, contact) VALUES ('beans', 'beans@gmail.com', 'beansiii')"; // These are hardcoded paramaeters that will be inserted into table when page is refreshed or opened. 
+    db.query(sqlInsert, (error, result) => {
+        console.log("error", error);
+        console.log("result", result);
+        res.send("Hello Express");
+    });
+});
 
+
+app.post('/', (req, res) => {
+    console.log(req.article); // <------ **Here's the issue, there's nothing here**
+    res.json({ response: '' });
+    // however, if I send res.json(req.body), the response is empty in Network tab
+});
 
  // Airplay occupies the port 5000 for sending and receiving requests!!!
  // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay

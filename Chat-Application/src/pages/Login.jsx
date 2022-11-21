@@ -7,6 +7,7 @@ export const Login = () => {
     const [data, setData] = useState([]);
     const [input, Setinput] = useState("");
     const [input2, Setinput2] = useState("");
+    const [createNewUser, setCreateNewUser] = useState(false);
 
 
 const inputfunction = (e) => {
@@ -46,6 +47,11 @@ const inputfunctionPassword = (e) => {
         return <Navigate to="/UserPage" />;
     }
 
+    if (createNewUser) {
+        return <Navigate to="/createUser" />;
+    }
+
+
     return (
         <div className="loginComponent">
             <form>
@@ -63,7 +69,13 @@ const inputfunctionPassword = (e) => {
                 className="button"
                 onClick={getInput}
             >
-                button
+                Login
+            </button>
+            <button
+                className="createUser"
+                onClick={setCreateNewUser}
+            >
+                Create New Account
             </button>
         </div>
     );
