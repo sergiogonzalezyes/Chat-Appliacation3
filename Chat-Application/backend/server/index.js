@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require("express"); // Node JS web app framework. Primarily back end focused, for building REST API.
 const app = express();
-const bodyParser = require("body-parser");
-const mysql = require("mysql2");
-const cors = require("cors");
+const bodyParser = require("body-parser"); // NPM package that parses incoming request bodies in a middleware before you handle it. 
+const mysql = require("mysql2"); // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
+const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that defines sharing resources of different origins. client/server architecture. 
 
 
 // MYSQL connection
@@ -20,27 +20,23 @@ const db = mysql.createPool({
     database: "node_twitterclone"
 });
 
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
+app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead. 
+app.use(bodyParser.urlencoded({extended: true})); // this allows incoming url requests to be turned into objects as well, not just JSON requests. 
 
-// Read all data from contact_db table where id is equal to 5
+// app.get("path") will for GET method which grabs data from backend. for any other function, use app.use("path"), for multiple callbacks use app.all()
+// app.use() only takes one path and will only see whether url starts with specified path. app.all() will match the complete path.
 app.get("/api/get", (req, res) => {
-    const sqlGet = "SELECT * FROM contact_db";
+    const sqlGet = "SELECT * FROM contact_db"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
-        var contact_info = result;
-        // comment out 27,28,29 and comment in 25 to see jSON data
-        res.send(contact_info)
-
-        // res.send("name: " + contact_info["name"] + ["<br>"]
-        // + "email: " + contact_info["email"] + ["<br>"] 
-        // + "contact: " + contact_info["contact"]); 
+        var contact_info = result; // store the response into variable that will be used for manipulation in react app.
+        res.send(contact_info) // return response from database
     });
 }); 
 
 // Insert into DB table contact_db tested and works 
 // app.get("/", (req, res) => {
-//     const sqlInsert = "INSERT INTO contact_db (name, email, contact) VALUES ('beans', 'beans@gmail.com', 'beansiii')";
+//     const sqlInsert = "INSERT INTO contact_db (name, email, contact) VALUES ('beans', 'beans@gmail.com', 'beansiii')"; // These are hardcoded paramaeters that will be inserted into table when page is refreshed or opened. 
 //     db.query(sqlInsert, (error, result) => {
 //         console.log("error", error);
 //         console.log("result", result);
@@ -48,6 +44,9 @@ app.get("/api/get", (req, res) => {
 //     });
 // });
 
+
+ // Airplay occupies the port 5000 for sending and receiving requests!!!
+ // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 
 app.listen(5000, () => {
     console.log("Server is running on port 5000");
