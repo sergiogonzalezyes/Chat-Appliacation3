@@ -23,10 +23,10 @@ export const UserInfo = () => {
             <table className="styled">
                 <thead>
                     <tr>
-                        <th style={{ textAlign: "center" }}>No.</th>
-                        <th style={{ textAlign: "center" }}>Name</th>
-                        <th style={{ textAlign: "center" }}>Email</th>
-                        <th style={{ textAlign: "center" }}>Contact</th>
+                        <th style={{textAlign: "center"}}>No.</th>
+                        <th style={{textAlign: "center"}}>Username</th>
+                        <th style={{textAlign: "center"}}>Password</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -43,9 +43,12 @@ export const UserInfo = () => {
                 </tbody>
             </table>
             <h2> UserInfo </h2>
-            <h1 className="UserInfoPage">
-                Hello,we got some jobs ready for you.
-            </h1>
-        </div>
+
     );
 };
+=======
+            <h1 className="UserInfoPage">Hello, we got some jobs ready for you.</h1>
+        </div>       
+    )
+};
+>>>>>>> 06b643898dacb7635bf8197c91c7b9f001d7576a

@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: true})); // this allows incoming url re
 // app.get("path") will for GET method which grabs data from backend. for any other function, use app.use("path"), for multiple callbacks use app.all()
 // app.use() only takes one path and will only see whether url starts with specified path. app.all() will match the complete path.
 app.get("/api/get", (req, res) => {
-    const sqlGet = "SELECT * FROM contact_db"; // Selects all from contact_db table in mysql database.
+    const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
         var contact_info = result; // store the response into variable that will be used for manipulation in react app.
         res.send(contact_info) // return response from database
