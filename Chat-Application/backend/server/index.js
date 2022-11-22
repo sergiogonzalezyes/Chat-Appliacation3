@@ -53,10 +53,8 @@ app.post("/createUser", (req, res) => {
     // console.log(...convertDatatoArray);
     console.log(...convertDatatoArray);
 
-    // console.log(convertDatatoArray[1]);
-
     // <------ **Here's the issue, there's nothing here**
-    res.send(req.body);
+    res.send(...convertDatatoArray);
     // however, if I send res.json(req.body), the response is empty in Network tab
 });
 
