@@ -22,7 +22,7 @@ const db = mysql.createPool({
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead. 
-app.use(bodyParser.urlencoded({extended: false})); // this allows incoming url requests to be turned into objects as well, not just JSON requests. 
+app.use(bodyParser.urlencoded({extended: true})); // this allows incoming url requests to be turned into objects as well, not just JSON requests. 
 
 // app.get("path") will for GET method which grabs data from backend. for any other function, use app.use("path"), for multiple callbacks use app.all()
 // app.use() only takes one path and will only see whether url starts with specified path. app.all() will match the complete path.
@@ -48,7 +48,8 @@ app.get("/api/get", (req, res) => {
 app.post('/createUser', (req, res) => {
     console.log('swag');
     console.log(req.body);
-    
+    var newobject = req.body;
+    console.log(newobject)
     // <------ **Here's the issue, there's nothing here**
     res.send(req.body);
     // however, if I send res.json(req.body), the response is empty in Network tab

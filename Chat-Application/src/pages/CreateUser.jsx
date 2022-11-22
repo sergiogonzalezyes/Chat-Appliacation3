@@ -90,7 +90,7 @@ import axios from "axios";
 export function CreateUser() {
     const[username, setUsername]= useState('');
     const[userpassword, setUserPassword]= useState('');
-    const[message, setMessage]= useState('');
+    // const[message, setMessage]= useState('');
 
         const handleusername =(event)=>{
             const user_name=event.target.value;
@@ -106,22 +106,23 @@ export function CreateUser() {
 
         const submitUser= async (e)=> {
             e.preventDefault();
-            const userdata ={ user_name:username, user_password:userpassword};
+            const userdata ={ user_name:username, user_password:userpassword };
             
             await axios.post('http://127.0.0.1:5000/createUser', JSON.stringify(userdata) )
             .then(result=>{ 
                 console.log(result);
-                setMessage(result.data.msg);});
+                // setMessage(result.data.msg);});
             
 
             // console.log(result.data.msg);
+            });
         }
 
     return (
         <React.Fragment>
             <div className="loginComponent">
-
-                { message ? <div className="text-success"> { message } </div> :  <></>}
+        {/* 
+                { message ? <div className="text-success"> { message } </div> :  <></>} */}
                     <form onSubmit={ submitUser } >
                     <label className="name">
                     New UserName:
@@ -142,10 +143,5 @@ export function CreateUser() {
             </div>
         </React.Fragment>
     )
-
-
-
-
-
 }
 
