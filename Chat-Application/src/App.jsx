@@ -11,12 +11,8 @@ function App() {
         <div className="App">
             <Router>
                 <div className="textLogin">
-                    {/* <Link to="/">Home</Link> */}
                     <Link to="/Login">Login</Link>
                 </div>
-                {/* <div>
-                    <Link to="/UserInfo">User Info</Link>
-                </div> */}
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Home />} />

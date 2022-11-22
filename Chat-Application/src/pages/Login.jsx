@@ -5,19 +5,12 @@ import axios from "axios";
 export const Login = () => {
     const [userLoginVerify, setuserLoginVerify] = useState(false);
     const [data, setData] = useState([]);
-    const [input, Setinput] = useState("");
-    const [input2, Setinput2] = useState("");
+    const [userName, SetuserName] = useState("");
+    const [password, Setpassword] = useState("");
+    const [IncorrectUserName, SetIncorrectUserName] = useState("");
     const [createNewUser, setCreateNewUser] = useState(false);
 
 
-const inputfunction = (e) => {
-    Setinput(e.target.value)
-
-}
-const inputfunctionPassword = (e) => {
-    Setinput2(e.target.value)
-
-}
 
     const loadData = async () => {
         const response = await axios.get("http://localhost:5000/api/get");
@@ -31,12 +24,13 @@ const inputfunctionPassword = (e) => {
     }, []);
 
     const getInput = () => {
-        data.map((datas,key,index) => {
-            if(datas.username === input && datas.password === input2){
+        data.map((loginInfo) => {
+            const userNameLowerCase = userName.toLocaleLowerCase() ;
+            if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
                setuserLoginVerify(true)
                   
             }else {
-                // console.log('no username')
+                SetIncorrectUserName('UserName does not exist or Password is Incorrect')
             }
         })
       
@@ -57,13 +51,14 @@ const inputfunctionPassword = (e) => {
             <form>
                 <label className="name">
                     UserName:
-                    <input type="text" name="name" onChange={inputfunction}/>
+                    <input type="text" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
                 </label>
                 <br />
                 <label className="name">
                     Password:
-                    <input type="text" name="password" className="input" onChange={inputfunctionPassword} />
+                    <input type="password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
                 </label>
+                <div className="wrongInputMessage">{IncorrectUserName}</div>
             </form>
             <button
                 className="button"
