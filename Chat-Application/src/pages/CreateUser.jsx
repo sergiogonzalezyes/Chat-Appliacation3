@@ -108,6 +108,7 @@ export function CreateUser() {
             e.preventDefault();
             const userdata ={ user_name:username, user_password:userpassword };
             
+            
             await axios.post('http://127.0.0.1:5000/createUser', JSON.stringify(userdata) )
             .then(result=>{ 
                 console.log(result);
