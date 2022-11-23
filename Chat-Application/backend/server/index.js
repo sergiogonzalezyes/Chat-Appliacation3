@@ -47,15 +47,12 @@ app.get("/api/get", (req, res) => {
 app.post("/createUser", (req, res) => {
     console.log("swag");
     console.log(req.body);
-    var newobject = req.body;
-    const convertDatatoArray = Object.keys(newobject);
-    // console.log(convertDatatoArray);
-    // console.log(...convertDatatoArray);
-    console.log(...convertDatatoArray);
-
-    // <------ **Here's the issue, there's nothing here**
-    res.send(...convertDatatoArray);
-    // however, if I send res.json(req.body), the response is empty in Network tab
+    // const newObj = {username: req.body.username, password: req.body.password};
+    var username = req.body.username;
+    var password = req.body.password;
+    const sqlInsert = `INSERT INTO user_login (id, username, password) VALUES (NULL, "${username}", "${password}")`;
+        db.query(sqlInsert, (error, response) => {            
+        });
 });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
