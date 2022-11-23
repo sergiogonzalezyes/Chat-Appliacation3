@@ -25,7 +25,9 @@ export const Login = () => {
 
     const getInput = () => {
         data.map((loginInfo) => {
+            console.log(loginInfo.username)
             const userNameLowerCase = userName.toLocaleLowerCase() ;
+
             if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
                setuserLoginVerify(true)
                   

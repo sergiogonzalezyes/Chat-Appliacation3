@@ -47,12 +47,12 @@ app.get("/api/get", (req, res) => {
 app.post("/createUser", (req, res) => {
     console.log("swag");
     console.log(req.body);
+
     // const newObj = {username: req.body.username, password: req.body.password};
     var username = req.body.username;
     var password = req.body.password;
     const sqlInsert = `INSERT INTO user_login (id, username, password) VALUES (NULL, "${username}", "${password}")`;
-        db.query(sqlInsert, (error, response) => {            
-        });
+    db.query(sqlInsert, (error, response) => {});
 });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
