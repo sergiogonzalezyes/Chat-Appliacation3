@@ -22,45 +22,44 @@ export function CreateUser() {
         }
 
 
-        // const loadData = async () => {
-        //        
+        // const fetchData = async () => {
+            
+               
     
                
     
         //     };
         
-        //     useEffect(() => {
-        //         loadData();
-        //     }, []);
+            // useEffect(() => {
+            //     loadData();
+            // }, []);
         
 
         const loadData = async (e)=> {
             e.preventDefault(); 
             const userdata ={ username:username, password:userpassword };
-            // const response = await axios.get("http://localhost:5000/api/get");
-            //         for (let i = 0; i < 10; i++) {
-            //             let existingUserName = response.data[`${i}`].username;
-        
-            //             if (existingUserName === username){
-                            
-                            
-            //             } else {
-                            
-            //                 console.log('not made yet')
-            //             }
-            //           }
 
-
-            
-            await axios.post('http://127.0.0.1:5000/createUser', userdata )
+            const doeswork =  await axios.post('http://127.0.0.1:5000/createUser', userdata )
             .then(result=>{ 
                 console.log(result);
-
             });
+
+            const response = await axios.get("http://localhost:5000/api/get");
+                    for (let i = 0; i < 10; i++) {
+                        let existingUserName = response.data[`${i}`].username;
+        
+                        if (existingUserName === username){
+                            if (doeswork) {
+                                console.log('working')
+                            
+                        } 
+                      }else {
+                            
+                        console.log('not made yet')
+                    }
+
+                }
             
-
-
-           
         }
 
     return (
