@@ -6,7 +6,7 @@ import axios from "axios";
 export function CreateUser() {
     const[username, setUsername]= useState('');
     const[userpassword, setUserPassword]= useState('');
-    // const[userDoesnotExist, setuserDoesnotExist]= useState(submitUser);
+    const[userDoesnotExist, setuserDoesnotExist]= useState(submitUser);
 
 
         const handleusername =(event)=>{
@@ -22,34 +22,35 @@ export function CreateUser() {
         }
 
 
-        // const loadData = async () => {
-        //        
+        const loadData = async () => {
+                const response = await axios.get("http://localhost:5000/api/get");
+    
+                
+                
+                for (let i = 0; i < 10; i++) {
+                    let existingUserName = response.data[`${i}`].username;
+    
+                    if (existingUserName === username){
+                        
+                        setuserDoesnotExist(false)
+                    } else {
+                        
+                        console.log('not made yet')
+                    }
+                  }
     
                
     
-        //     };
+            };
         
-        //     useEffect(() => {
-        //         loadData();
-        //     }, []);
+            useEffect(() => {
+                loadData();
+            }, []);
         
 
-        const loadData = async (e)=> {
+        const submitUser= async (e)=> {
             e.preventDefault(); 
             const userdata ={ username:username, password:userpassword };
-            // const response = await axios.get("http://localhost:5000/api/get");
-            //         for (let i = 0; i < 10; i++) {
-            //             let existingUserName = response.data[`${i}`].username;
-        
-            //             if (existingUserName === username){
-                            
-                            
-            //             } else {
-                            
-            //                 console.log('not made yet')
-            //             }
-            //           }
-
 
             
             await axios.post('http://127.0.0.1:5000/createUser', userdata )
@@ -66,7 +67,7 @@ export function CreateUser() {
     return (
         <React.Fragment>
             <div className="loginComponent">
-                    <form onSubmit={ loadData } >
+                    <form onSubmit={ submitUser } >
                     <label className="name">
                     New UserName:
                     <input type="text" name="user_name" onChange={(e)=> handleusername(e)} />
