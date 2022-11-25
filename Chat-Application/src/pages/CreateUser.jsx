@@ -1,13 +1,11 @@
 import { Navigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 
 export function CreateUser() {
     const[username, setUsername]= useState('');
     const[userpassword, setUserPassword]= useState('');
-    const[userDoesnotExist, setuserDoesnotExist]= useState(submitUser);
-
 
         const handleusername =(event)=>{
             const username=event.target.value;
@@ -21,47 +19,16 @@ export function CreateUser() {
             setUserPassword(userpassword);
         }
 
-
-        const loadData = async () => {
-                const response = await axios.get("http://localhost:5000/api/get");
-    
-                
-                
-                for (let i = 0; i < 10; i++) {
-                    let existingUserName = response.data[`${i}`].username;
-    
-                    if (existingUserName === username){
-                        
-                        setuserDoesnotExist(false)
-                    } else {
-                        
-                        console.log('not made yet')
-                    }
-                  }
-    
-               
-    
-            };
-        
-            useEffect(() => {
-                loadData();
-            }, []);
-        
-
         const submitUser= async (e)=> {
             e.preventDefault(); 
             const userdata ={ username:username, password:userpassword };
-
+            
             
             await axios.post('http://127.0.0.1:5000/createUser', userdata )
             .then(result=>{ 
                 console.log(result);
 
             });
-            
-
-
-           
         }
 
     return (
@@ -75,7 +42,7 @@ export function CreateUser() {
                 <br />
                 <label className="name">
                     New Password:
-                    <input type="password" name="user_password" onChange={(e)=> handleuserpassword(e)} />
+                    <input type="text" name="user_password" onChange={(e)=> handleuserpassword(e)} />
                 </label>
                 <button
                 type="submit"
