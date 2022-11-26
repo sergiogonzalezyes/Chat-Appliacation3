@@ -25,6 +25,7 @@ export const Home = () => {
         </section>
         <PageLayout/>
         <PageLayout2/>  
+        <PageLayout/>
         <section className="contact_us">
             </section>             
             </div>)

@@ -161,8 +161,10 @@ p {
     text-align: center;
     padding: 15px;
     color: black;
+    border-style: none;
 }
 .Home_Buttons_1 {
+    border-style: none;
     border-radius: 15px;
     margin-top: 20px;
     margin-left: 10px;
@@ -175,10 +177,12 @@ p {
 .Home_Buttons:hover {
     background-color: #242424;
     color: white;
+    border-style: ridge;
 }
 .Home_Buttons_1:hover {
     background-color: #242424;
     color: white;
+    border-style: ridge;
 }
 
 @media (max-width: 1000px) {
