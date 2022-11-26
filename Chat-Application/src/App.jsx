@@ -10,9 +10,12 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <div className="textLogin">
+                <nav className="textLogin">
+                    <Link to="/">Home</Link>
                     <Link to="/Login">Login</Link>
-                </div>
+                    <Link to="/CreateUser">Create A Account</Link>
+                    <Link to="/UserInfo">About Us</Link>
+                </nav>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Home />} />
