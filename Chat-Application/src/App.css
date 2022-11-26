@@ -1,20 +1,21 @@
 * {
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
     margin: 0;
     padding: 0;
 }
+
 .welcomeLogo {
     margin-top: 20%;
     text-align: center;
     font-size: 40px;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
 }
 /* Nav Bar  */
 .textLogin {
     text-align: center;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
+    background-color: #242424;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -36,7 +37,8 @@ nav > * {
     margin-top: 20%;
     text-align: center;
     font-size: 40px;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
+
     max-width: fit-content;
     /* background-color: white; */
 }
@@ -47,12 +49,14 @@ input {
 }
 .button {
     text-align: center;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
+
     font-size: 30px;
 }
 .createUser {
     text-align: center;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
+
     font-size: 30px;
 }
 .UserPageDiv {
@@ -65,12 +69,122 @@ input {
     margin-top: 20%;
     text-align: center;
     font-size: 10px;
-    font-family: "Alfa Slab One", cursive;
+    font-family: "Raleway", sans-serif;
 }
 .wrongInputMessage {
     font-size: 15px;
     color: red;
 }
-img {
+/* Home Page CSS  */
+.First_Section {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    text-align: center;
+    align-items: center;
+    background-color: #242424;
+}
+.computerGuy {
+    width: 80%;
+}
+.Describe_Web_Site {
+    margin-right: 100px;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
     width: 100%;
+    text-align: left;
+}
+.Title {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    text-align: left;
+    color: white;
+}
+.Bottom_title {
+    color: white;
+}
+
+/* componenets */
+
+.First_Section_1 {
+    margin-top: 100px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    text-align: center;
+    align-items: center;
+}
+.Layout_Image {
+    width: 50%;
+}
+.Describe_Web_Site_1 {
+    margin-left: 200px;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    width: 100%;
+    text-align: left;
+}
+.Title_1 {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    text-align: left;
+}
+.container_1 {
+    background-color: white;
+}
+/* component 2  */
+.Describe_Web_Site_2 {
+    margin-right: 200px;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    width: 100%;
+    text-align: left;
+    color: black;
+}
+p {
+    color: black;
+}
+
+.contact_us {
+    margin-top: 100px;
+    background-color: #242424;
+    height: 500px;
+}
+.Home_Buttons {
+    border-radius: 15px;
+    margin-top: 20px;
+    background-color: white;
+    font-size: 30px;
+    text-align: center;
+    padding: 15px;
+    color: black;
+}
+.Home_Buttons_1 {
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: 10px;
+    background-color: white;
+    font-size: 30px;
+    text-align: center;
+    padding: 15px;
+    color: black;
+}
+.Home_Buttons:hover {
+    background-color: #242424;
+    color: white;
+}
+.Home_Buttons_1:hover {
+    background-color: #242424;
+    color: white;
+}
+
+@media (max-width: 1000px) {
+    .First_Section {
+        flex-direction: column;
+    }
+    .First_Section_1 {
+        flex-direction: column;
+    }
 }
