@@ -18,10 +18,7 @@ export const Home = () => {
                 <p className="Bottom_title">Morbi leo urna molestie at elementum eu facilisis. Lacus sed viverra tellus in hac. Velit dignissim sodales ut eu sem integer vitae justo eget.</p>
                 <button className="Home_Buttons">Login</button>
                 <button className="Home_Buttons_1">Create Account</button>
-
                </div>
-               
-              
         </section>
         <PageLayout/>
         <PageLayout2/>  
