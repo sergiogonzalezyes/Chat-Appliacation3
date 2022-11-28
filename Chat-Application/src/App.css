@@ -10,6 +10,7 @@ html {
 }
 .App {
     background-color: #242424;
+    max-width: 100%;
 }
 
 .welcomeLogo {
@@ -109,6 +110,14 @@ input {
     text-align: left;
     margin-bottom: 20px;
 }
+.Describe_Web_Site_1 {
+    /* margin-right: 100px; */
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
 .Title {
     font-family: "Merriweather", serif;
     font-size: 40px;
@@ -122,31 +131,28 @@ input {
 /* componenets */
 
 .First_Section_1 {
-    margin-top: 100px;
+    padding-bottom: 100px;
     max-width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
-    text-align: center;
+    /* align-items: stretch; */
     align-items: center;
+    background-color: #f6f6f6;
 }
 .Layout_Image {
-    width: 50%;
+    width: 80%;
 }
-.Describe_Web_Site_1 {
-    margin-left: 200px;
+.Text_Prop {
     font-family: "Raleway", sans-serif;
-    font-size: 20px;
-    width: 100%;
-    text-align: left;
 }
+
 .Title_1 {
     font-family: "Merriweather", serif;
     font-size: 40px;
     text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    max-width: 50%;
+    /* max-width: 50%; */
 }
 .container_1 {
     background-color: #f6f6f6;
@@ -216,7 +222,14 @@ p {
     }
     .Text_1 {
         width: 100%;
-        max-width: 50%;
+        /* max-width: 50%; */
+    }
+    .Title_1 {
+        text-align: center;
+    }
+    .Text_Prop {
+        text-align: center;
+        /* margin-right: 100px; */
     }
     .Title {
         font-family: "Merriweather", serif;
@@ -230,9 +243,13 @@ p {
     }
     .Describe_Web_Site {
         margin-right: auto;
-        /* margin-left: 20px; */
         text-align: center;
     }
+    .Describe_Web_Site_1 {
+        margin-right: auto;
+        text-align: center;
+    }
+
     .First_Section_1 {
         flex-direction: column;
     }
