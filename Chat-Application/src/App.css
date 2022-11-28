@@ -89,10 +89,14 @@ input {
     max-width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
-    text-align: center;
+    /* align-items: stretch; */
     align-items: center;
     background-color: #242424;
+}
+.Home_Image img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 .computerGuy {
     width: 80%;
@@ -111,7 +115,7 @@ input {
     text-align: left;
     color: white;
 }
-.Bottom_title {
+.Title_Description {
     color: white;
 }
 
@@ -208,10 +212,26 @@ p {
 @media (max-width: 1000px) {
     .First_Section {
         flex-direction: column;
+        /* margin-left: 100px; */
+    }
+    .Text_1 {
+        width: 100%;
+        max-width: 50%;
+    }
+    .Title {
+        font-family: "Merriweather", serif;
+        font-size: 40px;
+        text-align: center;
+        color: white;
+    }
+    .Title_Description {
+        color: white;
+        text-align: center;
     }
     .Describe_Web_Site {
-        align-items: center;
-        max-width: 80%;
+        margin-right: auto;
+        /* margin-left: 20px; */
+        text-align: center;
     }
     .First_Section_1 {
         flex-direction: column;
