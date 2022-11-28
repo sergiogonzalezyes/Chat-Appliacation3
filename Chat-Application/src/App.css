@@ -3,6 +3,13 @@
     color: rgba(255, 255, 255, 0.87);
     margin: 0;
     padding: 0;
+    /* background-color: #242424; */
+}
+html {
+    background-color: #242424;
+}
+.App {
+    background-color: #242424;
 }
 
 .welcomeLogo {
@@ -38,6 +45,7 @@ nav > * {
     text-align: center;
     font-size: 40px;
     font-family: "Raleway", sans-serif;
+    background-color: #242424;
 
     max-width: fit-content;
     /* background-color: white; */
@@ -132,9 +140,16 @@ input {
     font-family: "Merriweather", serif;
     font-size: 40px;
     text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 50%;
 }
 .container_1 {
     background-color: #f6f6f6;
+    padding: 50px;
+}
+.container_2 {
+    background-color: white;
     padding: 50px;
 }
 /* component 2  */
@@ -149,6 +164,9 @@ input {
 }
 p {
     color: black;
+    /* word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 50%; */
 }
 
 .contact_us {
@@ -190,6 +208,10 @@ p {
 @media (max-width: 1000px) {
     .First_Section {
         flex-direction: column;
+    }
+    .Describe_Web_Site {
+        align-items: center;
+        max-width: 80%;
     }
     .First_Section_1 {
         flex-direction: column;

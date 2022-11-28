@@ -61,13 +61,13 @@ export const Login = () => {
                 <div className="wrongInputMessage">{IncorrectUserName}</div>
             </form>
             <button
-                className="button"
+               className="Home_Buttons"
                 onClick={getInput}
             >
                 Login
             </button>
-            <button
-                className="createUser"
+            <button 
+                className="Home_Buttons"
                 onClick={setCreateNewUser}
             >
                 Create New Account
