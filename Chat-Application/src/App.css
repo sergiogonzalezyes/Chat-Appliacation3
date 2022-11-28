@@ -112,6 +112,7 @@ input {
 }
 .Describe_Web_Site_1 {
     /* margin-right: 100px; */
+    /* margin-left: 100px; */
     font-family: "Raleway", sans-serif;
     font-size: 20px;
     width: 100%;
@@ -135,12 +136,11 @@ input {
     max-width: 100%;
     display: flex;
     flex-direction: row;
-    /* align-items: stretch; */
     align-items: center;
     background-color: #f6f6f6;
 }
 .Layout_Image {
-    width: 80%;
+    width: 40%;
 }
 .Text_Prop {
     font-family: "Raleway", sans-serif;
@@ -252,5 +252,8 @@ p {
 
     .First_Section_1 {
         flex-direction: column;
+    }
+    .Layout_Image {
+        width: 80%;
     }
 }
