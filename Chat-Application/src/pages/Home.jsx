@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 export const Home = () => {
     return (<div class="container">
         <section className="First_Section">
-                <div className="Home_Image">
+                <div className="Home_Page_Image">
                 <img src={computerGuy} alt=""  className="computerGuy"/>
                </div>
                <div className="Describe_Web_Site">
