@@ -21,11 +21,13 @@ html {
 }
 /* Nav Bar  */
 .textLogin {
+    /* display: flex; */
     text-align: center;
     font-family: "Raleway", sans-serif;
     background-color: #242424;
     padding-top: 20px;
     padding-bottom: 20px;
+    max-width: 100%;
 }
 nav > *:hover {
     font-weight: 800;
@@ -94,13 +96,14 @@ input {
     align-items: center;
     background-color: #242424;
 }
-.Home_Image img {
-    margin-left: auto;
-    margin-right: auto;
+.Home_Image {
     display: block;
+    text-align: center;
 }
 .computerGuy {
     width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .Describe_Web_Site {
     margin-right: 100px;
@@ -111,11 +114,16 @@ input {
     margin-bottom: 20px;
 }
 .Describe_Web_Site_1 {
-    /* margin-right: 100px; */
-    /* margin-left: 100px; */
     font-family: "Raleway", sans-serif;
     font-size: 20px;
-    width: 100%;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.Describe_Web_Site_2 {
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    width: 80%;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -124,26 +132,47 @@ input {
     font-size: 40px;
     text-align: left;
     color: white;
+    margin-left: 10px;
+    word-wrap: break-word;
 }
 .Title_Description {
     color: white;
+    margin-left: 10px;
 }
 
 /* componenets */
 
 .First_Section_1 {
     padding-bottom: 100px;
-    max-width: 100%;
+    max-width: 80%;
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #f6f6f6;
+    /* margin-left: 150px; */
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.First_Section_2 {
+    padding-bottom: 100px;
+    max-width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f6f6f6;
+    /* margin-left: 150px; */
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .Layout_Image {
-    width: 40%;
+    width: 50%;
 }
 .Text_Prop {
+    text-align: left;
     font-family: "Raleway", sans-serif;
+    word-wrap: break-word;
 }
 
 .Title_1 {
@@ -151,32 +180,22 @@ input {
     font-size: 40px;
     text-align: left;
     word-wrap: break-word;
-    overflow-wrap: break-word;
+    /* overflow-wrap: break-word; */
     /* max-width: 50%; */
 }
 .container_1 {
     background-color: #f6f6f6;
     padding: 50px;
+    /* position: relative; */
 }
 .container_2 {
     background-color: white;
     padding: 50px;
 }
 /* component 2  */
-.Describe_Web_Site_2 {
-    margin-right: 200px;
-    font-family: "Raleway", sans-serif;
-    font-size: 20px;
-    width: 100%;
-    text-align: left;
-    color: black;
-    margin-bottom: 100px;
-}
+
 p {
     color: black;
-    /* word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 50%; */
 }
 
 .contact_us {
@@ -184,6 +203,7 @@ p {
     height: 500px;
 }
 .Home_Buttons {
+    margin-left: 10px;
     border-radius: 15px;
     margin-top: 20px;
     background-color: white;
@@ -192,12 +212,14 @@ p {
     padding: 15px;
     color: black;
     border-style: none;
+    max-width: 100%;
 }
+
 .Home_Buttons_1 {
+    margin-left: 10px;
     border-style: none;
     border-radius: 15px;
     margin-top: 20px;
-    margin-left: 10px;
     background-color: white;
     font-size: 30px;
     text-align: center;
@@ -207,29 +229,30 @@ p {
 .Home_Buttons:hover {
     background-color: #242424;
     color: white;
-    border-style: ridge;
+    /* border-style: ridge; */
 }
 .Home_Buttons_1:hover {
     background-color: #242424;
     color: white;
-    border-style: ridge;
+    /* border-style: ridge; */
 }
 
 @media (max-width: 1000px) {
+    .textLogin {
+        display: flex;
+        flex-direction: column;
+    }
     .First_Section {
         flex-direction: column;
-        /* margin-left: 100px; */
     }
     .Text_1 {
         width: 100%;
-        /* max-width: 50%; */
     }
     .Title_1 {
         text-align: center;
     }
     .Text_Prop {
         text-align: center;
-        /* margin-right: 100px; */
     }
     .Title {
         font-family: "Merriweather", serif;
@@ -246,14 +269,31 @@ p {
         text-align: center;
     }
     .Describe_Web_Site_1 {
-        margin-right: auto;
         text-align: center;
     }
 
     .First_Section_1 {
+        padding-top: 30px;
+        /* flex-direction: column; */
+        flex-direction: column-reverse;
+    }
+    .First_Section_2 {
+        padding-top: 30px;
         flex-direction: column;
     }
     .Layout_Image {
         width: 80%;
+    }
+    .computerGuy {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container_1 {
+        background-color: #f6f6f6;
+        padding: 0px;
+    }
+    .container_2 {
+        background-color: white;
+        padding: 0px;
     }
 }
