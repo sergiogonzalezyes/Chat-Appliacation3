@@ -35,18 +35,19 @@ export function CreateUser() {
             
             data.map((loginInfo) => {
                 const usernames = loginInfo.username;
-                console.log(usernames);
+    
+                if (usernames === username){
+                    console.log('theres a match')
+                } else {
+                   axios.post('http://127.0.0.1:5000/createUser', userdata )
+                        .then(result=>{ 
+                            console.log(result);});
+                    
+                }
                 
             })
 
-            if (usernames === username){
-                console.log('theres a match')
-            } else {
-               axios.post('http://127.0.0.1:5000/createUser', userdata )
-                    .then(result=>{ 
-                        console.log(result);});
-                
-            }
+            
             
             
             
