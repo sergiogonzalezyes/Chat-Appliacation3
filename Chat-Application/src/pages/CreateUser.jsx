@@ -8,6 +8,7 @@ export function CreateUser() {
     const[username, setUsername]= useState('');
     const[userpassword, setUserPassword]= useState('');
     const [data, setData] = useState([]);
+    const [isTrue,setisTrue] = useState(false);
 
         const handleusername =(event)=>{
             const username=event.target.value;
@@ -35,17 +36,23 @@ export function CreateUser() {
             
             data.map((loginInfo) => {
                 const usernames = loginInfo.username;
-    
-                if (usernames === username){
-                    console.log('theres a match')
-                } else {
-                   axios.post('http://127.0.0.1:5000/createUser', userdata )
-                        .then(result=>{ 
-                            console.log(result);});
-                    
-                }
-                
+                console.log(usernames)
+
+            if (usernames === username){
+                setisTrue(false);
+                console.log('it is false')   
+            } else {
+                setisTrue(true);
+                console.log('it is true') 
+            }   
             })
+
+            if (isTrue === true){
+                axios.post('http://127.0.0.1:5000/createUser', userdata )
+                .then(result=>{ 
+                    console.log(result);});
+            }
+           
 
             
             
