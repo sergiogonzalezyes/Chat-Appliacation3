@@ -46,6 +46,7 @@ export function CreateUser() {
                 console.log('it is true') 
             }   
             })
+            // what is happening is that its running through the code and the last name in the array sets the true or false value so it only works if the last username = the input username, maybe find a way to stop the loop as soon as we meet the first username = input username
 
             if (isTrue === true){
                 axios.post('http://127.0.0.1:5000/createUser', userdata )
