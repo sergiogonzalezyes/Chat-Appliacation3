@@ -28,8 +28,34 @@ app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url 
 app.get("/api/get", (req, res) => {
     const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
-        var contact_info = result; // store the response into variable that will be used for manipulation in react app.
+        console.log(result); // store the response into variable that will be used for manipulation in react app.
         res.send(contact_info); // return response from database
+    });
+});
+
+app.post("/createUser", (req, res) => {
+    // console.log(req.body);
+    // const newObj = {username: req.body.username, password: req.body.password};
+    const username = req.body.username;
+    const password = req.body.password;
+    const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
+    db.query(sqlGet, (error, result) => {
+        for (let i = 1; i <= 10; i++) {
+            const loopthroughdata = result[i].username;
+            // console.log(username);
+            if (loopthroughdata == username) {
+                console.log("it matched");
+                break;
+            } else {
+                const sqlInsert = `INSERT INTO user_login (id, username, password) VALUES (NULL, "${username}", "${password}")`;
+                db.query(sqlInsert, (error, response) => {
+                    console.log("it worked");
+                });
+                break;
+            }
+        }
+        // store the response into variable that will be used for manipulation in react app.
+        // res.send(contact_info);// return response from database
     });
 });
 
@@ -43,18 +69,6 @@ app.get("/api/get", (req, res) => {
 //         res.send("Hello Express");
 //     });
 // });
-
-app.post("/createUser", (req, res) => {
-    console.log("swag");
-    console.log(req.body);
-    // const newObj = {username: req.body.username, password: req.body.password};
-    var username = req.body.username;
-    var password = req.body.password;
-    const sqlInsert = `INSERT INTO user_login (id, username, password) VALUES (NULL, "${username}", "${password}")`;
-    db.query(sqlInsert, (error, response) => {
-        console.log(response);
-    });
-});
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
