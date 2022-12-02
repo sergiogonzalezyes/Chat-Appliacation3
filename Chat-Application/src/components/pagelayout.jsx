@@ -1,9 +1,5 @@
 import React from "react"
 
-
-
-
-
 export const PageLayout = (props) => {
 return (<div class="Home_Page_Container">
   <section className="Home_Section_Container">

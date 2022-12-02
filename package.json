@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "react-awesome-reveal": "^4.1.0"
+  }
+}

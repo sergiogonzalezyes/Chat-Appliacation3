@@ -6,7 +6,7 @@ import Travel from "../images/Saly-1.png";
 import Girl from "../images/Saly-22.png";
 import SpaceShip from "../images/Saly-43.png";
 import { useNavigate } from "react-router-dom";
-
+import { Fade } from "react-awesome-reveal"
 
 
 
@@ -27,10 +27,17 @@ export const Home = () => {
                 </div>
                </div>
         </section>
+        <Fade cascade>
             <PageLayout img={Travel} title="Nunc sed augue lacus viverra." text="Nam aliquam sem et tortor consequat id. Molestie nunc non blandit massa enim nec. Nunc sed augue lacus viverra. Ultrices dui sapien eget mi."/>
+            </Fade>
+            <Fade cascade>
             <PageLayout2 img={SpaceShip} title="Donec et odio pellentesque diam." text="Tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus. Luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor. Sem et tortor consequat id porta nibh venenatis cras."/>  
+            </Fade>
+            <Fade cascade>
             <PageLayout img={Girl} title="Amet facilisis magna etiam tempor orci." text="Libero volutpat sed cras ornare. Sodales neque sodales ut etiam sit amet nisl purus in. Elementum eu facilisis sed odio morbi quis commodo odio aenean."/>
+            </Fade>
         <section className="contact_us"> 
+        
             </section>             
             </div>)
         
