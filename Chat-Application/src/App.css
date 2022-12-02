@@ -7,7 +7,7 @@
 }
 html {
     width: fit-content;
-    height: auto;
+    /* height: auto;npm run */
 }
 .App {
     background-color: #f6f6f6;
