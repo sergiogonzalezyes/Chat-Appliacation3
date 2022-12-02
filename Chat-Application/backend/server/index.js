@@ -29,7 +29,7 @@ app.get("/api/get", (req, res) => {
     const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
         console.log(result); // store the response into variable that will be used for manipulation in react app.
-        res.send(contact_info); // return response from database
+        // res.send(contact_info); // return response from database
     });
 });
 
@@ -40,14 +40,15 @@ app.post("/createUser", (req, res) => {
     const password = req.body.password;
     const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
-        for (let i = 1; i <= 10; i++) {
-            const loopthroughdata = result[i].username;
-            // console.log(username);
-            if (loopthroughdata == username) {
+        for (let i = 0; i <= 10; i++) {
+            let loopthroughdata = result[i].username;
+            console.log(loopthroughdata);
+
+            if (loopthroughdata === username) {
                 console.log("it matched");
                 break;
             } else {
-                const sqlInsert = `INSERT INTO user_login (id, username, password) VALUES (NULL, "${username}", "${password}")`;
+                const sqlInsert = `INSERT INTO user_login (username, password) VALUES ("${username}", "${password}")`;
                 db.query(sqlInsert, (error, response) => {
                     console.log("it worked");
                 });
@@ -55,7 +56,7 @@ app.post("/createUser", (req, res) => {
             }
         }
         // store the response into variable that will be used for manipulation in react app.
-        // res.send(contact_info);// return response from database
+        // res.send(contact_info); // return response from database
     });
 });
 
