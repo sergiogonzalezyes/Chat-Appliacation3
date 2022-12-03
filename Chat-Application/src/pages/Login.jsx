@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import computerGuy from "../images/section1.png";
 
 export const Login = () => {
     const [userLoginVerify, setuserLoginVerify] = useState(false);
@@ -48,6 +49,10 @@ export const Login = () => {
 
     return (
         <div className="loginComponent">
+            <div className="left">
+                <img className="loginImage" src={computerGuy} alt="" />
+            </div>
+            <div className="right">
             <form>
                 <label className="name">
                     UserName:
@@ -72,6 +77,7 @@ export const Login = () => {
             >
                 Create New Account
             </button>
+            </div>
         </div>
     );
 };

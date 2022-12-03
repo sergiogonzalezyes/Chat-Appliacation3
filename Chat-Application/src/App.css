@@ -5,15 +5,20 @@
     padding: 0;
     /* background-color: #242424; */
 }
-html {
-    width: fit-content;
-    /* height: auto;npm run */
-}
+
 .App {
     background-color: #f6f6f6;
     /* background-color: white; */
-
-    max-width: 100%;
+    /* max-width: 100%; */
+    width: 100%;
+}
+html {
+    background-color: #242424;
+}
+form {
+    max-width: 50%;
+    display: flex; /*added*/
+    flex-direction: column; /*added*/
 }
 
 .welcomeLogo {
@@ -45,16 +50,12 @@ nav > * {
 }
 
 .loginComponent {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20%;
+    max-width: 100%;
     text-align: center;
     font-size: 40px;
     font-family: "Raleway", sans-serif;
     background-color: #242424;
-
-    max-width: fit-content;
-    /* background-color: white; */
+    display: inline-flex;
 }
 input {
     font-size: 20px;
@@ -89,6 +90,24 @@ input {
     font-size: 15px;
     color: red;
 }
+
+/* Login CSS  */
+.loginImage {
+    max-width: 100%;
+}
+.left,
+.right {
+    min-width: 50%;
+}
+.left {
+    background: rgba(10, 200, 250, 0.5);
+    /* width: 0; */
+}
+.right {
+    background: rgba(250, 200, 10, 0.5);
+    white-space: nowrap;
+}
+
 /* Home Page CSS  */
 .First_Section {
     padding-bottom: 100px;
@@ -298,9 +317,16 @@ p {
         background-color: white;
         padding: 0px;
     }
+    .loginComponent {
+        display: inline-flex;
+        flex-direction: column;
+    }
 }
 @media (max-width: 254px) {
     .Title_1 {
         font-size: small;
+    }
+    html {
+        width: fit-content;
     }
 }
