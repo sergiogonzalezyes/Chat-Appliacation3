@@ -55,16 +55,17 @@ export const Login = () => {
             <div className="right">
             <form>
                 <label className="name">
-                    UserName:
+                    <p>UserName:</p>
                     <input type="text" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
                 </label>
                 <br />
                 <label className="name">
-                    Password:
+                    <p>Password:</p>
                     <input type="password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
                 </label>
                 <div className="wrongInputMessage">{IncorrectUserName}</div>
             </form>
+            <div>
             <button
                className="Home_Buttons"
                 onClick={getInput}
@@ -77,6 +78,7 @@ export const Login = () => {
             >
                 Create New Account
             </button>
+            </div>
             </div>
         </div>
     );
