@@ -55,27 +55,21 @@ export const Login = () => {
             <div className="right">
                 <div className="right-form">
                 <p className="Sign_In">Sign In</p>
-                <p className="newUserLogin"
-                
-                onClick={setCreateNewUser}
-            >
-                New User? Create an Account
+                <p className="newUserLogin">
+                New User? <a onClick={setCreateNewUser} className="create_account">Create an Account</a>
             </p>
                 <form>
                 <label className="name">
-                    {/* <p className="name">UserName:</p> */}
                     <input type="text" placeholder="UserName" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
                 </label>
-                <br />
-                <label className="name">
-                    {/* <p className="name">Password:</p> */}
+                <label className="name_2">
                     <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
                 </label>
                 <div className="wrongInputMessage">{IncorrectUserName}</div>
             </form>
             <div>
             <button
-               className="Home_Buttons"
+               className="Home_Buttons_Sign_In"
                 onClick={getInput}
             >
                 Login
