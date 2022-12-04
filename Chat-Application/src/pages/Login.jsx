@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import computerGuy from "../images/section1.png";
+import TreeSitter from "../images/Saly-16.png";
 
 export const Login = () => {
     const [userLoginVerify, setuserLoginVerify] = useState(false);
@@ -50,18 +50,26 @@ export const Login = () => {
     return (
         <div className="loginComponent">
             <div className="left">
-                <img className="loginImage" src={computerGuy} alt="" />
+                <img className="loginImage" src={TreeSitter} alt="" />
             </div>
             <div className="right">
-            <form>
+                <div className="right-form">
+                <p className="Sign_In">Sign In</p>
+                <p className="newUserLogin"
+                
+                onClick={setCreateNewUser}
+            >
+                New User? Create an Account
+            </p>
+                <form>
                 <label className="name">
-                    <p>UserName:</p>
-                    <input type="text" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
+                    {/* <p className="name">UserName:</p> */}
+                    <input type="text" placeholder="UserName" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
                 </label>
                 <br />
                 <label className="name">
-                    <p>Password:</p>
-                    <input type="password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
+                    {/* <p className="name">Password:</p> */}
+                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
                 </label>
                 <div className="wrongInputMessage">{IncorrectUserName}</div>
             </form>
@@ -72,13 +80,10 @@ export const Login = () => {
             >
                 Login
             </button>
-            <button 
-                className="Home_Buttons"
-                onClick={setCreateNewUser}
-            >
-                Create New Account
-            </button>
+            
             </div>
+                </div>
+            
             </div>
         </div>
     );
