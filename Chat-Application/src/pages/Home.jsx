@@ -5,14 +5,29 @@ import computerGuy from "../images/section1.png";
 import Travel from "../images/Saly-1.png";
 import Girl from "../images/Saly-22.png";
 import SpaceShip from "../images/Saly-43.png";
-import { useNavigate } from "react-router-dom";
 import { Fade } from "react-awesome-reveal"
+import { Navigate } from "react-router-dom";
+import { useState,useEffect } from "react";
 
 
 
 
 
 export const Home = () => {
+    const [createNewUser, setCreateNewUser] = useState(false);
+    const [userLoginVerify, setuserLoginVerify] = useState(false);
+
+
+    if (userLoginVerify) {
+        return <Navigate to="/Login" />;
+    }
+
+    if (createNewUser) {
+        return <Navigate to="/createUser" />;
+    }
+
+
+
     return (<div class="container">
         <section className="First_Section">
                 <div className="Home_Page_Image">
@@ -22,8 +37,8 @@ export const Home = () => {
                 <p className="Title">Aliquet lectus proin nibh nisl condimentum id venenatis a</p>
                 <p className="Title_Description">Morbi leo urna molestie at elementum eu facilisis. Lacus sed viverra tellus in hac. Velit dignissim sodales ut eu sem integer vitae justo eget.</p>
                 <div className="Button_Container">
-                <button className="Home_Buttons">Login</button>
-                <button className="Home_Buttons_1">Create Account</button>
+                <button className="Home_Buttons" onClick={setuserLoginVerify}>Login</button>
+                <button className="Home_Buttons_1" onClick={setCreateNewUser}>Create an Account</button>
                 </div>
                </div>
         </section>

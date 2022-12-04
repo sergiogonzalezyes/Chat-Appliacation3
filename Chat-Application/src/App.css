@@ -281,8 +281,12 @@ p {
     background-color: #242424;
     height: 500px;
 }
+
+.Button_Container {
+    max-width: 100%;
+    display: inline-flex;
+}
 .Home_Buttons {
-    margin-left: 10px;
     border-radius: 30px;
     margin-top: 20px;
     background-color: white;
@@ -293,10 +297,10 @@ p {
     border-style: none;
     max-width: 100%;
     max-width: fit-content;
+    min-width: 100%;
 }
 
 .Home_Buttons_1 {
-    margin-left: 10px;
     border-style: none;
     border-radius: 30px;
     margin-top: 20px;
@@ -305,6 +309,7 @@ p {
     text-align: center;
     padding: 15px;
     color: black;
+    min-width: 100%;
 }
 .Home_Buttons:hover {
     background-color: #242424;
@@ -392,6 +397,10 @@ p {
     }
     .Sign_In {
         text-align: center;
+    }
+    .Button_Container {
+        max-width: 100%;
+        display: block;
     }
 }
 @media (max-width: 254px) {
