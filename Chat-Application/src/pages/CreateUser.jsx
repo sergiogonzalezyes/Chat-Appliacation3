@@ -1,59 +1,80 @@
 import { Navigate } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
-// import { get } from "http";
+import TreeSitter from "../images/Saly-44.png";
 
 
-export function CreateUser() {
-    const[username, setUsername]= useState('');
-    const[userpassword, setUserPassword]= useState('');
+export const CreateUser = () => {
     const [data, setData] = useState([]);
-        const handleusername =(event)=>{
-            const username=event.target.value;
-            console.log(username);
-            setUsername(username);
-        }
+    const [userName, SetuserName] = useState("");
+    const [password, Setpassword] = useState("");
+    const [IncorrectUserName, SetIncorrectUserName] = useState("");
+    const [createNewUser, setCreateNewUser] = useState(false);
 
-        const handleuserpassword =(event)=>{
-            const userpassword=event.target.value;
-            console.log(userpassword);
-            setUserPassword(userpassword);
-        }
+
+
+    const loadData = async () => {
+        const response = await axios.get("http://localhost:5000/api/get");
+        setData(response.data);
+        
+    };
+
+    useEffect(() => {
+        loadData();
     
-    
-    
-        const submitUser= async (e)=> {
-            e.preventDefault(); 
-            const userdata ={ username:username, password:userpassword };
-       
-                await axios.post('http://127.0.0.1:5000/createUser', userdata )
-                .then(result=>{ 
-                    console.log(result);})
-        }
+    }, []);
+
+    const getInput = () => {
+        data.map((loginInfo) => {
+            const userNameLowerCase = userName.toLocaleLowerCase() ;
+            if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
+               setuserLoginVerify(true)
+                  
+            }else {
+                SetIncorrectUserName('Username Is already in Use')
+            }
+        })
       
+    }
+   
+    
+    
+
+    if (createNewUser) {
+        return <Navigate to="/createUser" />;
+    }
+
 
     return (
-        <React.Fragment>
-            <div className="loginComponent">
-                    <form onSubmit={ submitUser } >
-                    <label className="name">
-                    New UserName:
-                    <input type="text" name="user_name" onChange={(e)=> handleusername(e)} />
-                </label>
-                <br />
-                <label className="name">
-                    New Password:
-                    <input type="text" name="user_password" onChange={(e)=> handleuserpassword(e)} />
-                </label>
-                <button
-                type="submit"
-                className="button"
-            >
-                Create
-            </button>
-            </form>
+        <div className="loginComponent">
+            <div className="left">
+                <img className="loginImage" src={TreeSitter} alt="" />
             </div>
-        </React.Fragment>
-    )
-}
+            <div className="right">
+                <div className="right-form">
+                <p className="Sign_In">New User</p>
+                <form>
+                <label className="name">
+                    <input type="text" placeholder="Username" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
+                </label>
+                <label className="name_2">
+                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
+                </label>
+                <div className="wrongInputMessage">{IncorrectUserName}</div>
+            </form>
+            <div>
+            <button
+               className="Home_Buttons_Sign_In"
+                onClick={getInput}
+            >
+                Create Account
+            </button>
+            
+            </div>
+                </div>
+            
+            </div>
+        </div>
+    );
+};
 
