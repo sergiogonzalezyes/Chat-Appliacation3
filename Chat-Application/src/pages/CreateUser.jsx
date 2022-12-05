@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import TreeSitter from "../images/Saly-44.png";
+import Person from "../images/Saly-34.png";
 
 
 export const CreateUser = () => {
@@ -47,10 +47,10 @@ export const CreateUser = () => {
 
     return (
         <div className="loginComponent">
-            <div className="left">
-                <img className="loginImage" src={TreeSitter} alt="" />
+            <div className="Image_Div_Left">
+                <img className="loginImage" src={Person} alt="" />
             </div>
-            <div className="right">
+            <div className="Image_Div_Right">
                 <div className="right-form">
                 <p className="Sign_In">New User</p>
                 <form>

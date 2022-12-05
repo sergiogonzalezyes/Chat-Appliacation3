@@ -49,10 +49,10 @@ export const Login = () => {
 
     return (
         <div className="loginComponent">
-            <div className="left">
+            <div className="Image_Div_Left">
                 <img className="loginImage" src={TreeSitter} alt="" />
             </div>
-            <div className="right">
+            <div className="Image_Div_Right">
                 <div className="right-form">
                 <p className="Sign_In">Sign In</p>
                 <p className="newUserLogin">
