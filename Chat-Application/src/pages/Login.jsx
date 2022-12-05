@@ -50,22 +50,22 @@ export const Login = () => {
     return (
         <div className="loginComponent">
             <div className="Image_Div_Left">
-                <img className="loginImage" src={TreeSitter} alt="" />
+                <img className="Login_Image" src={TreeSitter} alt="" />
             </div>
             <div className="Image_Div_Right">
-                <div className="right-form">
+                <div className="Form_Div">
                 <p className="Sign_In">Sign In</p>
-                <p className="newUserLogin">
+                <p className="New_User_Login">
                 New User? <a onClick={setCreateNewUser} className="create_account">Create an Account</a>
             </p>
                 <form>
-                <label className="name">
+                <label className="Input_Login">
                     <input type="text" placeholder="UserName" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
                 </label>
-                <label className="name_2">
+                <label className="Input_Password">
                     <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
                 </label>
-                <div className="wrongInputMessage">{IncorrectUserName}</div>
+                <div className="Wrong_Message_Notify">{IncorrectUserName}</div>
             </form>
             <div>
             <button

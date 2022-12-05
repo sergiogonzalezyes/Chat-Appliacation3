@@ -86,13 +86,13 @@ input {
     font-size: 10px;
     font-family: "Raleway", sans-serif;
 }
-.wrongInputMessage {
+.Wrong_Message_Notify {
     font-size: 15px;
     color: red;
 }
 
 /* Login CSS and Create User */
-.loginImage {
+.Login_Image {
     max-width: 100%;
 }
 .Image_Div_Left,
@@ -128,7 +128,7 @@ input {
     margin: 10px;
     font-family: "Merriweather", serif;
 }
-.newUserLogin {
+.New_User_Login {
     font-size: 20px;
     color: #f6f6f6;
     text-align: left;
@@ -151,15 +151,14 @@ input {
     /* height: 5px; */
 }
 
-.right-form {
+.Form_Div {
     overflow: hidden;
 }
-.name_2 {
+.Input_Password,
+.Input_Create_Password {
     text-align: start;
     color: #f6f6f6;
-    /* font-family: "Raleway", sans-serif; */
     font-family: "Merriweather", serif;
-    /* padding-left: 10px; */
     margin-top: 25px;
 }
 /* Home Page CSS  */
@@ -389,7 +388,8 @@ p {
         margin-right: auto;
         max-width: fit-content;
     }
-    .name {
+    .Input_Login,
+    .Input_Created_User {
         text-align: center;
     }
     .Sign_In {
