@@ -13,10 +13,10 @@ const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that de
 // Port : 3306
 
 const db = mysql.createPool({
-    host: "database-chat-app3.ct59e8m8f0qd.us-east-1.rds.amazonaws.com",
+    host: "database-chat-app.ct59e8m8f0qd.us-east-1.rds.amazonaws.com",
     user: "admin",
     password: "skateboard",
-    database: "node_twitterclone",
+    database: "chat_application",
 });
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
@@ -36,12 +36,12 @@ app.get("/api/get", (req, res) => {
 app.post("/createUser", (req, res) => {
     // console.log(req.body);
     // const newObj = {username: req.body.username, password: req.body.password};
-    const username = req.body.username;
+    const username = req.body.usernameNameLowerCase;
     const password = req.body.password;
     const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
         for (let i = 0; i <= 10; i++) {
-            let loopthroughdata = result[i].username;
+            let loopthroughdata = result[i].usernameNameLowerCase;
             console.log(loopthroughdata);
 
             if (loopthroughdata === username) {
