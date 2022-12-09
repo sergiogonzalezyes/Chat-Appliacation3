@@ -15,9 +15,9 @@ export const Login = () => {
 
     const loadData = async () => {
         const response = await axios.get("http://localhost:5000/api/get");
-        
-        setData(response.data);
         console.log(response.data);
+        // setData(response.data);
+        
         
     };
 
@@ -28,8 +28,8 @@ export const Login = () => {
 
     const getInput = () => {
         data.map((loginInfo) => {
-            console.log(loginInfo);
             const userNameLowerCase = userName.toLocaleLowerCase() ;
+            console.log(data);
             if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
                setuserLoginVerify(true)
                   

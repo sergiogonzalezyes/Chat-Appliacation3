@@ -28,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url 
 app.get("/api/get", (req, res) => {
     const sqlGet = "SELECT * FROM user_login"; // Selects all from contact_db table in mysql database.
     db.query(sqlGet, (error, result) => {
-        console.log(result); // store the response into variable that will be used for manipulation in react app.
+        console.log(result);
+        console.log(error); // store the response into variable that will be used for manipulation in react app.
         // res.send(contact_info); // return response from database
     });
 });
