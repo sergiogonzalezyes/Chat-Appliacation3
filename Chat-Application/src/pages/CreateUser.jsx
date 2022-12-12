@@ -5,45 +5,14 @@ import Person from "../images/Saly-34.png";
 
 
 export const CreateUser = () => {
-    const [data, setData] = useState([]);
-    const [userName, SetuserName] = useState("");
-    const [password, Setpassword] = useState("");
-    const [IncorrectUserName, SetIncorrectUserName] = useState("");
-    const [createNewUser, setCreateNewUser] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-
-
-    const loadData = async () => {
-        const response = await axios.get("http://localhost:5000/api/get");
-        setData(response.data);
-        
+    const addUser = () => {
+        axios.post('http://localhost:5000/createUser', {username: username, password: password}).then(() => {
+            console.log("Success");
+        });
     };
-
-    useEffect(() => {
-        loadData();
-    
-    }, []);
-
-    const getInput = () => {
-        data.map((loginInfo) => {
-            const userNameLowerCase = userName.toLocaleLowerCase() ;
-            if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
-               setuserLoginVerify(true)
-                  
-            }else {
-                SetIncorrectUserName('Username Is already in Use')
-            }
-        })
-      
-    }
-   
-    
-    
-
-    if (createNewUser) {
-        return <Navigate to="/createUser" />;
-    }
-
 
     return (
         <div className="loginComponent">
@@ -55,17 +24,16 @@ export const CreateUser = () => {
                 <p className="Sign_In">New User</p>
                 <form>
                 <label className="Input_Created_User">
-                    <input type="text" placeholder="Username" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
+                    <input type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>
                 <label className="Input_Create_Password">
-                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
+                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
                 </label>
-                <div className="Wrong_Message_Notify">{IncorrectUserName}</div>
             </form>
             <div>
             <button
                className="Home_Buttons_Sign_In"
-                onClick={getInput}
+                onClick={addUser}
             >
                 Create Account
             </button>
