@@ -4,50 +4,60 @@ import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
 
 export const Login = () => {
-    const [userLoginVerify, setuserLoginVerify] = useState(false);
-    const [data, setData] = useState([]);
-    const [userName, SetuserName] = useState("");
-    const [password, Setpassword] = useState("");
-    const [IncorrectUserName, SetIncorrectUserName] = useState("");
-    const [createNewUser, setCreateNewUser] = useState(false);
-
-
-
-    const loadData = async () => {
-        const response = await axios.get("http://localhost:5000/api/get");
-        console.log(response.data);
-        // setData(response.data);
-        
-        
-    };
-
-    useEffect(() => {
-        loadData();
-    
-    }, []);
+    // const [userLoginVerify, setuserLoginVerify] = useState(false);
+    // const [data, setData] = useState([]);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = Navigate()
+    // const [IncorrectUserName, SetIncorrectUserName] = useState("");
+    // const [createNewUser, setCreateNewUser] = useState(false);
 
     const getInput = () => {
-        data.map((loginInfo) => {
-            const userNameLowerCase = userName.toLocaleLowerCase() ;
-            console.log(data);
-            if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
-               setuserLoginVerify(true)
-                  
-            }else {
-                SetIncorrectUserName('UserName does not exist or Password is Incorrect')
+        // const navigate = useNavigate();
+        axios.post('http://localhost:5000/userLogin', { username: username, password: password })
+          .then(response => {
+            if (response.data.message === 'Login successful') {
+              return Navigate('/UserPage')
             }
-        })
+          });
+      };
+
+
+    // const loadData = async () => {
+    //     const response = await axios.get("http://localhost:5000/api/get");
+    //     console.log(response.data);
+    //     // setData(response.data);
+        
+        
+    // };
+
+    // useEffect(() => {
+    //     loadData();
+    
+    // }, []);
+
+    // const getInput = () => {
+    //     data.map((loginInfo) => {
+    //         const userNameLowerCase = userName.toLocaleLowerCase() ;
+    //         console.log(data);
+    //         if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
+    //            setuserLoginVerify(true)
+                  
+    //         }else {
+    //             SetIncorrectUserName('UserName does not exist or Password is Incorrect')
+    //         }
+    //     })
       
-    }
+    // }
    
     
-    if (userLoginVerify) {
-        return <Navigate to="/UserPage" />;
-    }
+    // if (getInput) {
+    //     return <Navigate to="/UserPage" />;
+    // }
 
-    if (createNewUser) {
-        return <Navigate to="/createUser" />;
-    }
+    // if (createNewUser) {
+    //     return <Navigate to="/createUser" />;
+    // }
 
 
     return (
@@ -59,16 +69,16 @@ export const Login = () => {
                 <div className="Form_Div">
                 <p className="Sign_In">Sign In</p>
                 <p className="New_User_Login">
-                New User? <a onClick={setCreateNewUser} className="create_account">Create an Account</a>
+                {/* New User? <a onClick={setCreateNewUser} className="create_account">Create an Account</a> */} 
             </p>
                 <form>
                 <label className="Input_Login">
-                    <input type="text" placeholder="UserName" name="name" onChange={(e) => {SetuserName(e.target.value)}}/>
+                    <input type="text" placeholder="UserName" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>
                 <label className="Input_Password">
-                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {Setpassword(e.target.value)}} />
+                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
                 </label>
-                <div className="Wrong_Message_Notify">{IncorrectUserName}</div>
+                {/* <div className="Wrong_Message_Notify">{IncorrectUserName}</div> */}
             </form>
             <div>
             <button

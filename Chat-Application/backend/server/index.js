@@ -68,6 +68,30 @@ app.post('/createUser', (req, res) => {
       });
    });
 
+
+app.post('/userLogin', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (error, results, fields) => {
+    console.log(fields);
+
+    if (error) {
+      // handle error
+      return res.status(500).send({ error: 'Error verifying login credentials' });
+    };
+
+    if (results.length === 0) {
+      // handle incorrect login credentials
+      return res.status(401).send({ error: 'Incorrect login credentials' });
+    };
+
+    // handle successful login
+    return res.status(200).send({ message: 'Login successful' });
+
+  }
+)});
+
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 

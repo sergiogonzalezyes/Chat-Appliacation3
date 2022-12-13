@@ -15,10 +15,10 @@ import { useState,useEffect } from "react";
 
 export const Home = () => {
     const [createNewUser, setCreateNewUser] = useState(false);
-    const [userLoginVerify, setuserLoginVerify] = useState(false);
+    const [userLogin, setUserLogin] = useState(false);
 
 
-    if (userLoginVerify) {
+    if (userLogin) {
         return <Navigate to="/Login" />;
     }
 
@@ -37,7 +37,7 @@ export const Home = () => {
                 <p className="Title">Aliquet lectus proin nibh nisl condimentum id venenatis a</p>
                 <p className="Title_Description">Morbi leo urna molestie at elementum eu facilisis. Lacus sed viverra tellus in hac. Velit dignissim sodales ut eu sem integer vitae justo eget.</p>
                 <div className="Button_Container">
-                <button className="Home_Buttons" onClick={setuserLoginVerify}>Login</button>
+                <button className="Home_Buttons" onClick={setUserLogin}>Login</button>
                 <button className="Home_Buttons_1" onClick={setCreateNewUser}>Create an Account</button>
                 </div>
                </div>
