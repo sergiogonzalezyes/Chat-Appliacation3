@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
@@ -8,7 +8,7 @@ export const Login = () => {
     // const [data, setData] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = Navigate()
+    // const navigate = Navigate()
     // const [IncorrectUserName, SetIncorrectUserName] = useState("");
     // const [createNewUser, setCreateNewUser] = useState(false);
 
@@ -16,8 +16,9 @@ export const Login = () => {
         // const navigate = useNavigate();
         axios.post('http://localhost:5000/userLogin', { username: username, password: password })
           .then(response => {
+            console.log(response)
             if (response.data.message === 'Login successful') {
-              return Navigate('/UserPage')
+              return console.log('it worked')
             }
           });
       };
