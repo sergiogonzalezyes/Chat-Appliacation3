@@ -12,7 +12,7 @@ export const Login = () => {
     // const [data, setData] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginsuccess, setLoginSuccess] = useState("");
+    const [loginsuccess, setLoginSuccess] = useState(false);
     // const navigate = Navigate()
     // const [IncorrectUserName, SetIncorrectUserName] = useState("");
     // const [createNewUser, setCreateNewUser] = useState(false);

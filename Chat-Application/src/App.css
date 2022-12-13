@@ -318,6 +318,13 @@ p {
     /* border-style: ridge; */
 }
 
+.Valid_UserName {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: red;
+}
+
 @media (max-width: 1000px) {
     html {
         width: fit-content;

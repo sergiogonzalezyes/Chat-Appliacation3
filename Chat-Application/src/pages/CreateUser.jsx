@@ -7,12 +7,26 @@ import Person from "../images/Saly-34.png";
 export const CreateUser = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [IncorrectUserName, SetIncorrectUserName] = useState("");
+    const [usernameCreated, setusernameCreated] = useState(false);
 
     const addUser = () => {
-        axios.post('http://localhost:5000/createUser', {username: username, password: password}).then(() => {
-            console.log("Success");
+
+        axios.post('http://localhost:5000/createUser', {username: username, password: password}).then((response) => {
+            console.log(response.data)
+            if (response.data == 'Record Insert Successful'){
+                alert('UserName and Password has been created')
+                setusernameCreated(true)
+                
+            } else {
+                SetIncorrectUserName('password is not secure. Please use One lower case,One UpperCase,One symbol and One number. Also has to be above 8 characters');
+            }
+          
         });
     };
+    if (usernameCreated === true) {
+        return <Navigate to="/Login" />;
+    }
 
     return (
         <div className="loginComponent">
@@ -28,6 +42,7 @@ export const CreateUser = () => {
                 </label>
                 <label className="Input_Create_Password">
                     <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
+                    <div className="Valid_UserName">{IncorrectUserName}</div> 
                 </label>
             </form>
             <div>

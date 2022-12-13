@@ -46,6 +46,15 @@ app.post("/createUser", (req, res) => {
                 return;
             }
 
+            if (
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                    password
+                ) === false
+            ) {
+                res.send("not working");
+                return;
+            }
+
             bcrypt.hash(password, 10, (err, hashedPassword) => {
                 if (err) {
                     console.log(err);
@@ -73,8 +82,6 @@ app.post("/createUser", (req, res) => {
     );
 });
 
-
-
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -87,7 +94,6 @@ app.post("/userLogin", (req, res) => {
         (err, results) => {
             // console.log(results)
             if (err) {
-                
                 // handle error
                 return res.status(500).send({
                     error: "Error verifying login credentials",
@@ -127,15 +133,11 @@ app.post("/userLogin", (req, res) => {
                 }
 
                 // handle successful login
-                return res
-                    .status(200)
-                    .send({ message: "Login successful" });
+                return res.status(200).send({ message: "Login successful" });
             });
         }
     );
 });
-
-
 
 // app.post("/userLogin", (req, res) => {
 //     const username = req.body.username;
