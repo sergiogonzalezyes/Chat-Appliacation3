@@ -73,44 +73,111 @@ app.post("/createUser", (req, res) => {
     );
 });
 
+
+
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
 
-    bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send("Error hashing password");
-        } else {
-            db.query(
-                `SELECT * FROM user_login WHERE username = '${username}' AND password = '${hashedPassword}}'`,
-                (error, results, fields) => {
-                    console.log(hashedPassword);
-                    if (error) {
-                        // handle error
-                        return res.status(500).send({
-                            error: "Error verifying login credentials",
-                        });
-                    }
+    // Query the database to find the user with the specified username
+    db.query(
+        `SELECT * FROM user_login WHERE username = '${username}'`,
+        (err, results) => {
+            // console.log(results)
+            if (err) {
+                
+                // handle error
+                return res.status(500).send({
+                    error: "Error verifying login credentials",
+                });
+            }
 
-                    if (results.length === 0) {
-                        // handle incorrect login credentials
-                        return res
-                            .status(401)
-                            .send({ error: "Incorrect login credentials" });
-                    }
+            if (results.length === 0) {
+                // handle incorrect login credentials
+                return res
+                    .status(401)
+                    .send({ error: "Incorrect login credentials" });
+            }
 
-                    // handle successful login
-                    return res
-                        .status(200)
-                        .send({ message: "Login successful" });
+            // Get the hashed password from the database
+            const hashedPassword = results[0].password;
+            console.log(hashedPassword);
+
+            // Use bcrypt.compare to compare the entered password with the hashed password in the database
+            bcrypt.compare(password, hashedPassword, (err, result) => {
+                console.log(result);
+                console.log(err);
+                console.log(password);
+                console.log(hashedPassword);
+
+                if (err) {
+                    // handle error
+                    return res.status(500).send({
+                        error: "Error verifying login credentials",
+                    });
                 }
-            );
+
+                if (!result) {
+                    // handle incorrect login credentials
+                    return res
+                        .status(401)
+                        .send({ error: "Incorrect login credentials" });
+                }
+
+                // handle successful login
+                return res
+                    .status(200)
+                    .send({ message: "Login successful" });
+            });
         }
-    });
+    );
 });
+
+
+
+// app.post("/userLogin", (req, res) => {
+//     const username = req.body.username;
+//     const password = req.body.password;
+//     console.log(username);
+//     console.log(password);
+
+//     bcrypt.hash(password, 10, (err, hashedPassword) => {
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send("Error hashing password");
+//         } else {
+//             db.query(
+//                 `SELECT * FROM user_login WHERE username = '${username}' AND password = '${hashedPassword}}'`,
+//                 // `SELECT * FROM user_login WHERE username = ? AND password = ?`, [username, password],
+//                 (err, results) => {
+//                     console.log(hashedPassword);
+//                     console.log(results);
+
+//                     if (err) {
+//                         // handle error
+//                         return res.status(500).send({
+//                             error: "Error verifying login credentials",
+//                         });
+//                     }
+
+//                     if (results.length === 0) {
+//                         // handle incorrect login credentials
+//                         return res
+//                             .status(401)
+//                             .send({ error: "Incorrect login credentials" });
+//                     }
+
+//                     // handle successful login
+//                     return res
+//                         .status(200)
+//                         .send({ message: "Login successful" });
+//                 }
+//             );
+//         }
+//     });
+// });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay

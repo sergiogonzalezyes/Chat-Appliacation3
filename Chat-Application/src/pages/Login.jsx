@@ -2,12 +2,17 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
+import { Navigate } from "react-router-dom";
+
+
+
 
 export const Login = () => {
     // const [userLoginVerify, setuserLoginVerify] = useState(false);
     // const [data, setData] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loginsuccess, setLoginSuccess] = useState("");
     // const navigate = Navigate()
     // const [IncorrectUserName, SetIncorrectUserName] = useState("");
     // const [createNewUser, setCreateNewUser] = useState(false);
@@ -18,9 +23,12 @@ export const Login = () => {
           .then(response => {
             console.log(response)
             if (response.data.message === 'Login successful') {
-              return console.log('it worked')
+                return setLoginSuccess(true);
             }
           });
+
+
+
       };
 
 
@@ -52,9 +60,9 @@ export const Login = () => {
     // }
    
     
-    // if (getInput) {
-    //     return <Navigate to="/UserPage" />;
-    // }
+    if (loginsuccess === true) {
+        return <Navigate to="/UserPage" />;
+    }
 
     // if (createNewUser) {
     //     return <Navigate to="/createUser" />;
