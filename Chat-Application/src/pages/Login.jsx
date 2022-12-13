@@ -14,16 +14,21 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const [loginsuccess, setLoginSuccess] = useState(false);
     // const navigate = Navigate()
-    // const [IncorrectUserName, SetIncorrectUserName] = useState("");
+    const [IncorrectUserName, SetIncorrectUserName] = useState("");
     // const [createNewUser, setCreateNewUser] = useState(false);
 
     const getInput = () => {
         // const navigate = useNavigate();
         axios.post('http://localhost:5000/userLogin', { username: username, password: password })
           .then(response => {
-            console.log(response)
+            console.log(response.data)
             if (response.data.message === 'Login successful') {
+                
                 return setLoginSuccess(true);
+            } 
+            if (response.data){
+                SetIncorrectUserName('Password or Username is not correct')
+
             }
           });
 
@@ -87,7 +92,7 @@ export const Login = () => {
                 <label className="Input_Password">
                     <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
                 </label>
-                {/* <div className="Wrong_Message_Notify">{IncorrectUserName}</div> */}
+                <div>{IncorrectUserName}</div>
             </form>
             <div>
             <button
