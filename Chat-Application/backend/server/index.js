@@ -82,6 +82,7 @@ app.post("/createUser", (req, res) => {
     );
 });
 
+
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -132,51 +133,8 @@ app.post("/userLogin", (req, res) => {
     );
 });
 
-// app.post("/userLogin", (req, res) => {
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     console.log(username);
-//     console.log(password);
-
-//     bcrypt.hash(password, 10, (err, hashedPassword) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send("Error hashing password");
-//         } else {
-//             db.query(
-//                 `SELECT * FROM user_login WHERE username = '${username}' AND password = '${hashedPassword}}'`,
-//                 // `SELECT * FROM user_login WHERE username = ? AND password = ?`, [username, password],
-//                 (err, results) => {
-//                     console.log(hashedPassword);
-//                     console.log(results);
-
-//                     if (err) {
-//                         // handle error
-//                         return res.status(500).send({
-//                             error: "Error verifying login credentials",
-//                         });
-//                     }
-
-//                     if (results.length === 0) {
-//                         // handle incorrect login credentials
-//                         return res
-//                             .status(401)
-//                             .send({ error: "Incorrect login credentials" });
-//                     }
-
-//                     // handle successful login
-//                     return res
-//                         .status(200)
-//                         .send({ message: "Login successful" });
-//                 }
-//             );
-//         }
-//     });
-// });
-
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
-
 app.listen(5000, () => {
     console.log("Server is running on port 5000");
 });

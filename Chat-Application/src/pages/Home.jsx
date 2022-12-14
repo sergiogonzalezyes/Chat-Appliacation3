@@ -26,8 +26,6 @@ export const Home = () => {
         return <Navigate to="/createUser" />;
     }
 
-
-
     return (<div class="container">
         <section className="First_Section">
                 <div className="Home_Page_Image">
@@ -56,5 +54,4 @@ export const Home = () => {
             </section>             
             </div>)
         
-   
 };

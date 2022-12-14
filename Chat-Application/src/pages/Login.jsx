@@ -8,14 +8,10 @@ import { Navigate } from "react-router-dom";
 
 
 export const Login = () => {
-    // const [userLoginVerify, setuserLoginVerify] = useState(false);
-    // const [data, setData] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginsuccess, setLoginSuccess] = useState(false);
-    // const navigate = Navigate()
     const [IncorrectUserName, SetIncorrectUserName] = useState("");
-    // const [createNewUser, setCreateNewUser] = useState(false);
 
     const getInput = () => {
         // const navigate = useNavigate();
@@ -33,48 +29,11 @@ export const Login = () => {
 
             }
           });
-
-
-
       };
 
-
-    // const loadData = async () => {
-    //     const response = await axios.get("http://localhost:5000/api/get");
-    //     console.log(response.data);
-    //     // setData(response.data);
-        
-        
-    // };
-
-    // useEffect(() => {
-    //     loadData();
-    
-    // }, []);
-
-    // const getInput = () => {
-    //     data.map((loginInfo) => {
-    //         const userNameLowerCase = userName.toLocaleLowerCase() ;
-    //         console.log(data);
-    //         if(loginInfo.username === userNameLowerCase && loginInfo.password === password){
-    //            setuserLoginVerify(true)
-                  
-    //         }else {
-    //             SetIncorrectUserName('UserName does not exist or Password is Incorrect')
-    //         }
-    //     })
-      
-    // }
-   
-    
     if (loginsuccess === true) {
         return <Navigate to="/UserPage" />;
     }
-
-    // if (createNewUser) {
-    //     return <Navigate to="/createUser" />;
-    // }
-
 
     return (
         <div className="loginComponent">
