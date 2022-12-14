@@ -13,14 +13,23 @@ export const CreateUser = () => {
     const addUser = () => {
 
         axios.post('http://localhost:5000/createUser', {username: username, password: password}).then((response) => {
-            console.log(response.data)
-            if (response.data == 'Record Insert Successful'){
+            const res = response.data;
+
+          
+            
+            if (res == 'Record Insert Successful'){
                 alert('UserName and Password has been created')
                 setusernameCreated(true)
                 
-            } else {
+            } else if (res == 'not working') {
                 SetIncorrectUserName('password is not secure. Please use One lower case,One UpperCase,One symbol and One number. Also has to be above 8 characters');
+            } else if (res == 'Username already exists') {
+                SetIncorrectUserName('Username already exists choose another');
+            } else if (res == 'Error checking for existing username') {
+                SetIncorrectUserName('Sorry our server is undergoing maintenance');
             }
+
+        
           
         });
     };

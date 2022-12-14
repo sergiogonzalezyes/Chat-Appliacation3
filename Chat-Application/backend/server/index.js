@@ -35,14 +35,14 @@ app.post("/createUser", (req, res) => {
         (err, result) => {
             if (err) {
                 console.log(err);
-                res.status(500).send("Error checking for existing username");
+                res.send("Error checking for existing username");
                 return;
             }
 
             // If a record with the given username already exists, return an error message
             if (result.length > 0) {
                 console.log(result.length);
-                res.status(400).send("Username already exists");
+                res.send("Username already exists");
                 return;
             }
 
@@ -113,23 +113,16 @@ app.post("/userLogin", (req, res) => {
 
             // Use bcrypt.compare to compare the entered password with the hashed password in the database
             bcrypt.compare(password, hashedPassword, (err, result) => {
-                console.log(result);
-                console.log(err);
-                console.log(password);
-                console.log(hashedPassword);
-
                 if (err) {
                     // handle error
-                    return res.status(500).send({
+                    return res.status.send({
                         error: "Error verifying login credentials",
                     });
                 }
 
                 if (!result) {
                     // handle incorrect login credentials
-                    return res
-                        .status(401)
-                        .send({ error: "Incorrect login credentials" });
+                    return res.send({ error: "Incorrect login credentials" });
                 }
 
                 // handle successful login
