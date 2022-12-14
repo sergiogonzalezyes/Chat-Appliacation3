@@ -89,10 +89,10 @@ export const Login = () => {
             </p>
                 <form>
                 <label className="Input_Login">
-                    <input type="text" placeholder="UserName" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
+                    <input maxlength="30" type="text" placeholder="UserName" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>
                 <label className="Input_Password">
-                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
+                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
                 </label>
                 <div className="Valid_UserName">{IncorrectUserName}</div>
             </form>

@@ -47,10 +47,10 @@ export const CreateUser = () => {
                 <p className="Sign_In">New User</p>
                 <form>
                 <label className="Input_Created_User">
-                    <input type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
+                    <input  maxlength="30" type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>
                 <label className="Input_Create_Password">
-                    <input type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
+                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
                     <div className="Valid_UserName">{IncorrectUserName}</div> 
                 </label>
             </form>
