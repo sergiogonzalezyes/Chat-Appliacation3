@@ -14,9 +14,6 @@ export const CreateUser = () => {
 
         axios.post('http://localhost:5000/createUser', {username: username, password: password}).then((response) => {
             const res = response.data;
-
-          
-            
             if (res == 'Record Insert Successful'){
                 alert('UserName and Password has been created')
                 setusernameCreated(true)
@@ -28,9 +25,6 @@ export const CreateUser = () => {
             } else if (res == 'Error checking for existing username') {
                 SetIncorrectUserName('Sorry our server is undergoing maintenance');
             }
-
-        
-          
         });
     };
     if (usernameCreated === true) {

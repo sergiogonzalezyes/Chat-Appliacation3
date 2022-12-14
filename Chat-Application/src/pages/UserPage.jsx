@@ -5,5 +5,7 @@ export const UserPage = () => {
     </form>
     <button type="submit" class="btn">Send</button>
     <button type="button" class="btn cancel">cancel</button>
-          </div>)
+          </div>
+          
+          )
 };
