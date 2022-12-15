@@ -4,6 +4,10 @@ const bodyParser = require("body-parser"); // NPM package that parses incoming r
 const mysql = require("mysql2"); // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
 const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that defines sharing resources of different origins. client/server architecture.
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require('uuid');
+
+
+
 
 // MYSQL connection
 // This is where we create our connection to the database using appropriate credentials/database name
@@ -83,6 +87,9 @@ app.post("/createUser", (req, res) => {
 });
 
 
+const sessions = {};
+console.log(sessions)
+
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -93,6 +100,9 @@ app.post("/userLogin", (req, res) => {
     db.query(
         `SELECT * FROM user_login WHERE username = '${username}'`,
         (err, results) => {
+          const user_id = results[0].id;
+          console.log(user_id);
+          // console.log(results);
             // console.log(results)
             if (err) {
                 // handle error
@@ -110,7 +120,7 @@ app.post("/userLogin", (req, res) => {
 
             // Get the hashed password from the database
             const hashedPassword = results[0].password;
-            console.log(hashedPassword);
+            // console.log(hashedPassword);
 
             // Use bcrypt.compare to compare the entered password with the hashed password in the database
             bcrypt.compare(password, hashedPassword, (err, result) => {
@@ -127,6 +137,11 @@ app.post("/userLogin", (req, res) => {
                 }
 
                 // handle successful login
+                const sessionId = uuidv4();
+                // console.log(sessionId);
+                sessions[sessionId] = {username, user_id};
+                res.set('Set-Cookie'), `session=${sessionId}`;
+                console.log(sessions);
                 return res.status(200).send({ message: "Login successful" });
             });
         }
