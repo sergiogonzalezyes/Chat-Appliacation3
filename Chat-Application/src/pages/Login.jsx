@@ -46,7 +46,7 @@ export const Login = () => {
                 <p className="New_User_Login">
                 {/* New User? <a onClick={setCreateNewUser} className="create_account">Create an Account</a> */} 
             </p>
-                <form>
+                <form className="Create_user_form">
                 <label className="Input_Login">
                     <input maxlength="30" type="text" placeholder="UserName" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>

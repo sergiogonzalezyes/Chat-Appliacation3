@@ -39,7 +39,7 @@ export const CreateUser = () => {
             <div className="Image_Div_Right">
                 <div className="Form_Div">
                 <p className="Sign_In">New User</p>
-                <form>
+                <form className="Create_user_form">
                 <label className="Input_Created_User">
                     <input  maxlength="30" type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>

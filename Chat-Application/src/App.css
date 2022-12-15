@@ -15,10 +15,11 @@
 html {
     background-color: #242424;
 }
-form {
-    max-width: 50%;
+.Create_user_form {
+    /* max-width: 50%; */
     display: flex; /*added*/
     flex-direction: column; /*added*/
+    max-width: fit-content;
 }
 
 .welcomeLogo {
@@ -108,9 +109,7 @@ input {
     align-items: center;
     justify-content: center;
 }
-form {
-    max-width: fit-content;
-}
+
 input {
     border-radius: 30px;
     border-style: none;
@@ -416,62 +415,100 @@ p {
     } */
 }
 
-
-
 /* UserPage CSS */
 
 #chatbox {
+    display: flex;
+}
 
-  }
-
-  #contacts, #messages {
+#contacts,
+#messages {
     padding: 10px;
-  }
+}
+#contacts {
+    width: 20%;
+}
 
-  #contacts h1, #messages h1 {
+#contacts h1,
+#messages h1 {
     margin: 0;
     padding: 5px;
     font-weight: bold;
     background-color: rgb(131, 124, 124);
-  }
+}
 
-  #contacts ul, #messages ul {
+#contacts ul,
+#messages ul {
     list-style: none;
     margin: 0;
     padding: 0;
     color: black;
-  }
+}
 
-  #contacts li, #messages li {
+#contacts li,
+#messages li {
     margin: 10px 0;
     color: black;
-  }
+}
 
-  #input-form {
+#input-form {
+    width: 100%;
     padding: 10px;
-  }
+}
 
-  #input-form textarea {
+#input-form textarea {
     width: 100%;
     height: 80px;
     padding: 10px;
-    resize: none;
-    
-  }
+    /* resize: none; */
+}
 
-  #input-form button {
+#input-form button {
+    width: 100%;
     float: right;
     padding: 10px;
     color: black;
-    
-  }
+}
 
-  b {
+b {
     color: black;
-  }
+}
+.message_time_div {
+    display: flex;
+    justify-content: space-between;
+}
+.message {
+    text-align: right;
+    /* margin-left: auto; */
+}
+.time {
+    text-align: left;
+    /* margin-right: auto; */
+}
+#chatbox {
+    display: flex;
+}
+#messagesandinputform {
+    /* background-color: black; */
+    width: 100%;
+}
+#input-form {
+    /* display: flex; */
+    /* min-width: 50%; */
+}
+.input_form {
+    display: flex;
+    width: 100%;
+}
+.submit_text_area {
+    flex-grow: 8; /* Make the input take up 8/10 of the available space */
+    flex-basis: 0; /* Set the initial size of the input to 0 */
+}
+.submit_button {
+    flex-grow: 2; /* Make the button take up 2/10 of the available space */
+    flex-basis: 0; /* Set the initial size of the button to 0 */
+}
 
-  #messagesandinputform {
-       display: flex;
-  }
-
-
+.add_button {
+    background-color: green;
+}
