@@ -415,3 +415,63 @@ p {
         width: fit-content;
     } */
 }
+
+
+
+/* UserPage CSS */
+
+#chatbox {
+
+  }
+
+  #contacts, #messages {
+    padding: 10px;
+  }
+
+  #contacts h1, #messages h1 {
+    margin: 0;
+    padding: 5px;
+    font-weight: bold;
+    background-color: rgb(131, 124, 124);
+  }
+
+  #contacts ul, #messages ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: black;
+  }
+
+  #contacts li, #messages li {
+    margin: 10px 0;
+    color: black;
+  }
+
+  #input-form {
+    padding: 10px;
+  }
+
+  #input-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    resize: none;
+    
+  }
+
+  #input-form button {
+    float: right;
+    padding: 10px;
+    color: black;
+    
+  }
+
+  b {
+    color: black;
+  }
+
+  #messagesandinputform {
+       display: flex;
+  }
+
+
