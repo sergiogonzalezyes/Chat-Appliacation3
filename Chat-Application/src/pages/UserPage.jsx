@@ -9,6 +9,7 @@ export const UserPage = () => {
 
   function messagesArr () {
     
+    
     setSavedMessage([...savedMessage, messages]);
 
   }
@@ -17,15 +18,7 @@ export const UserPage = () => {
 
 
   return( 
-
-   
-
-
-    <div>
-      <head>
-    <title>Chatbox</title>
-  </head>
-  <body>
+    <div className="user_container">
     <div id="chatbox">
       <div id="contacts">
         <h1>Contacts</h1>
@@ -46,7 +39,7 @@ export const UserPage = () => {
           <div key={index}>
             <b>John Doe</b>
               <div className="message_time_div">
-                <p className="message">{messages}</p>
+                <p className="message">{message}</p>
                 <p className="time">3:53</p>
               </div>
           </div>))}
@@ -54,7 +47,7 @@ export const UserPage = () => {
         </ul>
       </div>
       <div >
-        <form id="input-form">
+        <form id="input-form" onSubmit={(e) => {e.preventDefault();}}>
           <div  className="input_form">
           <textarea onChange={(e) => { setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
           <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
@@ -63,7 +56,6 @@ export const UserPage = () => {
       </div>
       </div>
     </div>
-  </body>
     </div>
   )
 };

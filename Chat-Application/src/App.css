@@ -322,8 +322,108 @@ p {
     font-size: 16px;
     color: red;
 }
+/* UserPage CSS */
+
+#chatbox {
+    display: flex;
+}
+
+#contacts,
+#messages {
+    padding: 10px;
+}
+#contacts {
+    width: 20%;
+}
+
+#contacts h1,
+#messages h1 {
+    margin: 0;
+    padding: 5px;
+    font-weight: bold;
+    background-color: rgb(131, 124, 124);
+}
+
+#contacts ul,
+#messages ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+#contacts li,
+#messages li {
+    margin: 10px 0;
+    color: black;
+}
+
+#input-form {
+    min-width: 100%;
+}
+
+#input-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    /* resize: none; */
+}
+
+#input-form button {
+    width: 100%;
+    float: right;
+    padding: 10px;
+    color: black;
+}
+
+b {
+    color: black;
+}
+.message_time_div {
+    display: flex;
+    justify-content: space-between;
+    word-break: break-all;
+}
+.message {
+    max-width: fit-content;
+    text-align: right;
+    word-wrap: normal;
+}
+.time {
+    text-align: left;
+}
+#chatbox {
+    display: flex;
+}
+#messagesandinputform {
+    width: 100%;
+}
+#input-form {
+    /* display: flex; */
+}
+.input_form {
+    display: flex;
+    width: 100%;
+}
+.submit_text_area {
+    flex-grow: 8; /* Make the input take up 8/10 of the available space */
+    flex-basis: 0; /* Set the initial size of the input to 0 */
+    color: black;
+}
+.submit_button {
+    flex-grow: 2; /* Make the button take up 2/10 of the available space */
+    flex-basis: 0; /* Set the initial size of the button to 0 */
+}
+
+.add_button {
+    background-color: green;
+}
 
 @media (max-width: 1000px) {
+    /* .message {
+        max-width: 100%;
+        word-wrap: break-word;
+    } */
     html {
         width: fit-content;
     }
@@ -412,103 +512,4 @@ p {
     /* html {
         width: fit-content;
     } */
-}
-
-/* UserPage CSS */
-
-#chatbox {
-    display: flex;
-}
-
-#contacts,
-#messages {
-    padding: 10px;
-}
-#contacts {
-    width: 20%;
-}
-
-#contacts h1,
-#messages h1 {
-    margin: 0;
-    padding: 5px;
-    font-weight: bold;
-    background-color: rgb(131, 124, 124);
-}
-
-#contacts ul,
-#messages ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    color: black;
-}
-
-#contacts li,
-#messages li {
-    margin: 10px 0;
-    color: black;
-}
-
-#input-form {
-    width: 100%;
-    padding: 10px;
-}
-
-#input-form textarea {
-    width: 100%;
-    height: 80px;
-    padding: 10px;
-    /* resize: none; */
-}
-
-#input-form button {
-    width: 100%;
-    float: right;
-    padding: 10px;
-    color: black;
-}
-
-b {
-    color: black;
-}
-.message_time_div {
-    display: flex;
-    justify-content: space-between;
-}
-.message {
-    text-align: right;
-    /* margin-left: auto; */
-}
-.time {
-    text-align: left;
-    /* margin-right: auto; */
-}
-#chatbox {
-    display: flex;
-}
-#messagesandinputform {
-    /* background-color: black; */
-    width: 100%;
-}
-#input-form {
-    /* display: flex; */
-    /* min-width: 50%; */
-}
-.input_form {
-    display: flex;
-    width: 100%;
-}
-.submit_text_area {
-    flex-grow: 8; /* Make the input take up 8/10 of the available space */
-    flex-basis: 0; /* Set the initial size of the input to 0 */
-    color: black;
-}
-.submit_button {
-    flex-grow: 2; /* Make the button take up 2/10 of the available space */
-    flex-basis: 0; /* Set the initial size of the button to 0 */
-}
-
-.add_button {
-    background-color: green;
 }
