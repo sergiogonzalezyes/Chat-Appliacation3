@@ -29,21 +29,6 @@ export const UserPage = () => {
             <p className="time">3:53</p>
             </div>
           </li>
-          <li className="jon_doe">
-          <b>John Doe</b>
-          <div className="message_time_div">
-            <p className="message"> Hi, how are you? </p>
-            <p className="time">3:53</p>
-            </div>
-          </li>
-          <li className="jon_doe">
-          <b>John Doe</b>
-          <div className="message_time_div">
-            <p className="message"> Hi, how are you? in doing asdblach lb ach
-            </p>
-            <p className="time">3:53</p>
-            </div>
-          </li>
         </ul>
       </div>
       <div >

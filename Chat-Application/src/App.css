@@ -279,7 +279,7 @@ p {
 
 .Button_Container {
     max-width: 100%;
-    display: inline-flex;
+    /* display: inline-flex; */
 }
 .Home_Buttons {
     border-radius: 30px;
@@ -291,7 +291,6 @@ p {
     color: black;
     border-style: none;
     max-width: 100%;
-    max-width: fit-content;
     min-width: 100%;
 }
 
@@ -503,6 +502,7 @@ b {
 .submit_text_area {
     flex-grow: 8; /* Make the input take up 8/10 of the available space */
     flex-basis: 0; /* Set the initial size of the input to 0 */
+    color: black;
 }
 .submit_button {
     flex-grow: 2; /* Make the button take up 2/10 of the available space */
