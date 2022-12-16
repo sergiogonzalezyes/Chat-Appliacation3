@@ -278,6 +278,8 @@ p {
 }
 
 .Button_Container {
+    margin-left: 10px;
+    margin-right: 10px;
     max-width: 100%;
     /* display: inline-flex; */
 }
@@ -431,7 +433,7 @@ b {
         word-wrap: break-word;
     }
     html {
-        width: fit-content;
+        /* width: fit-content; */
     }
     .textLogin {
         display: flex;
@@ -511,11 +513,11 @@ b {
         display: block;
     }
 }
-@media (max-width: 254px) {
+@media (max-width: 340px) {
     .Title_1 {
         font-size: small;
     }
-    /* html {
+    html {
         width: fit-content;
-    } */
+    }
 }
