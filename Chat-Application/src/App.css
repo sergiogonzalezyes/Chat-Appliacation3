@@ -388,6 +388,7 @@ b {
     max-width: fit-content;
     text-align: right;
     word-wrap: normal;
+    text-align: left;
 }
 .time {
     text-align: left;
@@ -397,9 +398,6 @@ b {
 }
 #messagesandinputform {
     width: 100%;
-}
-#input-form {
-    /* display: flex; */
 }
 .input_form {
     display: flex;
@@ -414,16 +412,24 @@ b {
     flex-grow: 2; /* Make the button take up 2/10 of the available space */
     flex-basis: 0; /* Set the initial size of the button to 0 */
 }
+.time {
+    min-width: fit-content;
+}
 
 .add_button {
     background-color: green;
 }
-
+.user_container {
+    min-width: fit-content;
+}
 @media (max-width: 1000px) {
-    /* .message {
+    .user_container {
+        width: 100%;
+    }
+    .message {
         max-width: 100%;
         word-wrap: break-word;
-    } */
+    }
     html {
         width: fit-content;
     }

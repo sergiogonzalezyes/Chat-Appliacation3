@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRef } from "react";
 
 
 
@@ -6,6 +7,7 @@ export const UserPage = () => {
 
   const [messages, setmessages] = useState("");
   const [savedMessage, setSavedMessage] = useState([]);
+  const formRef = useRef(null);
 
   function messagesArr () {
     
@@ -47,7 +49,7 @@ export const UserPage = () => {
         </ul>
       </div>
       <div >
-        <form id="input-form" onSubmit={(e) => {e.preventDefault();}}>
+        <form id="input-form" ref={formRef} onSubmit={(e) => {e.preventDefault(), formRef.current.reset();}}>
           <div  className="input_form">
           <textarea onChange={(e) => { setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
           <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
