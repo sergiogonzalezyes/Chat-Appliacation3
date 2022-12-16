@@ -361,6 +361,7 @@ p {
 }
 
 #input-form {
+    /* padding: 10px; */
     min-width: 100%;
 }
 
@@ -391,9 +392,14 @@ b {
     text-align: right;
     word-wrap: normal;
     text-align: left;
+    padding: 5px;
+    font-family: "Raleway", sans-serif;
 }
 .time {
+    text-align: center;
     text-align: left;
+    min-width: fit-content;
+    font-family: "Raleway", sans-serif;
 }
 #chatbox {
     display: flex;
@@ -406,16 +412,17 @@ b {
     width: 100%;
 }
 .submit_text_area {
-    flex-grow: 8; /* Make the input take up 8/10 of the available space */
+    flex-grow: 7; /* Make the input take up 8/10 of the available space */
     flex-basis: 0; /* Set the initial size of the input to 0 */
     color: black;
+    font-family: "Raleway", sans-serif;
 }
 .submit_button {
-    flex-grow: 2; /* Make the button take up 2/10 of the available space */
+    flex-grow: 3; /* Make the button take up 2/10 of the available space */
     flex-basis: 0; /* Set the initial size of the button to 0 */
 }
-.time {
-    min-width: fit-content;
+.username_id {
+    font-family: "Raleway", sans-serif;
 }
 
 .add_button {

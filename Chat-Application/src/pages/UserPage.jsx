@@ -1,18 +1,35 @@
 import { useState } from "react";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 
 
 export const UserPage = () => {
+  
 
   const [messages, setmessages] = useState("");
   const [savedMessage, setSavedMessage] = useState([]);
   const formRef = useRef(null);
+  const [time, setTime] = useState(null);
+  const [timeArr, setTimeArr] = useState([]);
+  
+  
+
+    
+
+
+  
 
   function messagesArr () {
+    setTime( new Date());
+    
     
     
     setSavedMessage([...savedMessage, messages]);
+    setTimeArr([...timeArr, time])
+
+
+    
 
   }
   
@@ -39,10 +56,14 @@ export const UserPage = () => {
         <ul>
         <li className="jon_doe">{savedMessage.map((message, index) => (
           <div key={index}>
-            <b>John Doe</b>
+            <b className="username_id">John Doe</b>
               <div className="message_time_div">
                 <p className="message">{message}</p>
-                <p className="time">3:53</p>
+                <p className="time">{timeArr.map((times,index) => (
+                <div key={index}>
+                  {times}
+                </div>
+                ))}</p>
               </div>
           </div>))}
     </li>
