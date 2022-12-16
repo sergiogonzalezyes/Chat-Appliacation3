@@ -1,5 +1,25 @@
+import { useState } from "react";
+
+
+
 export const UserPage = () => {
+
+  const [messages, setmessages] = useState("");
+  const [savedMessage, setSavedMessage] = useState([]);
+
+  function messagesArr () {
+    
+    setSavedMessage([...savedMessage, messages]);
+
+  }
+  
+
+
+
   return( 
+
+   
+
 
     <div>
       <head>
@@ -22,20 +42,22 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-          <li className="jon_doe">
-          <b>John Doe</b>
-          <div className="message_time_div">
-            <p className="message"> Hi, how are you? </p>
-            <p className="time">3:53</p>
-            </div>
-          </li>
+        <li className="jon_doe">{savedMessage.map((message, index) => (
+          <div key={index}>
+            <b>John Doe</b>
+              <div className="message_time_div">
+                <p className="message">{messages}</p>
+                <p className="time">3:53</p>
+              </div>
+          </div>))}
+    </li>
         </ul>
       </div>
       <div >
         <form id="input-form">
           <div  className="input_form">
-          <textarea className="submit_text_area"  placeholder="Enter a message"></textarea>
-          <button className="submit_button" type="submit">Send</button>
+          <textarea onChange={(e) => { setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
+          <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
           </div>
         </form>
       </div>
