@@ -11,7 +11,7 @@ export const UserPage = () => {
   const [savedMessage, setSavedMessage] = useState([]);
   const formRef = useRef(null);
   const [time, setTime] = useState(null);
-  const [timeArr, setTimeArr] = useState([]);
+  // const [timeArr, setTimeArr] = useState([]);
   
   
 
@@ -21,15 +21,17 @@ export const UserPage = () => {
   
 
   function messagesArr () {
-    setTime( new Date());
+    setTime( new Date())
+    let date = time 
+    console.log(date);
+    const message = {
+      time: date,
+      text: messages,
+    }
     
     
-    
-    setSavedMessage([...savedMessage, messages]);
-    setTimeArr([...timeArr, time])
-
-
-    
+    setSavedMessage([...savedMessage, message]);
+    // setTimeArr([...timeArr, time])
 
   }
   
@@ -58,12 +60,8 @@ export const UserPage = () => {
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
-                <p className="message">{message}</p>
-                <p className="time">{timeArr.map((times,index) => (
-                <div key={index}>
-                  {times}
-                </div>
-                ))}</p>
+                <p className="message">{message.text}</p>
+                <p className="time">{message.time}</p>
               </div>
           </div>))}
     </li>
@@ -72,7 +70,7 @@ export const UserPage = () => {
       <div >
         <form id="input-form" ref={formRef} onSubmit={(e) => {e.preventDefault(), formRef.current.reset();}}>
           <div  className="input_form">
-          <textarea onChange={(e) => { setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
+          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
           <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
           </div>
         </form>
