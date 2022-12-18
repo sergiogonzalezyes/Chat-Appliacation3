@@ -72,7 +72,8 @@ export const UserPage = () => {
         <h1>Messages</h1>
         <ul>
           {messages}
-        {/* <li className="jon_doe">{savedMessage.map((message, index) => (
+
+        {/* l<li className="jon_doe">{savedMessage.map((message, index) => (
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
