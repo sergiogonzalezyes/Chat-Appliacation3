@@ -14,27 +14,7 @@ const socket = io.connect('http://localhost:5001')
 
 export const UserPage = () => {
 
-  // const updateUser = async (socketId)=> {
-  //   let res = await axios.get(connection + '/UserPage',{
-  //     method: 'PUT',
-  //     body:JSON.stringify({userName:userName,socketId:socketId}),
-  //     //here we are going to fetch the username of the person logged in, the credentionals will be on the log in screen. once we put log in credentionals the user will have a unique id to connect sockets through 47:19
-  //     headers: {'content-type':'application/json'}
-  //   })
-  //   let data = res.json()
-  //   console.log(data)
-  // }
 
-  // useEffect(()=> {
-  //   socket.on("connect", ()=> {
-  //     console.log('connected id' + socket.id)
-  //     updateUser(socket.id)
-  //   })
-  //   return ()=> {
-  //     socket.off('connect')
-  //   }
-  // },[])
-  
 
   const [messages, setmessages] = useState("");
   const [savedMessage, setSavedMessage] = useState([]);
@@ -44,26 +24,22 @@ export const UserPage = () => {
 
   
   
+  const sendMessage = () =>{
+    const socket = io.connect('http://localhost:5001');
+    
+    socket.emit("send_message", {message: messages});
+};
 
     
 
 
   
 
-  function messagesArr () {
-    // setTime( new Date())
-    // let date = time 
-    // console.log(date);
-    // const message = {
-    //   time: date,
-    //   text: messages,
-    // }
-    socket.emit()
+  // function messagesArr () {
     
-    setSavedMessage([...savedMessage, messages]);
-    // setTimeArr([...timeArr, time])
+  //   setSavedMessage([...savedMessage, messages]);
 
-  }
+  // }
   
 
 
@@ -101,7 +77,7 @@ export const UserPage = () => {
         <form id="input-form" ref={formRef} onSubmit={(e) => {e.preventDefault(), formRef.current.reset();}}>
           <div  className="input_form">
           <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
-          <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
+          <button className="submit_button" type="submit" onClick={sendMessage}>Send</button>
           </div>
         </form>
       </div>

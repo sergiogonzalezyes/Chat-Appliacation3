@@ -147,11 +147,14 @@ app.post("/userLogin", (req, res) => {
                 }
 
                 io.on("connection", (socket) => {
-                    socket.on("messages", (data) => {
-                        socket.to(data.socketId).emit("messages", data);
+                    // socket.on("messages", (data) => {
+                    //     socket.to(data.socketId).emit("messages", data);
+                    //     console.log(data);
+                    // });
+                    console.log(`User Connected: ${socket.id}`);
+                    socket.on("send_message", (data) => {
                         console.log(data);
                     });
-                    console.log(`User Connected: ${socket.id}`);
                 });
 
                 // handle successful login

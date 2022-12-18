@@ -100,6 +100,12 @@ export const Login = () => {
         }
     }, [loginsuccess]);
 
+    // const sendMessage = () =>{
+    //     const socket = io.connect('http://localhost:5001');
+        
+    //     socket.emit("send_message", {message: "hello"});
+    // };
+
     if (loginsuccess === true) {
         return <Navigate to="/UserPage" />;
     }
@@ -131,6 +137,7 @@ export const Login = () => {
             >
                 Login
             </button>
+            {/* <button onClick={sendMessage}>SEND MESSAGE</button> */}
             
             </div>
                 </div>
