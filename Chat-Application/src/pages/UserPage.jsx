@@ -24,22 +24,22 @@ export const UserPage = () => {
 
   
   
-  const sendMessage = () =>{
-    const socket = io.connect('http://localhost:5001');
-    
-    socket.emit("send_message", {message: messages});
-};
+
 
     
 
 
   
 
-  // function messagesArr () {
+  function messagesArr () {
     
-  //   setSavedMessage([...savedMessage, messages]);
+    setSavedMessage([...savedMessage, messages]);
 
-  // }
+    const socket = io.connect('http://localhost:5001');
+    
+    socket.emit("send_message", {message: messages});
+
+  }
   
 
 
@@ -77,7 +77,7 @@ export const UserPage = () => {
         <form id="input-form" ref={formRef} onSubmit={(e) => {e.preventDefault(), formRef.current.reset();}}>
           <div  className="input_form">
           <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
-          <button className="submit_button" type="submit" onClick={sendMessage}>Send</button>
+          <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
           </div>
         </form>
       </div>
