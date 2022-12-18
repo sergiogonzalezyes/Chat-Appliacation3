@@ -16,8 +16,6 @@ export const UserPage = () => {
 
 
 
-  const [messages, setmessages] = useState("");
-  const [savedMessage, setSavedMessage] = useState([]);
   const formRef = useRef(null);
   // const [time, setTime] = useState(null);
   // const [timeArr, setTimeArr] = useState([]);
@@ -31,9 +29,13 @@ export const UserPage = () => {
 
   
 
+  const [messages, setmessages] = useState("");
+  // const [savedMessage, setSavedMessage] = useState([]);
+  const [ReceiveMessage,setReceiveMessage] = ("")
+
   function messagesArr () {
     
-    setSavedMessage([...savedMessage, messages]);
+    // setSavedMessage([...savedMessage, messages]);
 
     const socket = io.connect('http://localhost:5001');
     
@@ -43,7 +45,8 @@ export const UserPage = () => {
   
   useEffect(() => {
     socket.on('receive_message', (data) => {
-      alert(data.message)
+     setmessages(data.message)
+     
     })
   },[socket])
   
@@ -68,7 +71,8 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-        <li className="jon_doe">{savedMessage.map((message, index) => (
+          {messages}
+        {/* <li className="jon_doe">{savedMessage.map((message, index) => (
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
@@ -76,7 +80,7 @@ export const UserPage = () => {
                 <p className="time">3:55</p>
               </div>
           </div>))}
-    </li>
+    </li> */}
         </ul>
       </div>
       <div >
