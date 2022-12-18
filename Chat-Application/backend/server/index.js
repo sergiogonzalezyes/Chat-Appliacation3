@@ -34,12 +34,6 @@ const io = new Server(server, {
         methods: ["GET", "POST"],
     },
 });
-io.on("connection", (socket) => {
-    socket.on("messages", (data) => {
-        socket.to(data.socketId).emit("messages", data);
-    });
-    console.log(`User Connected: ${socket.id}`);
-});
 
 server.listen(5001, () => {
     console.log("server is running on 5001");
@@ -151,6 +145,14 @@ app.post("/userLogin", (req, res) => {
                     // handle incorrect login credentials
                     return res.send({ error: "Incorrect login credentials" });
                 }
+
+                io.on("connection", (socket) => {
+                    socket.on("messages", (data) => {
+                        socket.to(data.socketId).emit("messages", data);
+                        console.log(data);
+                    });
+                    console.log(`User Connected: ${socket.id}`);
+                });
 
                 // handle successful login
                 const sessionId = uuidv4();
