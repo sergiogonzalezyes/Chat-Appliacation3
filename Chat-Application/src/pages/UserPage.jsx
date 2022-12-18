@@ -41,6 +41,12 @@ export const UserPage = () => {
 
   }
   
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      alert(data.message)
+    })
+  },[socket])
+  
 
 
 

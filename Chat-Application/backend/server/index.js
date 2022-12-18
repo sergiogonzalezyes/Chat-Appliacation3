@@ -153,7 +153,7 @@ app.post("/userLogin", (req, res) => {
                     // });
                     console.log(`User Connected: ${socket.id}`);
                     socket.on("send_message", (data) => {
-                        console.log(data);
+                        socket.broadcast.emit("receive_message", data);
                     });
                 });
 
