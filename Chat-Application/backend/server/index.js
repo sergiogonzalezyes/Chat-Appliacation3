@@ -35,11 +35,14 @@ const io = new Server(server, {
     },
 });
 io.on("connection", (socket) => {
+    socket.on("messages", (data) => {
+        socket.to(data.socketId).emit("messages", data);
+    });
     console.log(`User Connected: ${socket.id}`);
 });
 
 server.listen(5001, () => {
-    console.log("server is running");
+    console.log("server is running on 5001");
 });
 
 app.post("/createUser", (req, res) => {
