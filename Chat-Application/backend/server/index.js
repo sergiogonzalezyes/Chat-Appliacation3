@@ -4,10 +4,10 @@ const bodyParser = require("body-parser"); // NPM package that parses incoming r
 const mysql = require("mysql2"); // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
 const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that defines sharing resources of different origins. client/server architecture.
 const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require('uuid');
-
-
-
+const { v4: uuidv4 } = require("uuid");
+const http = require("http");
+const { Server } = require("socket.io");
+const server = http.createServer(app);
 
 // MYSQL connection
 // This is where we create our connection to the database using appropriate credentials/database name
@@ -27,6 +27,20 @@ const db = mysql.createPool({
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead.
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5000",
+        methods: ["GET", "POST"],
+    },
+});
+io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+});
+
+server.listen(5173, () => {
+    console.log("server is running");
+});
 
 app.post("/createUser", (req, res) => {
     const username = req.body.username;
@@ -86,9 +100,8 @@ app.post("/createUser", (req, res) => {
     );
 });
 
-
 const sessions = {};
-console.log(sessions)
+console.log(sessions);
 
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
@@ -100,9 +113,9 @@ app.post("/userLogin", (req, res) => {
     db.query(
         `SELECT * FROM user_login WHERE username = '${username}'`,
         (err, results) => {
-          const user_id = results[0].id;
-          console.log(user_id);
-          // console.log(results);
+            const user_id = results[0].id;
+            console.log(user_id);
+            // console.log(results);
             // console.log(results)
             if (err) {
                 // handle error
@@ -139,8 +152,8 @@ app.post("/userLogin", (req, res) => {
                 // handle successful login
                 const sessionId = uuidv4();
                 // console.log(sessionId);
-                sessions[sessionId] = {username, user_id};
-                res.set('Set-Cookie'), `session=${sessionId}`;
+                sessions[sessionId] = { username, user_id };
+                res.set("Set-Cookie"), `session=${sessionId}`;
                 console.log(sessions);
                 return res.status(200).send({ message: "Login successful" });
             });

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3001')
+
+
 
 
 
@@ -10,8 +14,9 @@ export const UserPage = () => {
   const [messages, setmessages] = useState("");
   const [savedMessage, setSavedMessage] = useState([]);
   const formRef = useRef(null);
-  const [time, setTime] = useState(null);
+  // const [time, setTime] = useState(null);
   // const [timeArr, setTimeArr] = useState([]);
+
   
   
 
@@ -21,16 +26,16 @@ export const UserPage = () => {
   
 
   function messagesArr () {
-    setTime( new Date())
-    let date = time 
-    console.log(date);
-    const message = {
-      time: date,
-      text: messages,
-    }
+    // setTime( new Date())
+    // let date = time 
+    // console.log(date);
+    // const message = {
+    //   time: date,
+    //   text: messages,
+    // }
+    socket.emit()
     
-    
-    setSavedMessage([...savedMessage, message]);
+    setSavedMessage([...savedMessage, messages]);
     // setTimeArr([...timeArr, time])
 
   }
@@ -60,8 +65,8 @@ export const UserPage = () => {
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
-                <p className="message">{message.text}</p>
-                <p className="time">{message.time}</p>
+                <p className="message">{message}</p>
+                <p className="time">3:55</p>
               </div>
           </div>))}
     </li>
