@@ -6,7 +6,7 @@ import axios from "axios";
 const connection = 'http://localhost:5001'
 const socket = io.connect('http://localhost:5001')
 
-const myPhoneNumber = prompt('what is your number?','')
+// const myPhoneNumber = prompt('what is your number?','')
 
 
 
@@ -14,26 +14,26 @@ const myPhoneNumber = prompt('what is your number?','')
 
 export const UserPage = () => {
 
-  const updateUser = async (socketId)=> {
-    let res = await axios.get(connection + '/UserPage',{
-      method: 'PUT',
-      body:JSON.stringify({userName:userName,socketId:socketId}),
-      //here we are going to fetch the username of the person logged in, the credentionals will be on the log in screen. once we put log in credentionals the user will have a unique id to connect sockets through 47:19
-      headers: {'content-type':'application/json'}
-    })
-    let data = res.json()
-    console.log(data)
-  }
+  // const updateUser = async (socketId)=> {
+  //   let res = await axios.get(connection + '/UserPage',{
+  //     method: 'PUT',
+  //     body:JSON.stringify({userName:userName,socketId:socketId}),
+  //     //here we are going to fetch the username of the person logged in, the credentionals will be on the log in screen. once we put log in credentionals the user will have a unique id to connect sockets through 47:19
+  //     headers: {'content-type':'application/json'}
+  //   })
+  //   let data = res.json()
+  //   console.log(data)
+  // }
 
-  useEffect(()=> {
-    socket.on("connect", ()=> {
-      console.log('connected id' + socket.id)
-      updateUser(socket.id)
-    })
-    return ()=> {
-      socket.off('connect')
-    }
-  },[])
+  // useEffect(()=> {
+  //   socket.on("connect", ()=> {
+  //     console.log('connected id' + socket.id)
+  //     updateUser(socket.id)
+  //   })
+  //   return ()=> {
+  //     socket.off('connect')
+  //   }
+  // },[])
   
 
   const [messages, setmessages] = useState("");
