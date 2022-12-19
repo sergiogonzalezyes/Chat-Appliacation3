@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import io from 'socket.io-client'
 import axios from "axios";
+import { Await } from "react-router-dom";
 const connection = 'http://localhost:5001'
 const socket = io.connect('http://localhost:5001')
 
@@ -13,42 +14,46 @@ const socket = io.connect('http://localhost:5001')
 
 
 export const UserPage = () => {
-
-
-
   const formRef = useRef(null);
-  // const [time, setTime] = useState(null);
-  // const [timeArr, setTimeArr] = useState([]);
-
-  
-  
-
-
-    
-
-
-  
-
+  const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
-  // const [savedMessage, setSavedMessage] = useState([]);
-  const [ReceiveMessage,setReceiveMessage] = ("")
+  const [incomingMessage, setIncomingMessage] = useState([]);
+  const [ReceiveMessage,setReceiveMessage] = useState("")
+
+  
+   useEffect( () => {
+    socket.on('receive_message', (data) => {
+     setReceiveMessage(data.message)
+
+
+     
+
+     
+     
+    })
+    
+  },[socket])
+
+
+
+
+
 
   function messagesArr () {
+
+    setSavedMessage([...savedMessage, messages]);
+
+
+    setIncomingMessage([...incomingMessage, ReceiveMessage])
+   
     
-    // setSavedMessage([...savedMessage, messages]);
+   
 
     const socket = io.connect('http://localhost:5001');
     
     socket.emit("send_message", {message: messages});
 
   }
-  
-  useEffect(() => {
-    socket.on('receive_message', (data) => {
-     setmessages(data.message)
-     
-    })
-  },[socket])
   
 
 
@@ -71,9 +76,17 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-          {messages}
-
-        {/* l<li className="jon_doe">{savedMessage.map((message, index) => (
+        <li className="jon_doe">{incomingMessage.map((messages1, index) => (
+          <div key={index}>
+            <b className="username_id">John Doe</b>
+              <div className="message_time_div">
+                <p className="message">{messages1}</p>
+                <p className="time">3:55</p>
+              </div>
+          </div>))}
+          
+    </li> 
+        <li className="jon_doe">{savedMessage.map((message, index) => (
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
@@ -81,7 +94,9 @@ export const UserPage = () => {
                 <p className="time">3:55</p>
               </div>
           </div>))}
-    </li> */}
+          
+    </li> 
+    
         </ul>
       </div>
       <div >
