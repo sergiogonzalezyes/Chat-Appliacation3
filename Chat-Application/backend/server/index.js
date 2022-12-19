@@ -151,7 +151,7 @@ app.post("/userLogin", (req, res) => {
                     //     socket.to(data.socketId).emit("messages", data);
                     //     console.log(data);
                     // });
-                    console.log(`User Connected: ${socket.id}`);
+                    // console.log(`User Connected: ${socket.id}`);
                     socket.on("send_message", (data) => {
                         socket.broadcast.emit("receive_message", data);
                     });
