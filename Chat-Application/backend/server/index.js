@@ -150,7 +150,7 @@ app.post("/userLogin", (req, res) => {
                     console.log(socket);
 
                     socket.on("send_message", (data) => {
-                        console.log(data);
+                        // console.log(data);
                         socket.broadcast.emit("receive_message", data);
                     });
                 });

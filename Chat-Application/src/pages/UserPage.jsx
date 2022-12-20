@@ -23,24 +23,25 @@ export const UserPage = () => {
 
 
   function messagesArr () {
-    const currentTime = Date.now();
+    // const currentTime = Date.now();
 
-    socket.emit("send_message", {message: messages, time:currentTime});
-    setSavedMessage([...savedMessage, {message: messages, time: currentTime}]);
+    socket.emit("send_message", messages);
+    // setSavedMessage([...savedMessage, {message: messages, time: currentTime}]);
   }
 
   
    useEffect(() => {
+    
     socket.on('receive_message', (data) => {
-      console.log(data.message);
-     setReceiveMessage({message: data.message, time: data.time})
+      // console.log(data.message);
+     setReceiveMessage(data)
     })
     
   },[socket])
   
-  useEffect(() => {
-    setIncomingMessage([...incomingMessage, ReceiveMessage])
-  }, [ReceiveMessage])
+  // useEffect(() => {
+  //   setIncomingMessage([...incomingMessage, ReceiveMessage])
+  // }, [ReceiveMessage])
 
 
   // const mergedArr = [...savedMessage,...incomingMessage];
@@ -78,24 +79,8 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-        <li className="jon_doe">{incomingMessage.map((messages1,  index) => (
-          <div key={index}>
-            <b className="username_id">John Doe</b>
-              <div className="message_time_div">
-                <p className="message">{messages1.message}</p>
-                <p className="time">{messages1.time}</p>
-              </div>
-          </div>))}  
-    </li> 
-        <li className="jon_doe">{savedMessage.map((message, index) => (
-          <div key={index}>
-            <b className="username_id">John Doe</b>
-              <div className="message_time_div">
-                <p className="message">{message.messages}</p>
-                <p className="time">{message.time}</p>
-              </div>
-          </div>))}  
-    </li> 
+       {messages}
+       {ReceiveMessage}
         </ul>
       </div>
       <div >
