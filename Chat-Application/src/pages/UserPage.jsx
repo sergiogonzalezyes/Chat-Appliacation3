@@ -25,8 +25,6 @@ export const UserPage = () => {
   function messagesArr () {
     socket.emit("send_message", {message: messages});
     setSavedMessage([...savedMessage, messages]);
-   
-
   }
 
   
@@ -40,6 +38,12 @@ export const UserPage = () => {
   useEffect(() => {
     setIncomingMessage([...incomingMessage, ReceiveMessage])
   }, [ReceiveMessage])
+
+
+  const mergedArr = [savedMessage,incomingMessage];
+  console.log(mergedArr);
+
+  
 
 
 
@@ -68,7 +72,7 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-        <li className="jon_doe">{incomingMessage.map((messages1, index) => (
+        <li className="jon_doe">{incomingMessage.map((messages1,  index) => (
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
