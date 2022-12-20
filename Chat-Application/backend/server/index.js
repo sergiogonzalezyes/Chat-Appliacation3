@@ -146,15 +146,6 @@ app.post("/userLogin", (req, res) => {
                     return res.send({ error: "Incorrect login credentials" });
                 }
 
-                io.on("connection", (socket) => {
-                    console.log(socket);
-
-                    socket.on("send_message", (data) => {
-                        // console.log(data);
-                        socket.broadcast.emit("receive_message", data);
-                    });
-                });
-
                 // handle successful login
                 const sessionId = uuidv4();
                 // console.log(sessionId);
@@ -165,6 +156,15 @@ app.post("/userLogin", (req, res) => {
             });
         }
     );
+});
+
+io.on("connection", (socket) => {
+    console.log(socket.id);
+
+    socket.on("send_message", (data) => {
+        console.log(data);
+        socket.broadcast.emit("receive_message", data);
+    });
 });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!

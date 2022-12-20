@@ -84,12 +84,12 @@ export const UserPage = () => {
         </ul>
       </div>
       <div >
-        <form id="input-form" ref={formRef} onSubmit={(e) => {e.preventDefault(), formRef.current.reset();}}>
+        <div id="input-form" ref={formRef}>
           <div  className="input_form">
           <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
           <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
           </div>
-        </form>
+        </div>
       </div>
       </div>
     </div>
