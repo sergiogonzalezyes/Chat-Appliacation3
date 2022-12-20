@@ -35,6 +35,7 @@ const io = new Server(server, {
     },
 });
 
+
 server.listen(5001, () => {
     console.log("server is running on 5001");
 });
@@ -146,14 +147,34 @@ app.post("/userLogin", (req, res) => {
                     return res.send({ error: "Incorrect login credentials" });
                 }
 
-                io.on("connection", (socket) => {
-                    console.log(socket);
 
-                    socket.on("send_message", (data) => {
-                        console.log(data);
-                        socket.broadcast.emit("receive_message", data);
+                io.on("connection", (socket) => {
+                    console.log(`User ${socket.id} has connected`);
+                
+                    socket.on("join_room", (data) => {
+                        socket.join(data);
+                    }, (err) => {
+                        console.log(err);
                     });
+                
+                    socket.on("send_message", (data) => {
+                        socket.on(data.room).edmit("receive_message", data);
+                        }, (err) => {   
+                            console.log(err);
+                    });
+                
                 });
+
+
+
+                // io.on("connection", (socket) => {
+                //     console.log(socket);
+
+                //     socket.on("send_message", (data) => {
+                //         console.log(data);
+                //         socket.broadcast.emit("receive_message", data);
+                //     });
+                // });
 
                 // handle successful login
                 const sessionId = uuidv4();
@@ -166,6 +187,27 @@ app.post("/userLogin", (req, res) => {
         }
     );
 });
+
+
+
+// User Page Stuff
+
+// io.on("connection", (socket) => {
+//     console.log(`User ${socket.id} has connected`);
+
+//     socket.on("join_room", (data) => {
+//         socket.join(data);
+//     }, (err) => {
+//         console.log(err);
+//     });
+
+//     socket.on("send_message", (data) => {
+//         socket.on(data.room).edmit("receive_message", data);
+//         }, (err) => {   
+//             console.log(err);
+//     });
+
+// });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
