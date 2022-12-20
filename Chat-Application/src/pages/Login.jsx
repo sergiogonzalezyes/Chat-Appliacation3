@@ -88,17 +88,17 @@ export const Login = () => {
             });
     };
 
-    useEffect(() => {
-        if (loginsuccess === true) {
-            const socket = io.connect('http://localhost:5001');
-            socket.emit("messages", () => {
-                console.log('connected to id' + socket.id);
-            });
-            return () => {
-                socket.off('messages');
-            }
-        }
-    }, [loginsuccess]);
+    // useEffect(() => {
+    //     if (loginsuccess === true) {
+    //         const socket = io.connect('http://localhost:5001');
+    //         socket.emit("messages", () => {
+    //             console.log('connected to id' + socket.id);
+    //         });
+    //         return () => {
+    //             socket.off('messages');
+    //         }
+    //     }
+    // }, [loginsuccess]);
 
     // const sendMessage = () =>{
     //     const socket = io.connect('http://localhost:5001');
