@@ -8,6 +8,9 @@ const { v4: uuidv4 } = require("uuid");
 const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
+const sessions = {};
+// console.log(sessions);
+
 
 // MYSQL connection
 // This is where we create our connection to the database using appropriate credentials/database name
@@ -35,9 +38,7 @@ const io = new Server(server, {
     },
 });
 
-server.listen(5001, () => {
-    console.log("server is running on 5001");
-});
+
 
 app.post("/createUser", (req, res) => {
     const username = req.body.username;
@@ -97,8 +98,7 @@ app.post("/createUser", (req, res) => {
     );
 });
 
-const sessions = {};
-console.log(sessions);
+
 
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
@@ -169,6 +169,6 @@ app.post("/userLogin", (req, res) => {
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
-app.listen(5000, () => {
+server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
