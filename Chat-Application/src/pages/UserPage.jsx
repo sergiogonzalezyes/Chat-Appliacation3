@@ -23,14 +23,17 @@ export const UserPage = () => {
 
 
   function messagesArr () {
-    socket.emit("send_message", {message: messages});
-    setSavedMessage([...savedMessage, messages]);
+    const currentTime = Date.now();
+
+    socket.emit("send_message", {message: messages, time:currentTime});
+    setSavedMessage([...savedMessage, {message: messages, time: currentTime}]);
   }
 
   
    useEffect(() => {
     socket.on('receive_message', (data) => {
-     setReceiveMessage(data.message)
+      console.log(data.message);
+     setReceiveMessage({message: data.message, time: data.time})
     })
     
   },[socket])
@@ -40,8 +43,11 @@ export const UserPage = () => {
   }, [ReceiveMessage])
 
 
-  const mergedArr = [savedMessage,incomingMessage];
-  console.log(mergedArr);
+  // const mergedArr = [...savedMessage,...incomingMessage];
+  
+  // mergedArr.sort((a,b) => {
+  //   a.time - b.time
+  // });
 
   
 
@@ -76,8 +82,8 @@ export const UserPage = () => {
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
-                <p className="message">{messages1}</p>
-                <p className="time">4:55</p>
+                <p className="message">{messages1.message}</p>
+                <p className="time">{messages1.time}</p>
               </div>
           </div>))}  
     </li> 
@@ -85,8 +91,8 @@ export const UserPage = () => {
           <div key={index}>
             <b className="username_id">John Doe</b>
               <div className="message_time_div">
-                <p className="message">{message}</p>
-                <p className="time">3:55</p>
+                <p className="message">{message.messages}</p>
+                <p className="time">{message.time}</p>
               </div>
           </div>))}  
     </li> 

@@ -147,12 +147,10 @@ app.post("/userLogin", (req, res) => {
                 }
 
                 io.on("connection", (socket) => {
-                    // socket.on("messages", (data) => {
-                    //     socket.to(data.socketId).emit("messages", data);
-                    //     console.log(data);
-                    // });
-                    // console.log(`User Connected: ${socket.id}`);
+                    console.log(socket);
+
                     socket.on("send_message", (data) => {
+                        console.log(data);
                         socket.broadcast.emit("receive_message", data);
                     });
                 });
