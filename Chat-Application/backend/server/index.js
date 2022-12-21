@@ -11,7 +11,6 @@ const server = http.createServer(app);
 const sessions = {};
 // console.log(sessions);
 
-
 // MYSQL connection
 // This is where we create our connection to the database using appropriate credentials/database name
 // Host Name : "database-chat-app3.ct59e8m8f0qd.us-east-1.rds.amazonaws.com"
@@ -37,8 +36,6 @@ const io = new Server(server, {
         methods: ["GET", "POST"],
     },
 });
-
-
 
 app.post("/createUser", (req, res) => {
     const username = req.body.username;
@@ -98,8 +95,6 @@ app.post("/createUser", (req, res) => {
     );
 });
 
-
-
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -150,7 +145,8 @@ app.post("/userLogin", (req, res) => {
                     console.log(socket.id);
 
                     socket.on("send_message", (data) => {
-                        console.log(data);
+                        console.log(data.message);
+                        console.log(data.time);
                         socket.broadcast.emit("receive_message", data);
                     });
                 });

@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import io from 'socket.io-client'
 import axios from "axios";
 import { Await } from "react-router-dom";
-const connection = 'http://localhost:5001'
-const socket = io.connect('http://localhost:5001')
+const connection = 'http://localhost:5000'
+const socket = io.connect('http://localhost:5000')
 
 // const myPhoneNumber = prompt('what is your number?','')
 
@@ -19,13 +19,19 @@ export const UserPage = () => {
   const [messages, setmessages] = useState("");
   const [incomingMessage, setIncomingMessage] = useState([]);
   const [ReceiveMessage,setReceiveMessage] = useState("")
+  const [ReceiveTime,setReceiveTime] = useState("")
+
 
 
 
   function messagesArr () {
-    // const currentTime = Date.now();
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const timeString = `${hours}:${minutes}`;
 
-    socket.emit("send_message", messages);
+
+    socket.emit("send_message", {message:messages, time:timeString});
     // setSavedMessage([...savedMessage, {message: messages, time: currentTime}]);
   }
 
@@ -33,8 +39,9 @@ export const UserPage = () => {
    useEffect(() => {
     
     socket.on('receive_message', (data) => {
-      // console.log(data.message);
-     setReceiveMessage(data)
+      console.log(data);
+     setReceiveMessage(data.message)
+     setReceiveTime(data.time);
     })
     
   },[socket])
@@ -51,15 +58,6 @@ export const UserPage = () => {
   // });
 
   
-
-
-
-
-
-
-  
-
-
 
   return( 
     <div className="user_container">
@@ -81,6 +79,7 @@ export const UserPage = () => {
         <ul>
        {messages}
        {ReceiveMessage}
+       {ReceiveTime}
         </ul>
       </div>
       <div >
