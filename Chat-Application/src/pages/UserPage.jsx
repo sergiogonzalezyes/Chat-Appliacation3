@@ -19,7 +19,7 @@ export const UserPage = () => {
   const [messages, setmessages] = useState("");
   const [incomingMessage, setIncomingMessage] = useState([]);
   const [ReceiveMessage,setReceiveMessage] = useState("")
-  const [ReceiveTime,setReceiveTime] = useState("")
+  // const [ReceiveTime,setReceiveTime] = useState("")
 
 
 
@@ -30,32 +30,32 @@ export const UserPage = () => {
     const minutes = date.getMinutes();
     const timeString = `${hours}:${minutes}`;
 
-
     socket.emit("send_message", {message:messages, time:timeString});
-    // setSavedMessage([...savedMessage, {message: messages, time: currentTime}]);
+    setSavedMessage([...savedMessage, {message: messages, time: timeString}]);
   }
 
   
    useEffect(() => {
     
     socket.on('receive_message', (data) => {
-      console.log(data);
-     setReceiveMessage(data.message)
-     setReceiveTime(data.time);
+      
+     setReceiveMessage(data)
     })
     
   },[socket])
   
-  // useEffect(() => {
-  //   setIncomingMessage([...incomingMessage, ReceiveMessage])
-  // }, [ReceiveMessage])
+  useEffect(() => {
+    setIncomingMessage([...incomingMessage, ReceiveMessage])
+  }, [ReceiveMessage])
 
 
-  // const mergedArr = [...savedMessage,...incomingMessage];
+  const mergedArr = [...savedMessage,...incomingMessage];
   
-  // mergedArr.sort((a,b) => {
-  //   a.time - b.time
-  // });
+  mergedArr.sort((a,b) => {
+   return a.time - b.time
+    
+  });
+  console.log(mergedArr);
 
   
 
@@ -77,9 +77,31 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-       {messages}
-       {ReceiveMessage}
-       {ReceiveTime}
+        {mergedArr.map((value,key) => {
+        return (
+          <li key={key}>
+            <p>{value.message}</p>
+            <p>{value.time}</p>
+          </li>
+        )
+       })}
+       {/* {savedMessage.map((value,key) => {
+        return (
+          <li key={key}>
+            <p>{value.message}</p>
+            <p>{value.time}</p>
+          </li>
+        )
+       })}
+        {incomingMessage.map((value,key) => {
+        return (
+          <li key={key}>
+            <p>{value.message}</p>
+            <p>{value.time}</p>
+          </li>
+        )
+       })} */}
+       
         </ul>
       </div>
       <div >
