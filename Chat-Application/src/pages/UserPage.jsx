@@ -17,9 +17,7 @@ export const UserPage = () => {
   const formRef = useRef(null);
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
-  const [incomingMessage, setIncomingMessage] = useState([]);
-  const [ReceiveMessage,setReceiveMessage] = useState("")
-  // const [ReceiveTime,setReceiveTime] = useState("")
+  
 
 
 
@@ -31,7 +29,7 @@ export const UserPage = () => {
     const timeString = `${hours}:${minutes}`;
 
     socket.emit("send_message", {message:messages, time:timeString});
-    setSavedMessage([...savedMessage, {message: messages, time: timeString}]);
+    setSavedMessage((list) => [...list, {message: messages, time: timeString}]);
   }
 
   
@@ -39,23 +37,23 @@ export const UserPage = () => {
     
     socket.on('receive_message', (data) => {
       
-     setReceiveMessage(data)
+      setSavedMessage((list) => [...list, data])
     })
-    
+   
   },[socket])
   
-  useEffect(() => {
-    setIncomingMessage([...incomingMessage, ReceiveMessage])
-  }, [ReceiveMessage])
+  // useEffect(() => {
+   
+  // }, [ReceiveMessage])
 
 
-  const mergedArr = [...savedMessage,...incomingMessage];
+  // const mergedArr = [...savedMessage,...incomingMessage];
   
-  mergedArr.sort((a,b) => {
-   return a.time - b.time
+  // mergedArr.sort((a,b) => {
+  //  return a.time - b.time
     
-  });
-  console.log(mergedArr);
+  // });
+  // console.log(mergedArr);
 
   
 
@@ -77,7 +75,7 @@ export const UserPage = () => {
       <div id="messages">
         <h1>Messages</h1>
         <ul>
-        {mergedArr.map((value,key) => {
+        {savedMessage.map((value,key) => {
         return (
           <li key={key}>
             <p>{value.message}</p>

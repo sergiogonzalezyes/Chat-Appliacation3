@@ -148,7 +148,8 @@ app.post("/userLogin", (req, res) => {
                 sessions[sessionId] = { username, user_id };
                 res.set("Set-Cookie"), `session=${sessionId}`;
                 console.log(sessions);
-                return res.status(200).send({ message: "Login successful" });
+
+                res.status(200).send({ message: "Login successful" });
             });
         }
     );
@@ -163,6 +164,7 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("receive_message", data);
     });
 });
+
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
