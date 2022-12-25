@@ -2,22 +2,25 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import io from 'socket.io-client'
-import axios from "axios";
-import { Await } from "react-router-dom";
 import ScrollToBottom from 'react-scroll-to-bottom';
-const connection = 'http://localhost:5000'
 const socket = io.connect('http://localhost:5000')
 
-// const myPhoneNumber = prompt('what is your number?','')
-
-
-
-// const socket = io.connect('http://localhost:5001');
 
 export const UserPage = () => {
   const formRef = useRef(null);
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
+
+  // const handleKeyDown = (event) => {
+   
+  //   if (event.key === 'Enter') {
+  //     // Do something with the input value here
+  //     console.log(value);
+  //     messagesArr();
+  //   }
+  // };
+
+
 
   function messagesArr () {
     const date = new Date();
@@ -38,15 +41,11 @@ export const UserPage = () => {
     })
    
   },[socket])
-  
-
-  
+ 
 
   return( 
     <div className="user_container">
-
     <div id="chatbox">
-      
       <div id="contacts">
         <h1>Contacts</h1>
         <ul>
@@ -62,7 +61,6 @@ export const UserPage = () => {
       <ScrollToBottom className="message.container.number2">
       <div id="messages">
         <h1>Messages</h1>
-        
         <ul>
         {savedMessage.map((value,key) => {
         return (
@@ -72,17 +70,15 @@ export const UserPage = () => {
           </li>
         )
        })}
-
         </ul>
-        
       </div>
       </ScrollToBottom>
       <div >
         <div id="input-form" ref={formRef}>
           <div className="input-container">
           <div  className="input_form">
-          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"></textarea>
-          <button className="submit_button" type="submit" onClick={messagesArr}>Send</button>
+          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message" onKeyDown={(e) => handleKeyDown(e)}></textarea>
+          <button className="submit_button" type="button" onClick={messagesArr}>Send</button>
           </div>
           </div>
         </div>
