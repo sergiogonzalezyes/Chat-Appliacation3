@@ -88,23 +88,6 @@ export const Login = () => {
             });
     };
 
-    // useEffect(() => {
-    //     if (loginsuccess === true) {
-    //         const socket = io.connect('http://localhost:5001');
-    //         socket.emit("messages", () => {
-    //             console.log('connected to id' + socket.id);
-    //         });
-    //         return () => {
-    //             socket.off('messages');
-    //         }
-    //     }
-    // }, [loginsuccess]);
-
-    // const sendMessage = () =>{
-    //     const socket = io.connect('http://localhost:5001');
-        
-    //     socket.emit("send_message", {message: "hello"});
-    // };
 
     if (loginsuccess === true) {
         return <Navigate to="/UserPage" />;
@@ -126,7 +109,9 @@ export const Login = () => {
                     <input maxlength="30" type="text" placeholder="UserName" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
                 </label>
                 <label className="Input_Password">
-                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
+                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}}  onKeyPress={(event) => {
+                        event.key === "Enter" && getInput();
+                    }} />
                 </label>
                 <div className="Valid_UserName">{incorrectUserName}</div>
             </form>

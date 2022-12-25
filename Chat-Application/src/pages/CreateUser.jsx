@@ -41,10 +41,12 @@ export const CreateUser = () => {
                 <p className="Sign_In">New User</p>
                 <form className="Create_user_form">
                 <label className="Input_Created_User">
-                    <input  maxlength="30" type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}/>
+                    <input  maxlength="30" type="text" placeholder="Username" name="name" onChange={(e) => {setUsername(e.target.value)}}  />
                 </label>
                 <label className="Input_Create_Password">
-                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} />
+                    <input maxlength="30" type="password" placeholder="Password" name="password" className="input" onChange={(e) => {setPassword(e.target.value)}} onKeyPress={(event) => {
+                        event.key === "Enter" && addUser();
+                    }} />
                     <div className="Valid_UserName">{IncorrectUserName}</div> 
                 </label>
             </form>
