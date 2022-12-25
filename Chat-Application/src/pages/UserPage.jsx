@@ -10,6 +10,19 @@ export const UserPage = () => {
   const formRef = useRef(null);
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
+  const [UserName, setUserName] = useState("");
+
+
+
+  useEffect(() => {
+    
+    socket.on('receive_username', (username) => {
+      
+      setUserName(username)
+    })
+   
+  },[socket])
+
 
   function messagesArr () {
     const date = new Date();
@@ -17,8 +30,15 @@ export const UserPage = () => {
     const minutes = date.getMinutes();
     const timeString = `${hours}:${minutes}`;
 
-    socket.emit("send_message", {message:messages, time:timeString});
-    setSavedMessage((list) => [...list, {message: messages, time: timeString}]);
+
+    let userInfo = {
+      message: messages,
+      time:timeString,
+      username: UserName,
+    }
+
+    socket.emit("send_message", userInfo);
+    setSavedMessage((list) => [...list, userInfo]);
   }
 
   
@@ -30,6 +50,7 @@ export const UserPage = () => {
     })
    
   },[socket])
+
  
 
   return( 

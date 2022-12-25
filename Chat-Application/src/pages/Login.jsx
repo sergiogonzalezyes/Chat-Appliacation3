@@ -1,65 +1,3 @@
-// // import { Navigate } from "react-router-dom";
-// import { useState,useEffect } from "react";
-// import axios from "axios";
-// import TreeSitter from "../images/Saly-16.png";
-// import { Navigate } from "react-router-dom";
-// const connection = 'http://localhost:5001'
-// const socket = io.connect('http://localhost:5001')
-// import io from 'socket.io-client'
-
-
-
-
-// export const Login = () => {
-//     const [username, setUsername] = useState("");
-//     const [password, setPassword] = useState("");
-//     const [loginsuccess, setLoginSuccess] = useState(false);
-//     const [IncorrectUserName, SetIncorrectUserName] = useState("");
-
-//     const getInput = () => {
-//         // const navigate = useNavigate();
-//         axios.post('http://localhost:5000/userLogin', { username: username, password: password })
-       
-//           .then(response => {
-//             console.log(response.data)
-//             console.log(response.data)
-//             if (response.data.message === 'Login successful') {
-                
-//                 return setLoginSuccess(true);
-//             } 
-//             if (response.data){
-//                 SetIncorrectUserName('Password is not correct or Username does not exist')
-
-//             }
-//           });
-//       };
-
-//     if (loginsuccess === true) {
-//         const updateUser = async (socketId)=> {
-//             let res = await axios.get(connection + '/UserPage',{
-//               method: 'PUT',
-//               body:JSON.stringify({userName:userName,socketId:socketId}),
-//               //here we are going to fetch the username of the person logged in, the credentionals will be on the log in screen. once we put log in credentionals the user will have a unique id to connect sockets through 47:19
-//               headers: {'content-type':'application/json'}
-//             })
-//             let data = res.json()
-//             console.log(data)
-//           }
-        
-//           {
-//             socket.on("connect", ()=> {
-//               console.log('connected id' + socket.id)
-//               updateUser(socket.id)
-//             })
-//             return ()=> {
-//               socket.off('connect')
-//             }
-//           }
-
-//         return <Navigate to="/UserPage" />;
-//     }
-
-
 
 
 import { useState, useEffect } from "react";
@@ -67,6 +5,8 @@ import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
 import { Navigate } from "react-router-dom";
 import io from 'socket.io-client';
+const socket = io.connect('http://localhost:5000')
+
 
 export const Login = () => {
     const [username, setUsername] = useState("");
