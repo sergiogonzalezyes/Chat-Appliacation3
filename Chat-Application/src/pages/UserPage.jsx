@@ -75,6 +75,7 @@ export const UserPage = () => {
         {savedMessage.map((value,key) => {
         return (
           <li key={key}>
+            <p>{value.username}</p>
             <p>{value.message}</p>
             <p>{value.time}</p>
           </li>
