@@ -11,17 +11,6 @@ export const UserPage = () => {
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
 
-  // const handleKeyDown = (event) => {
-   
-  //   if (event.key === 'Enter') {
-  //     // Do something with the input value here
-  //     console.log(value);
-  //     messagesArr();
-  //   }
-  // };
-
-
-
   function messagesArr () {
     const date = new Date();
     const hours = date.getHours();
@@ -77,7 +66,9 @@ export const UserPage = () => {
         <div id="input-form" ref={formRef}>
           <div className="input-container">
           <div  className="input_form">
-          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message" onKeyDown={(e) => handleKeyDown(e)}></textarea>
+          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"    onKeyPress={(event) => {
+                        event.key === "Enter" && messagesArr();
+                    }}></textarea>
           <button className="submit_button" type="button" onClick={messagesArr}>Send</button>
           </div>
           </div>
