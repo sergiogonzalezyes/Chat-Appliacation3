@@ -18,10 +18,6 @@ export const UserPage = () => {
   const formRef = useRef(null);
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
-  
-
-
-
 
   function messagesArr () {
     const date = new Date();
@@ -43,18 +39,6 @@ export const UserPage = () => {
    
   },[socket])
   
-  // useEffect(() => {
-   
-  // }, [ReceiveMessage])
-
-
-  // const mergedArr = [...savedMessage,...incomingMessage];
-  
-  // mergedArr.sort((a,b) => {
-  //  return a.time - b.time
-    
-  // });
-  // console.log(mergedArr);
 
   
 
@@ -88,23 +72,7 @@ export const UserPage = () => {
           </li>
         )
        })}
-       {/* {savedMessage.map((value,key) => {
-        return (
-          <li key={key}>
-            <p>{value.message}</p>
-            <p>{value.time}</p>
-          </li>
-        )
-       })}
-        {incomingMessage.map((value,key) => {
-        return (
-          <li key={key}>
-            <p>{value.message}</p>
-            <p>{value.time}</p>
-          </li>
-        )
-       })} */}
-       
+
         </ul>
         
       </div>
