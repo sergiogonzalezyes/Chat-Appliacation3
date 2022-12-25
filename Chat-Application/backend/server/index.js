@@ -144,6 +144,10 @@ app.post("/userLogin", (req, res) => {
 
                 io.on("connection", (socket) => {
                     console.log(socket.id);
+                    socket.on("send_username", (username) => {
+                        console.log(username);
+                        socket.broadcast.emit("receive_message", data);
+                    });
 
                     socket.on("send_message", (data) => {
                         console.log(data.message);

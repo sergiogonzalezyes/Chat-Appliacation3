@@ -90,6 +90,8 @@ export const Login = () => {
 
 
     if (loginsuccess === true) {
+        socket.emit("send_username", username);
+
         return <Navigate to="/UserPage" />;
     }
 
