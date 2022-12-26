@@ -325,126 +325,29 @@ p {
     font-size: 16px;
     color: red;
 }
-/* UserPage CSS */
+/* ~~~~~~~~~~~~~~~~~~~~~~~   UserPage CSS   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#chatbox {
+.UserPage {
     display: flex;
-    height: 81vh;
-    width: 100wh;
+    height: 100vh;
+    
 }
 
-#contacts,
-#messages {
-    padding: 10px;
-}
-#contacts {
-    width: 20%;
-}
-
-#contacts h1,
-#messages h1 {
-    margin: 0;
-    padding: 5px;
-    font-weight: bold;
-    background-color: rgb(131, 124, 124);
-}
-
-#contacts ul,
-#messages ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    color: black;
-}
-
-#contacts li,
-#messages li {
-    margin: 10px 0;
-    color: black;
-}
-
-#input-form {
-    /* padding: 10px; */
-    width: 80vh;
-}
-
-#input-form textarea {
-    width: 80%;
-    height: 80px;
-    padding: 10px;
-    /* resize: none; */
-    float: right;
-}
-
-#input-form button {
-    width: 50%;
-    float: right;
-    padding: 10px;
-    color: black;
-}
-
-.input-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-b {
-    color: black;
-}
-.message_time_div {
-    display: flex;
-    justify-content: space-between;
-    word-break: break-all;
-}
-.message {
-    max-width: fit-content;
-    text-align: right;
-    word-wrap: normal;
-    text-align: left;
-    padding: 5px;
-    font-family: "Raleway", sans-serif;
-}
-.time {
-    text-align: center;
-    text-align: left;
-    min-width: fit-content;
-    font-family: "Raleway", sans-serif;
-}
-#chatbox {
-    display: flex;
-}
-#messagesandinputform {
-    width: 100%;
+.Sidebar {
+    border: green 5px solid;
     height: 100%;
-}
-.input_form {
-    display: flex;
-    width: 100%;
-}
-.submit_text_area {
-    flex-grow: 7; /* Make the input take up 8/10 of the available space */
-    flex-basis: 0; /* Set the initial size of the input to 0 */
-    color: black;
-    font-family: "Raleway", sans-serif;
-}
-.submit_button {
-    flex-grow: 3; /* Make the button take up 2/10 of the available space */
-    flex-basis: 0; /* Set the initial size of the button to 0 */
-}
-.username_id {
-    font-family: "Raleway", sans-serif;
+    flex-grow: 1;
+    
 }
 
-.add_button {
-    background-color: green;
+.Chat {
+    border: red 5px solid;
+    height: 100%;
+    flex-grow: 4;
 }
-.user_container {
-    min-width: fit-content;
-}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~   Media Queries CSS   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 @media (max-width: 1000px) {
     .user_container {
         width: 100%;
@@ -540,130 +443,10 @@ b {
     }
     html {
         width: fit-content;
+        height: fit-content;
     }
 }
 
-.user_container {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-  
-  #chatbox {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-  }
-  
-  #contacts {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    background-color: #f2f2f2;
-    border-right: 1px solid #ddd;
-    height: 100%;
-  }
-  
-  #contacts h1 {
-    margin: 0;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  #contacts ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #contacts li {
-    display: block;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  }
-  
-  #contacts li:last-child {
-    border-bottom: none;
-  }
-  
-  #contacts .add_user {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-  }
-  
-  #contacts .add_button {
-    display: block;
-    width: 50px;
-    height: 50px;
-    border: none;
-    background-color: #f2f2f2;
-    color: #666;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  #messagesandinputform {
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    width: 80%;  /* Set the width to 80% to take up the remaining space */
-    background-color: #fff;
-  }
-  
-  #messages h1 {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  #messages ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #messages li {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  #messages .username_id {
-    margin: 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-  }
-  
-  #messages .message_time_div {
-    display: flex;
-    align-items: flex-end;
-  }
-  
-  #messages .message {
-    margin: 0;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    color: black;
-  }
-  
-  #messages .time {
-    margin: 0;
-    padding: 0 10px;
-    font-size: 12px;
-    color: black;
-  } 
 
 
   
