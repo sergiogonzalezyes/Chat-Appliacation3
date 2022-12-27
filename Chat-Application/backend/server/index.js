@@ -142,7 +142,7 @@ app.post("/userLogin", (req, res) => {
                     const id = results[0].id;
                     const username = results[0].username;
                     console.log(id);
-                    const token = jwt.sign({ id }, "jwtSecret", {
+                    const token = jwt.sign({ username }, "jwtSecret", {
                         expiresIn: 300,
                     });
 
@@ -175,17 +175,20 @@ const verifyJWT = (req, res, next) => {
                     auth: false,
                     message: " lol you failed to authenticate",
                 });
-            } else {
-                req.userId = decode.id;
-                next();
-            }
+            } else
+                res.json({
+                    auth: true,
+                    decodedJWT: decode,
+                });
         });
     }
 };
 
 app.get("/UserPage", verifyJWT, (req, res) => {
-    // console.log(res);
-    res.json("yo you are authenticated");
+    res.json({
+        auth: true,
+        decodedJWT: req.decodedJWT,
+    });
 });
 
 // io.on("connection", (socket) => {

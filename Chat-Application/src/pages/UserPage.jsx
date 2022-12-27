@@ -17,21 +17,28 @@ export const UserPage = () => {
 
   const authenticateUser = () => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
-      console.log(response);
-      // setUserName(username)
+      const decodedJWT = response.data.decodedJWT;
+      console.log(decodedJWT);
+      
+      // You can access specific properties of the decoded JWT like this:
+      const username = decodedJWT.username;
+      setUserName(username);
+      
     })
   }
 
+ 
 
 
-  useEffect(() => {
+
+  // useEffect(() => {
     
-    socket.on('receive_username', (username) => {
+  //   socket.on('receive_username', (username) => {
       
       
-    })
+  //   })
    
-  },[socket])
+  // },[socket])
 
 
   function messagesArr () {

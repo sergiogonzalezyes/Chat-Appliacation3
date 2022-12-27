@@ -17,7 +17,7 @@ export const Login = () => {
     const getInput = () => {
         axios.post('http://localhost:5000/userLogin', { username: username, password: password })
             .then(response => {
-                console.log(response.data.userID)
+                // console.log(response.data.userID)
                 if (response.data.auth === true) {
                     setLoginSuccess(true);
                     localStorage.setItem("token", response.data.token)
