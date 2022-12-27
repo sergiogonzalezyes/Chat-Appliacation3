@@ -149,30 +149,13 @@ app.post("/userLogin", (req, res) => {
                         auth: true,
                         token: token,
                     });
-                    // res.json({
-                    //     auth: true,
-                    //     token: token,
-                    // });
                 } else {
                     res.json({
                         auth: false,
                         message: "no user exists",
                     });
                 }
-
-                // // handle successful login
-                // const sessionId = uuidv4();
-                // // console.log(sessionId);
-                // sessions[sessionId] = { username, user_id };
-                // res.set("Set-Cookie"), `session=${sessionId}`;
-                // console.log(sessions);
             });
-            // const accessToken = createTokens(username);
-            // console.log(username);
-            // console.log(accessToken);
-            // res.cookie("access-token", accessToken, {
-            //     maxAge: 60 * 60 * 24 * 30 * 1000,
-            // });
         }
     );
 });
