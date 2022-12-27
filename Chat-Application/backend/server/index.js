@@ -140,6 +140,8 @@ app.post("/userLogin", (req, res) => {
 
                 if (result) {
                     const id = results[0].id;
+                    const username = results[0].username;
+                    console.log(id);
                     const token = jwt.sign({ id }, "jwtSecret", {
                         expiresIn: 300,
                     });
@@ -148,6 +150,7 @@ app.post("/userLogin", (req, res) => {
                         message: "Login successful",
                         auth: true,
                         token: token,
+                        userID: username,
                     });
                 } else {
                     res.json({
@@ -184,17 +187,17 @@ app.get("/UserPage", verifyJWT, (req, res) => {
     res.json("yo you are authenticated");
 });
 
-// io.on("connection", (socket) => {
-//     console.log(socket.id);
-//     socket.on("send_username", (username) => {
-//         socket.broadcast.emit("receive_username", username);
-//     });
+io.on("connection", (socket) => {
+    console.log(socket.id);
+    socket.on("send_username", (username) => {
+        socket.broadcast.emit("receive_username", username);
+    });
 
-//     socket.on("send_message", (data) => {
-//         console.log(data);
-//         socket.broadcast.emit("receive_message", data);
-//     });
-// });
+    socket.on("send_message", (data) => {
+        console.log(data);
+        socket.broadcast.emit("receive_message", data);
+    });
+});
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay

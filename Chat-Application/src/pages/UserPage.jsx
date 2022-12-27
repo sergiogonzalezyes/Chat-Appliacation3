@@ -63,14 +63,52 @@ export const UserPage = () => {
  
 
   return( 
-    <div className="UserPage">
-
-      <div className="Sidebar">
+    <div className="user_container">
+    <div id="chatbox">
+      <div id="contacts">
+        <h1>Contacts</h1>
+        <ul>
+          <li>John Doe</li>
+          <li>Jane Smith</li>
+          <li>Bob Johnson</li>
+          <button onClick={authenticateUser}>LOL WORK PLEASE</button>
+        </ul>
+        <div className="add_user">
+          <button className="add_button">+</button>
+        </div>
       </div>
-      <button onClick={authenticateUser}>LOL WORK PLEASE</button>
-      <div className="Chat">
+      <div id="messagesandinputform">
+      <ScrollToBottom className="message.container.number2">
+      <div id="messages">
+        <ul>
+        {savedMessage.map((value,key) => {
+        return (
+          <li key={key}>
+            <p>{value.username}</p>
+            <p>{value.message}</p>
+            <p>{value.time}</p>
+          </li>
+        )
+       })}
+        </ul>
       </div>
-
+      </ScrollToBottom>
+      <div >
+        <div id="input-form" ref={formRef}>
+          <div className="input-container">
+          <div  className="input_form">
+          <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"    onKeyPress={(event) => {
+                        event.key === "Enter" && messagesArr();
+                    }}></textarea>
+          <button className="submit_button" type="button" onClick={messagesArr}>Send</button>
+          </div>
+          </div>
+        </div>
       </div>
+      </div>
+    </div>
+    </div>
+    
+      
   )
 };
