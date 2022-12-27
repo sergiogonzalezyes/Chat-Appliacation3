@@ -9,6 +9,9 @@ const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
 const sessions = {};
+const cookieParser = require("cookie-parser");
+const { createTokens, validateToken } = require("./JWT");
+
 // console.log(sessions);
 
 // MYSQL connection
@@ -28,6 +31,7 @@ const db = mysql.createPool({
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead.
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
 
 const io = new Server(server, {
@@ -108,6 +112,8 @@ app.post("/userLogin", (req, res) => {
         (err, results) => {
             const user_id = results[0].id;
             console.log(user_id);
+            console.log(username);
+
             // console.log(results);
             // console.log(results)
             if (err) {
@@ -142,17 +148,26 @@ app.post("/userLogin", (req, res) => {
                     return res.send({ error: "Incorrect login credentials" });
                 }
 
-                // handle successful login
-                const sessionId = uuidv4();
-                // console.log(sessionId);
-                sessions[sessionId] = { username, user_id };
-                res.set("Set-Cookie"), `session=${sessionId}`;
-                console.log(sessions);
+                // // handle successful login
+                // const sessionId = uuidv4();
+                // // console.log(sessionId);
+                // sessions[sessionId] = { username, user_id };
+                // res.set("Set-Cookie"), `session=${sessionId}`;
+                // console.log(sessions);
+                const accessToken = createTokens(username);
+
+                res.cookie("access-token", accessToken, {
+                    maxAge: 60 * 60 * 24 * 30 * 1000,
+                });
 
                 res.status(200).send({ message: "Login successful" });
             });
         }
     );
+});
+
+app.get("/UserPage", validateToken, (req, res) => {
+    res.json("profile");
 });
 
 io.on("connection", (socket) => {
