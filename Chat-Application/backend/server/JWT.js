@@ -2,9 +2,10 @@ const { sign, verify } = require("jsonwebtoken");
 
 const createTokens = (users) => {
     const accessToken = sign(
-        { username: users.username, id: users.id },
+        { username: users.username },
         "jwtsecretplschange"
     );
+    console.log(accessToken);
 
     return accessToken;
 };

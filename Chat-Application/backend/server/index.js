@@ -8,9 +8,9 @@ const { v4: uuidv4 } = require("uuid");
 const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
-const sessions = {};
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
+const jwt = require("jsonwebtoken");
 
 // console.log(sessions);
 
@@ -102,20 +102,15 @@ app.post("/createUser", (req, res) => {
 app.post("/userLogin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    // console.log(username);
     // console.log(password);
-
     // Query the database to find the user with the specified username
-
     db.query(
         `SELECT * FROM user_login WHERE username = '${username}'`,
         (err, results) => {
-            const user_id = results[0].id;
-            console.log(user_id);
-            console.log(username);
+            // const user_id = results[0].id;
+            // console.log(user_id);
+            // console.log(username);
 
-            // console.log(results);
-            // console.log(results)
             if (err) {
                 // handle error
                 return res.status(500).send({
@@ -127,15 +122,15 @@ app.post("/userLogin", (req, res) => {
                 // handle incorrect login credentials
                 return res
                     .status(401)
-                    .send({ error: "Incorrect login credentials" });
+                    .send({ error: "Incorrect login credentials!" });
             }
 
             // Get the hashed password from the database
-            const hashedPassword = results[0].password;
+            // const hashedPassword = results[0].password;
             // console.log(hashedPassword);
 
             // Use bcrypt.compare to compare the entered password with the hashed password in the database
-            bcrypt.compare(password, hashedPassword, (err, result) => {
+            bcrypt.compare(password, results[0].password, (err, result) => {
                 if (err) {
                     // handle error
                     return res.status.send({
@@ -143,9 +138,26 @@ app.post("/userLogin", (req, res) => {
                     });
                 }
 
-                if (!result) {
-                    // handle incorrect login credentials
-                    return res.send({ error: "Incorrect login credentials" });
+                if (result) {
+                    const id = results[0].id;
+                    const token = jwt.sign({ id }, "jwtSecret", {
+                        expiresIn: 300,
+                    });
+
+                    res.status(200).send({
+                        message: "Login successful",
+                        auth: true,
+                        token: token,
+                    });
+                    // res.json({
+                    //     auth: true,
+                    //     token: token,
+                    // });
+                } else {
+                    res.json({
+                        auth: false,
+                        message: "no user exists",
+                    });
                 }
 
                 // // handle successful login
@@ -154,33 +166,52 @@ app.post("/userLogin", (req, res) => {
                 // sessions[sessionId] = { username, user_id };
                 // res.set("Set-Cookie"), `session=${sessionId}`;
                 // console.log(sessions);
-                const accessToken = createTokens(username);
-
-                res.cookie("access-token", accessToken, {
-                    maxAge: 60 * 60 * 24 * 30 * 1000,
-                });
-
-                res.status(200).send({ message: "Login successful" });
             });
+            // const accessToken = createTokens(username);
+            // console.log(username);
+            // console.log(accessToken);
+            // res.cookie("access-token", accessToken, {
+            //     maxAge: 60 * 60 * 24 * 30 * 1000,
+            // });
         }
     );
 });
 
-app.get("/UserPage", validateToken, (req, res) => {
-    res.json("profile");
+const verifyJWT = (req, res, next) => {
+    const token = req.headers["x-access-token"];
+
+    if (!token) {
+        res.send("yo i need a token");
+    } else {
+        jwt.verify(token, "jwtSecret", (err, decode) => {
+            if (err) {
+                res.json({
+                    auth: false,
+                    message: " lol you failed to authenticate",
+                });
+            } else {
+                req.userId = decode.id;
+                next();
+            }
+        });
+    }
+};
+
+app.get("/UserPage", verifyJWT, (req, res) => {
+    res.json("yo you are authenticated");
 });
 
-io.on("connection", (socket) => {
-    console.log(socket.id);
-    socket.on("send_username", (username) => {
-        socket.broadcast.emit("receive_username", username);
-    });
+// io.on("connection", (socket) => {
+//     console.log(socket.id);
+//     socket.on("send_username", (username) => {
+//         socket.broadcast.emit("receive_username", username);
+//     });
 
-    socket.on("send_message", (data) => {
-        console.log(data);
-        socket.broadcast.emit("receive_message", data);
-    });
-});
+//     socket.on("send_message", (data) => {
+//         console.log(data);
+//         socket.broadcast.emit("receive_message", data);
+//     });
+// });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay

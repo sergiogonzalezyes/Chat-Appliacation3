@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import io from 'socket.io-client'
 import ScrollToBottom from 'react-scroll-to-bottom';
 const socket = io.connect('http://localhost:5000')
+import axios from "axios";
+
 
 
 export const UserPage = () => {
@@ -11,6 +13,13 @@ export const UserPage = () => {
   const [savedMessage,setSavedMessage] = useState([])
   const [messages, setmessages] = useState("");
   const [UserName, setUserName] = useState("");
+
+
+  const authenticateUser = () => {
+    axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
+      console.log(response)
+    })
+  }
 
 
 
@@ -58,7 +67,7 @@ export const UserPage = () => {
 
       <div className="Sidebar">
       </div>
-
+      <button onClick={authenticateUser}>LOL WORK PLEASE</button>
       <div className="Chat">
       </div>
 

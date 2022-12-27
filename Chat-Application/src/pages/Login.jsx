@@ -17,8 +17,10 @@ export const Login = () => {
     const getInput = () => {
         axios.post('http://localhost:5000/userLogin', { username: username, password: password })
             .then(response => {
-                if (response.data.message === 'Login successful') {
+                console.log(response.data.auth)
+                if (response.data.auth === true) {
                     setLoginSuccess(true);
+                    localStorage.setItem("token", response.data.token)
                 } else {
                     setIncorrectUserName('Password is not correct or username does not exist');
                 }
@@ -32,7 +34,7 @@ export const Login = () => {
     if (loginsuccess === true) {
         socket.emit("send_username", username);
 
-        // return <Navigate to="/UserPage" />;
+        return <Navigate to="/UserPage" />;
     }
 
     return (
