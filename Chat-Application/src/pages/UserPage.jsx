@@ -17,7 +17,8 @@ export const UserPage = () => {
 
   const authenticateUser = () => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
-      console.log(response)
+      console.log(response);
+      // setUserName(username)
     })
   }
 
@@ -27,7 +28,7 @@ export const UserPage = () => {
     
     socket.on('receive_username', (username) => {
       
-      setUserName(username)
+      
     })
    
   },[socket])
