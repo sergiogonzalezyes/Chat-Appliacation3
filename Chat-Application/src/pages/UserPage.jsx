@@ -15,7 +15,7 @@ export const UserPage = () => {
   const [UserName, setUserName] = useState("");
 
 
-  const authenticateUser = () => {
+  useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
       const decodedJWT = response.data.decodedJWT;
       console.log(decodedJWT);
@@ -25,7 +25,10 @@ export const UserPage = () => {
       setUserName(username);
       
     })
-  }
+
+  },[])
+ 
+  
 
 
 
@@ -68,10 +71,6 @@ export const UserPage = () => {
           <li>John Doe</li>
           <li>Jane Smith</li>
           <li>Bob Johnson</li>
-<<<<<<< HEAD
-          <button onClick={authenticateUser}>LOL WORK PLEASE</button>
-=======
->>>>>>> parent of fac9a90 (redoing the css for userpage and adding a new jsx)
         </ul>
         <div className="add_user">
           <button className="add_button">+</button>
@@ -80,10 +79,7 @@ export const UserPage = () => {
       <div id="messagesandinputform">
       <ScrollToBottom className="message.container.number2">
       <div id="messages">
-<<<<<<< HEAD
-=======
         <h1>Messages</h1>
->>>>>>> parent of fac9a90 (redoing the css for userpage and adding a new jsx)
         <ul>
         {savedMessage.map((value,key) => {
         return (
@@ -112,10 +108,5 @@ export const UserPage = () => {
       </div>
     </div>
     </div>
-<<<<<<< HEAD
-    
-      
-=======
->>>>>>> parent of fac9a90 (redoing the css for userpage and adding a new jsx)
   )
 };
