@@ -64,8 +64,8 @@ export const UserPage = () => {
 
   return( 
     <div className="user_container">
-    <div id="chatbox">
-      <div id="contacts">
+    <div className="chatbox">
+      <div className="contacts">
         <h1>Contacts</h1>
         <ul>
           <li>John Doe</li>
@@ -76,32 +76,32 @@ export const UserPage = () => {
           <button className="add_button">+</button>
         </div>
       </div>
-      <div id="messagesandinputform">
+      <div className="messagesandinputform">
       <ScrollToBottom className="message.container.number2">
-      <div id="messages">
+      <div className="messages">
         <h1>Messages</h1>
         <ul>
         {savedMessage.map((value,key) => {
         return (
-          <li key={key}>
+          <li key={key} className="message_time_div">
             <p>{value.username}</p>
-            <p>{value.message}</p>
-            <p>{value.time}</p>
+            <p className="message">{value.message}</p>
+            <p className="time">{value.time}</p>
           </li>
         )
        })}
         </ul>
       </div>
       </ScrollToBottom>
-      <div >
-        <div id="input-form" ref={formRef}>
+    
+        <div className="input-form" ref={formRef}>
           <div className="input-container">
           <div  className="input_form">
           <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"    onKeyPress={(event) => {
                         event.key === "Enter" && messagesArr();
                     }}></textarea>
           <button className="submit_button" type="button" onClick={messagesArr}>Send</button>
-          </div>
+         
           </div>
         </div>
       </div>
