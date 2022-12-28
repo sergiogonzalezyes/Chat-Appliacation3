@@ -27,18 +27,7 @@ export const UserPage = () => {
     })
   }
 
- 
 
-
-
-  // useEffect(() => {
-    
-  //   socket.on('receive_username', (username) => {
-      
-      
-  //   })
-   
-  // },[socket])
 
 
   function messagesArr () {
