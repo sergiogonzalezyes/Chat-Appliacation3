@@ -77,9 +77,10 @@ export const UserPage = () => {
         </div>
       </div>
       <div className="messagesandinputform">
-      <ScrollToBottom className="message.container.number2">
+     
       <div className="messages">
         <h1>Messages</h1>
+        <ScrollToBottom className="message.container.number2">
         <ul>
         {savedMessage.map((value,key) => {
         return (
@@ -91,9 +92,9 @@ export const UserPage = () => {
         )
        })}
         </ul>
+        </ScrollToBottom>
       </div>
-      </ScrollToBottom>
-    
+  
         <div className="input-form" ref={formRef}>
           <div className="input-container">
           <div  className="input_form">
@@ -101,7 +102,6 @@ export const UserPage = () => {
                         event.key === "Enter" && messagesArr();
                     }}></textarea>
           <button className="submit_button" type="button" onClick={messagesArr}>Send</button>
-         
           </div>
         </div>
       </div>
