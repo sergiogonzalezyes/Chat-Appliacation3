@@ -37,9 +37,19 @@ export const UserPage = () => {
       console.log(response.data);
 
       const message = response.data.message;
+      const error = response.data.error;
       console.log(message)
       const contact_username = response.data.userName;
       console.log(contact_username);
+
+
+      if (error === "This user does not exist") {
+        alert("This user does not exist");
+      }
+
+      if (error === "Error adding contact") {
+        alert("Error adding contact");
+      }
 
 
       if (message === "Added contact successfully") {

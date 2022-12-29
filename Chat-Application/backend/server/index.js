@@ -238,21 +238,22 @@ app.post("/addContact", (req, res) => {
         (err, results) => {
             // const user_id = results[0].id;
             // console.log(user_id);
-            const username = results[0].username;
 
             if (err) {
                 // handle error
                 return res.status(500).send({
-                    error: "Error sending message.",
+                    error: "Error adding contact",
                 });
             }
 
             if (results.length === 0) {
                 // handle incorrect login credentials
-                return res
-                    .status(401)
-                    .send({ error: "This user does not exist." });
+                return res.send({ error: "This user does not exist" });
             }
+
+            const username = results[0].username;
+
+
 
             res.status(200).send({
                 message: "Added contact successfully",
