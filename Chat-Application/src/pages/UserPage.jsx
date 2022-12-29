@@ -14,7 +14,6 @@ export const UserPage = () => {
   const [messages, setmessages] = useState("");
   const [UserName, setUserName] = useState("");
 
-
   useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
       const decodedJWT = response.data.decodedJWT;
@@ -37,13 +36,18 @@ export const UserPage = () => {
     const date = new Date();
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const timeString = `${hours}:${minutes}`;
+    const seconds = date.getSeconds();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = new Date().getFullYear();
+
+    const timeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; // ' YYYY-MM-DD hh:mm:ss ' is MYSQL DATETIME format
 
 
     let userInfo = {
       message: messages,
       time:timeString,
-      username: UserName,
+      username: UserName
     }
 
     socket.emit("send_message", userInfo);

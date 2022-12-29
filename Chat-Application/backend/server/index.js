@@ -197,9 +197,34 @@ io.on("connection", (socket) => {
     //     socket.broadcast.emit("receive_username", username);
     // });
 
-    socket.on("send_message", (data) => {
+    socket.on("send_message", (data, res) => {
         console.log(data);
-        socket.broadcast.emit("receive_message", data);
+        
+        db.query(
+            `SELECT * FROM user_login WHERE username = '${data.username}'`,
+            (err, results) => {
+                const user_id = results[0].id;
+                if (err) {
+                    // handle error
+                    return res.status(500).send({
+                        error: "Username not found",
+                    });
+                }
+
+                db.query(
+                    "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
+                    [user_id, data.message, data.time],
+                    (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).send("Error inserting new record");
+                            return;
+                        }
+                        // console.log(result);
+                    }
+                )
+            socket.broadcast.emit("receive_message", data);
+        });
     });
 });
 
