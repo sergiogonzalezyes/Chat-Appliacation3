@@ -10,9 +10,10 @@ import axios from "axios";
 
 export const UserPage = () => {
   const formRef = useRef(null);
-  const [savedMessage,setSavedMessage] = useState([])
+  const [savedMessage,setSavedMessage] = useState([]);
   const [messages, setmessages] = useState("");
   const [UserName, setUserName] = useState("");
+  const [savedContacts, setSavedContacts] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
@@ -29,7 +30,30 @@ export const UserPage = () => {
  
   
 
+  function addContact () {
+    let contact_username = prompt("Enter the username of the person you want to add");
+    
+    axios.post('http://localhost:5000/addContact', {contact_username: contact_username}) .then((response) => {
+      console.log(response.data);
 
+      const message = response.data.message;
+      const contact_username = response.data.contact_username;
+
+
+      if (message === "Contact added successfully") {
+        alert("Contact added successfully");
+        setSavedContacts([savedContacts, contact_username])
+
+      } else if (message === "Contact already exists") {
+        alert("Contact already exists");
+      
+      }
+      else if (message === "Contact does not exist") {
+        alert("Contact does not exist");
+        
+      }
+    }
+  )}
 
 
   function messagesArr () {
@@ -66,25 +90,33 @@ export const UserPage = () => {
 
  
 
+
+
   return( 
     <div className="user_container">
     <div className="chatbox">
       <div className="contacts">
         <h1>Contacts</h1>
+        <ScrollToBottom className="">
         <ul>
-          <li>John Doe</li>
-          <li>Jane Smith</li>
-          <li>Bob Johnson</li>
+        {savedContacts.map((value,key) => {
+        return (
+          <li key={key}>
+            {value.UserName}
+          </li>
+        )
+       })}
         </ul>
+        </ScrollToBottom>
         <div className="add_user">
-          <button className="add_button">+</button>
+          <button className="add_button" type="button" onClick={addContact}>+</button>
         </div>
       </div>
       <div className="messagesandinputform">
      
       <div className="messages">
         <h1>Messages</h1>
-        <ScrollToBottom className="message.container.number2">
+        <ScrollToBottom className="">
         <ul>
         {savedMessage.map((value,key) => {
         return (
@@ -101,7 +133,7 @@ export const UserPage = () => {
   
         <div className="input-form" ref={formRef}>
           <div className="input-container">
-          <div  className="input_form">
+          <div  className="input-form-container">
           <textarea onChange={(e) => {setmessages(e.target.value)}} className="submit_text_area"  placeholder="Enter a message"    onKeyPress={(event) => {
                         event.key === "Enter" && messagesArr();
                     }}></textarea>
