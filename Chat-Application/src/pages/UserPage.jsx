@@ -37,21 +37,16 @@ export const UserPage = () => {
       console.log(response.data);
 
       const message = response.data.message;
-      const contact_username = response.data.contact_username;
+      console.log(message)
+      const contact_username = response.data.userName;
+      console.log(contact_username);
 
 
-      if (message === "Contact added successfully") {
+      if (message === "Added contact successfully") {
         alert("Contact added successfully");
-        setSavedContacts([savedContacts, contact_username])
+        setSavedContacts([...savedContacts, contact_username])
 
-      } else if (message === "Contact already exists") {
-        alert("Contact already exists");
-      
-      }
-      else if (message === "Contact does not exist") {
-        alert("Contact does not exist");
-        
-      }
+      } 
     }
   )}
 
@@ -97,7 +92,7 @@ export const UserPage = () => {
     <div className="chatbox">
       <div className="contacts">
         <h1>Contacts</h1>
-        <ScrollToBottom className="">
+        {/* <ScrollToBottom className=""> */}
         <ul>
         {savedContacts.map((value,key) => {
         return (
@@ -107,7 +102,7 @@ export const UserPage = () => {
         )
        })}
         </ul>
-        </ScrollToBottom>
+        {/* </ScrollToBottom> */}
         <div className="add_user">
           <button className="add_button" type="button" onClick={addContact}>+</button>
         </div>
