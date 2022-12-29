@@ -97,7 +97,7 @@ export const UserPage = () => {
         {savedContacts.map((value,key) => {
         return (
           <li key={key}>
-            {value.UserName}
+            {value}
           </li>
         )
        })}
