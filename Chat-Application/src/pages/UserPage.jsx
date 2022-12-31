@@ -14,6 +14,8 @@ export const UserPage = () => {
   const [messages, setmessages] = useState("");
   const [UserName, setUserName] = useState("");
   const [savedContacts, setSavedContacts] = useState([]);
+  const [RecipientName, setRecipientName] = useState("");
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
@@ -41,6 +43,9 @@ export const UserPage = () => {
       console.log(message)
       const contact_username = response.data.userName;
       console.log(contact_username);
+      const recipientId = (response.data.recepient_id)
+      setRecipientName(recipientId);
+      // (response.data.userName)
 
 
       if (error === "This user does not exist") {
@@ -59,6 +64,8 @@ export const UserPage = () => {
       } 
     }
   )}
+  
+  socket.emit('send_message',{Recepient_id: RecipientName, message: messages})
 
 
   function messagesArr () {
@@ -90,8 +97,14 @@ export const UserPage = () => {
       
       setSavedMessage((list) => [...list, data])
     })
+
+    socket.on('new_message', (data) => {
+      
+      console.log(data);
+    })
    
   },[socket])
+
 
  
 
@@ -106,7 +119,7 @@ export const UserPage = () => {
         <ul>
         {savedContacts.map((value,key) => {
         return (
-          <li key={key}>
+          <li onClick={() => {console.log(RecipientName)}} key={key}>
             {value}
           </li>
         )

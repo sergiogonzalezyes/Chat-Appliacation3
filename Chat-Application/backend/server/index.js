@@ -41,24 +41,26 @@ const io = new Server(server, {
     },
 });
 
-app.post("/createUser", (req, res) => { // This is the route that will be used to create a new user in the database
+app.post("/createUser", (req, res) => {
+    // This is the route that will be used to create a new user in the database
     const username = req.body.username; // This is the username that will be passed in from the front-end
     const password = req.body.password; // This is the password that will be passed in from the front-end
 
     // Query the user_login table for a record with the given username
-    db.query( 
-        "SELECT * FROM user_login WHERE username = ?",  // This is the query that will be run on the database
+    db.query(
+        "SELECT * FROM user_login WHERE username = ?", // This is the query that will be run on the database
         [username], // This is the username that will be passed in from the front-end
-        (err, result) => { // This is the callback function that will be run after the query is run
+        (err, result) => {
+            // This is the callback function that will be run after the query is run
             if (err) {
                 console.log(err);
-                res.send("Error checking for existing username"); 
+                res.send("Error checking for existing username");
                 return;
             }
 
             // If a record with the given username already exists, return an error message
-            if (result.length > 0) {   
-                console.log(result.length);  
+            if (result.length > 0) {
+                console.log(result.length);
                 res.send("Username already exists");
                 return;
             }
@@ -72,7 +74,8 @@ app.post("/createUser", (req, res) => { // This is the route that will be used t
                 return;
             }
 
-            bcrypt.hash(password, 10, (err, hashedPassword) => {  // This is the function that will hash the password
+            bcrypt.hash(password, 10, (err, hashedPassword) => {
+                // This is the function that will hash the password
                 if (err) {
                     console.log(err);
                     res.status(500).send("Error hashing password");
@@ -99,9 +102,9 @@ app.post("/createUser", (req, res) => { // This is the route that will be used t
     );
 });
 
-
-app.post("/userLogin", (req, res) => {  // This is the route that will be used to login a user
-    const username = req.body.username;     // This is the username that will be passed in from the front-end
+app.post("/userLogin", (req, res) => {
+    // This is the route that will be used to login a user
+    const username = req.body.username; // This is the username that will be passed in from the front-end
     const password = req.body.password;
     // console.log(password);
     // Query the database to find the user with the specified username
@@ -164,7 +167,6 @@ app.post("/userLogin", (req, res) => {  // This is the route that will be used t
     );
 });
 
-
 const verifyJWT = (req, res, next) => {
     const token = req.headers["x-access-token"];
 
@@ -202,7 +204,8 @@ io.on("connection", (socket) => {
     socket.on("send_message", (data, res) => {
         console.log(data);
 
-        db.query(  // purpose of this query is to get the user_id from the user_login table
+        db.query(
+            // purpose of this query is to get the user_id from the user_login table
             `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
             (err, results) => {
                 console.log(results);
@@ -233,14 +236,11 @@ io.on("connection", (socket) => {
     });
 });
 
+// socket.on('send message', (data) => {
+//   // Forward the message to the recipient
+//   io.to(data.recipientId).emit('new message', data.message);
+// });
 
-  
-    // socket.on('send message', (data) => {
-    //   // Forward the message to the recipient
-    //   io.to(data.recipientId).emit('new message', data.message);
-    // });
-
-    
 app.post("/addContact", (req, res) => {
     const username = req.body.contact_username;
     // const user_id = req.body.user_id;
@@ -248,7 +248,6 @@ app.post("/addContact", (req, res) => {
     db.query(
         `SELECT username, id FROM user_login WHERE username = '${username}'`,
         (err, results) => {
-
             const recepient_id = results[0].id;
             console.log(recepient_id);
 
@@ -269,21 +268,22 @@ app.post("/addContact", (req, res) => {
             res.status(200).send({
                 message: "Added contact successfully",
                 userName: username,
+                recepient_id: recepient_id,
             });
         }
     );
 });
 
+io.on("connection", (socket) => {
+    console.log("connection");
 
-
-
-
-
-
+    socket.on("send message", (data) => {
+        io.to(data.recepient_id).emit("new message", data.message);
+    });
+});
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
-
