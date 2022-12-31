@@ -233,15 +233,24 @@ io.on("connection", (socket) => {
     });
 });
 
+
+  
+    // socket.on('send message', (data) => {
+    //   // Forward the message to the recipient
+    //   io.to(data.recipientId).emit('new message', data.message);
+    // });
+
+    
 app.post("/addContact", (req, res) => {
     const username = req.body.contact_username;
     // const user_id = req.body.user_id;
     // Query the database to find the user with the specified username
     db.query(
-        `SELECT username FROM user_login WHERE username = '${username}'`,
+        `SELECT username, id FROM user_login WHERE username = '${username}'`,
         (err, results) => {
-            // const user_id = results[0].id;
-            // console.log(user_id);
+
+            const recepient_id = results[0].id;
+            console.log(recepient_id);
 
             if (err) {
                 // handle error
@@ -257,8 +266,6 @@ app.post("/addContact", (req, res) => {
 
             const username = results[0].username;
 
-
-
             res.status(200).send({
                 message: "Added contact successfully",
                 userName: username,
@@ -267,8 +274,16 @@ app.post("/addContact", (req, res) => {
     );
 });
 
+
+
+
+
+
+
+
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
+
