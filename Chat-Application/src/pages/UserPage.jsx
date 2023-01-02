@@ -88,11 +88,17 @@ export const UserPage = () => {
       username: UserName
     }
 
+    let privatemessage = {
+      recepient_id: RecipientName,
+      message: messages,
+    }
+
     // socket.emit("send_message", userInfo);
 
 
-    socket.emit('send_message',{Recepient_id: RecipientName, message: messages})
-    setSavedMessage((list) => [...list, {Recepient_id: RecipientName, message: messages}]);
+    socket.emit('send_message',{privatemessage})
+    setSavedMessage((list) => [...list, {privatemessage}]);
+    console.log(privatemessage);
 
     
   }

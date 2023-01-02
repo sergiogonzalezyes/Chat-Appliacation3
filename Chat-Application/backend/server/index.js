@@ -230,9 +230,9 @@ io.on("connection", (socket) => {
                         // console.log(result);
                     }
                 );
-                socket.broadcast.emit("receive_message", data);
             }
         );
+        io.to(data.recepient_id).emit("new message", data.message);
     });
 });
 
@@ -276,10 +276,6 @@ app.post("/addContact", (req, res) => {
 
 io.on("connection", (socket) => {
     console.log("connection");
-
-    socket.on("send message", (data) => {
-        io.to(data.recepient_id).emit("new message", data.message);
-    });
 });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
