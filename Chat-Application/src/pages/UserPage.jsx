@@ -16,7 +16,6 @@ export const UserPage = () => {
   const [savedContacts, setSavedContacts] = useState([]);
   const [RecipientName, setRecipientName] = useState("");
 
-
   useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
       const decodedJWT = response.data.decodedJWT;
@@ -83,24 +82,20 @@ export const UserPage = () => {
 
 
     let userInfo = {
+      sender_id: UserName,
       message: messages,
       time:timeString,
-      username: UserName
-    }
-
-    let privatemessage = {
+      username: UserName,
       recepient_id: RecipientName,
-      message: messages,
     }
 
     // socket.emit("send_message", userInfo);
 
 
-    socket.emit('send_message',{privatemessage})
-    setSavedMessage((list) => [...list, {privatemessage}]);
-    console.log(privatemessage);
+    socket.emit('send_message',{userInfo})
+    setSavedMessage((list) => [...list, {userInfo}]);
+    console.log(userInfo);
 
-    
   }
 
   
@@ -150,7 +145,7 @@ export const UserPage = () => {
         <h1>Messages</h1>
         <ScrollToBottom className="">
         <ul>
-        {savedMessage.map((value,key) => {
+        {/* {savedMessage.map((value,key) => {
         return (
           <li key={key} className="message_time_div">
             <p>{value.username}</p>
@@ -158,7 +153,7 @@ export const UserPage = () => {
             <p className="time">{value.time}</p>
           </li>
         )
-       })}
+       })} */}
         </ul>
         </ScrollToBottom>
       </div>
