@@ -147,76 +147,96 @@ app.post("/userLogin", (req, res) => {
                 if (result) {
                     const user_id = results[0].id;
                     const username = results[0].username;
-                    console.log(id);
+                    // console.log(id);
                     const socketToUser = {};
                     console.log(socketToUser);
                     const token = jwt.sign({ username }, "jwtSecret", {
                         expiresIn: 300,
                     });
 
-
                     io.on("connection", (socket) => {
                         console.log(socket.id);
-                    
+
                         const socket_id = socket.id;
-                    
+
                         // socket.on("send_username", (username) => {
                         //     socket.broadcast.emit("receive_username", username);
                         // });
-                    
+
                         socket.on("send_message", (data, res) => {
                             console.log(data);
-                    
+
                             db.query(
                                 // purpose of this query is to get the user_id from the user_login table
                                 `SELECT username, id FROM user_login WHERE username = '${data.userInfo.sender_id}'`,
                                 (err, results) => {
-                                    console.log(results);
-                    
+                                    // console.log(results);
+
                                     const sender_id = results[0].id;
                                     // console.log(sender_id);
-                    
-                    
-                                    const socketConnection = {
-                                        sender_id: socket_id,
-                                    };
-                    
-                                    console.log(socketConnection);
-                    
-                                    for (let key in socketConnection) {
-                                        if (key === 'sender_id') {
-                                            let socket_id = socketConnection[key];
-                                            // console.log(socket_id);
-                                            io.to(socket_id).emit("new message", data.userInfo.message);
-                                        }
-                                        
-                                      }
-                                    
-                                    
-                    
+                                    socketToUser[socket_id] = sender_id;
+
+                                    console.log(socketToUser);
+
+                                    const sendmsg = Object.keys(
+                                        socketToUser
+                                    ).find(
+                                        (key) => socketToUser[key] === sender_id
+                                    );
+                                    console.log(sendmsg);
+                                    // if (socket_id) {
+                                    //     io.to(socket_id).emit(
+                                    //         "new message",
+                                    //         data.message
+                                    //     );
+                                    // }
+
+                                    // const socketConnection = {
+                                    //     sender_id: socket_id,
+                                    // };
+
+                                    // console.log(socketConnection);
+
+                                    // for (let key in socketConnection) {
+                                    //     if (key === "sender_id") {
+                                    //         let socket_id =
+                                    //             socketConnection[key];
+                                    //         // console.log(socket_id);
+                                    //         io.to(socket_id).emit(
+                                    //             "new message",
+                                    //             data.userInfo.message
+                                    //         );
+                                    //     }
+                                    // }
+
                                     // socketConnections.push(socketConnection);
-                    
+
                                     if (err) {
                                         // handle error
                                         return res.status(500).send({
                                             error: "Username not found",
                                         });
-                    
                                     }
-                            
+
                                     db.query(
                                         "INSERT INTO message (user_id, Message, Sent_Date_Time, Recipient_ID) VALUES (?, ?, ?, ?)",
-                                        [sender_id, data.userInfo.message, data.userInfo.time, data.userInfo.recepient_id],
+                                        [
+                                            sender_id,
+                                            data.userInfo.message,
+                                            data.userInfo.time,
+                                            data.userInfo.recepient_id,
+                                        ],
                                         (err, result) => {
                                             if (err) {
                                                 console.log(err);
-                                                res.status(500).send("Error inserting new record");
+                                                res.status(500).send(
+                                                    "Error inserting new record"
+                                                );
                                                 return;
                                             }
                                             // console.log(result);
                                         }
                                     );
-                                    
                                 }
                             );
                             // io.to(socketConnection[key]).emit("new message", data.message);
@@ -228,41 +248,7 @@ app.post("/userLogin", (req, res) => {
                         auth: true,
                         token: token,
                         userID: username,
-                    }),
-                        io.on("connection", (socket) => {
-                            console.log(socket.id);
-                            socket.on("login", (user_id) => {
-                                socketToUser[socket.id] = user_id;
-                            });
-                            socket.on("send_message", (data, res) => {
-                                console.log(data);
-                                db.query(
-                                    // purpose of this query is to get the user_id from the user_login table
-                                    `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-                                    (err, results) => {
-                                        console.log(results);
-                                        // const user_id = results[0].id;
-                                        if (err) {
-                                            return res.status(500).send({
-                                                error: "username not found",
-                                            });
-                                        }
-                                        const socket_id = Object.keys(
-                                            socketToUser
-                                        ).find(
-                                            (key) =>
-                                                socketToUser[key] === user_id
-                                        );
-                                        if (socket_id) {
-                                            io.to(socket_id).emit(
-                                                "new message",
-                                                data.message
-                                            );
-                                        }
-                                    }
-                                );
-                            });
-                        });
+                    });
                 } else {
                     res.json({
                         auth: false,
@@ -302,46 +288,46 @@ app.get("/UserPage", verifyJWT, (req, res) => {
     });
 });
 
-io.on("connection", (socket) => {
-    console.log(socket.id);
-    // socket.on("send_username", (username) => {
-    //     socket.broadcast.emit("receive_username", username);
-    // });
+// io.on("connection", (socket) => {
+//     console.log(socket.id);
+//     // socket.on("send_username", (username) => {
+//     //     socket.broadcast.emit("receive_username", username);
+//     // });
 
-    socket.on("send_message", (data, res) => {
-        console.log(data);
+//     socket.on("send_message", (data, res) => {
+//         console.log(data);
 
-        db.query(
-            // purpose of this query is to get the user_id from the user_login table
-            `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-            (err, results) => {
-                console.log(results);
+//         db.query(
+//             // purpose of this query is to get the user_id from the user_login table
+//             `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+//             (err, results) => {
+//                 console.log(results);
 
-                const user_id = results[0].id;
-                if (err) {
-                    // handle error
-                    return res.status(500).send({
-                        error: "Username not found",
-                    });
-                }
+//                 const user_id = results[0].id;
+//                 if (err) {
+//                     // handle error
+//                     return res.status(500).send({
+//                         error: "Username not found",
+//                     });
+//                 }
 
-                db.query(
-                    "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
-                    [user_id, data.message, data.time],
-                    (err, result) => {
-                        if (err) {
-                            console.log(err);
-                            res.status(500).send("Error inserting new record");
-                            return;
-                        }
-                        // console.log(result);
-                    }
-                );
-            }
-        );
-        io.to(data.recepient_id).emit("new message", data.message);
-    });
-});
+//                 db.query(
+//                     "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
+//                     [user_id, data.message, data.time],
+//                     (err, result) => {
+//                         if (err) {
+//                             console.log(err);
+//                             res.status(500).send("Error inserting new record");
+//                             return;
+//                         }
+//                         // console.log(result);
+//                     }
+//                 );
+//             }
+//         );
+//         io.to(data.recepient_id).emit("new message", data.message);
+//     });
+// });
 
 // socket.on('send message', (data) => {
 //   // Forward the message to the recipient
