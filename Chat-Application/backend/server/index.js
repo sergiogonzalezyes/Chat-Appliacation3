@@ -197,33 +197,36 @@ app.get("/UserPage", verifyJWT, (req, res) => {
     });
 });
 
-const socketToUser = {}
+const socketToUser = {};
 
 io.on("connection", (socket) => {
     console.log(socket.id);
-    socket.on('login', (user_id) => {
+    socket.on("login", (user_id) => {
         socketToUser[socket.id] = user_id;
-
-    })
-    socket.on('send_message',(data, res) => {
+    });
+    socket.on("send_message", (data, res) => {
         console.log(data);
-        db.query( // purpose of this query is to get the user_id from the user_login table
-        `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-      (err, results) => { console.log(results);
-
-        const user_id = results[0].id;
-        if (err){
-            return res.status(500).send({
-                error: "username not found"
-            })
-        }
-        const socket_id = Object.keys(socketToUser).find(key => socketToUser[key] === user_id);
-        if(socket_id) {
-            io.to(socket_id).emit('new message', data.message)
-        }
-    })
-
-}));
+        db.query(
+            // purpose of this query is to get the user_id from the user_login table
+            `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+            (err, results) => {
+                console.log(results);
+                // const user_id = results[0].id;
+                if (err) {
+                    return res.status(500).send({
+                        error: "username not found",
+                    });
+                }
+                const socket_id = Object.keys(socketToUser).find(
+                    (key) => socketToUser[key] === user_id
+                );
+                if (socket_id) {
+                    io.to(socket_id).emit("new message", data.message);
+                }
+            }
+        );
+    });
+});
 
 // socket.on('send message', (data) => {
 //   // Forward the message to the recipient
@@ -263,14 +266,11 @@ app.post("/addContact", (req, res) => {
     );
 });
 
-
-
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
-
 
 // db.query(
 //     "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
@@ -285,25 +285,24 @@ server.listen(5000, () => {
 //     }
 // );
 
+// socket.on("send_message", (data, res) => {
+//     console.log(data);
 
-    // socket.on("send_message", (data, res) => {
-    //     console.log(data);
+//     db.query(
+//         // purpose of this query is to get the user_id from the user_login table
+//         `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+//         (err, results) => {
+//             console.log(results);
 
-    //     db.query(
-    //         // purpose of this query is to get the user_id from the user_login table
-    //         `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-    //         (err, results) => {
-    //             console.log(results);
+//             const user_id = results[0].id;
+//             if (err) {
+//                 // handle error
+//                 return res.status(500).send({
+//                     error: "Username not found",
+//                 });
+//             }
 
-    //             const user_id = results[0].id;
-    //             if (err) {
-    //                 // handle error
-    //                 return res.status(500).send({
-    //                     error: "Username not found",
-    //                 });
-    //             }
-
-    //         }
-    //     );
-    //     io.to(data.recepient_id).emit("new message", data.message);
-    // });
+//         }
+//     );
+//     io.to(data.recepient_id).emit("new message", data.message);
+// });
