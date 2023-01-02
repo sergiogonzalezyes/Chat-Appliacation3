@@ -65,7 +65,9 @@ export const UserPage = () => {
     }
   )}
   
-  socket.emit('send_message',{Recepient_id: RecipientName, message: messages})
+
+
+
 
 
   function messagesArr () {
@@ -86,21 +88,27 @@ export const UserPage = () => {
       username: UserName
     }
 
-    socket.emit("send_message", userInfo);
-    setSavedMessage((list) => [...list, userInfo]);
+    // socket.emit("send_message", userInfo);
+
+
+    socket.emit('send_message',{Recepient_id: RecipientName, message: messages})
+    setSavedMessage((list) => [...list, {Recepient_id: RecipientName, message: messages}]);
+
+    
   }
 
   
    useEffect(() => {
     
-    socket.on('receive_message', (data) => {
+    // socket.on('receive_message', (data) => {
       
-      setSavedMessage((list) => [...list, data])
-    })
+      
+    // })
 
-    socket.on('new_message', (data) => {
+    socket.on('new message', (data) => {
       
       console.log(data);
+      setSavedMessage((list) => [...list, data])
     })
    
   },[socket])
