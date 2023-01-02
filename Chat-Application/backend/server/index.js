@@ -145,9 +145,11 @@ app.post("/userLogin", (req, res) => {
                 }
 
                 if (result) {
-                    const id = results[0].id;
+                    const user_id = results[0].id;
                     const username = results[0].username;
                     console.log(id);
+                    const socketToUser = {};
+                    console.log(socketToUser);
                     const token = jwt.sign({ username }, "jwtSecret", {
                         expiresIn: 300,
                     });
@@ -157,7 +159,41 @@ app.post("/userLogin", (req, res) => {
                         auth: true,
                         token: token,
                         userID: username,
-                    });
+                    }),
+                        io.on("connection", (socket) => {
+                            console.log(socket.id);
+                            socket.on("login", (user_id) => {
+                                socketToUser[socket.id] = user_id;
+                            });
+                            socket.on("send_message", (data, res) => {
+                                console.log(data);
+                                db.query(
+                                    // purpose of this query is to get the user_id from the user_login table
+                                    `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+                                    (err, results) => {
+                                        console.log(results);
+                                        // const user_id = results[0].id;
+                                        if (err) {
+                                            return res.status(500).send({
+                                                error: "username not found",
+                                            });
+                                        }
+                                        const socket_id = Object.keys(
+                                            socketToUser
+                                        ).find(
+                                            (key) =>
+                                                socketToUser[key] === user_id
+                                        );
+                                        if (socket_id) {
+                                            io.to(socket_id).emit(
+                                                "new message",
+                                                data.message
+                                            );
+                                        }
+                                    }
+                                );
+                            });
+                        });
                 } else {
                     res.json({
                         auth: false,
@@ -194,37 +230,6 @@ app.get("/UserPage", verifyJWT, (req, res) => {
     res.json({
         auth: true,
         decodedJWT: req.decodedJWT,
-    });
-});
-
-const socketToUser = {};
-
-io.on("connection", (socket) => {
-    console.log(socket.id);
-    socket.on("login", (user_id) => {
-        socketToUser[socket.id] = user_id;
-    });
-    socket.on("send_message", (data, res) => {
-        console.log(data);
-        db.query(
-            // purpose of this query is to get the user_id from the user_login table
-            `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-            (err, results) => {
-                console.log(results);
-                // const user_id = results[0].id;
-                if (err) {
-                    return res.status(500).send({
-                        error: "username not found",
-                    });
-                }
-                const socket_id = Object.keys(socketToUser).find(
-                    (key) => socketToUser[key] === user_id
-                );
-                if (socket_id) {
-                    io.to(socket_id).emit("new message", data.message);
-                }
-            }
-        );
     });
 });
 
