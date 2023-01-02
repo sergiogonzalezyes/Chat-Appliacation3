@@ -290,6 +290,8 @@ io.on("connection", function (socket) {
     );
 });
 
+console.log(users);
+
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
