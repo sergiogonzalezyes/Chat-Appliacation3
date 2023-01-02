@@ -11,6 +11,7 @@ const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
+const Connection = require("mysql2/typings/mysql/lib/Connection");
 
 // console.log(sessions);
 
@@ -274,8 +275,19 @@ app.post("/addContact", (req, res) => {
     );
 });
 
-io.on("connection", (socket) => {
-    console.log("connection");
+const users = {};
+
+io.on("connection", function (socket) {
+    db.query(
+        `SELECT username,id FROM user_login WHERE username = ?`,
+        [socket.id],
+        function (error, results) {
+            if (error) throw error;
+            const userId = results[0].id;
+            console.log(userId);
+            users[userId] = socket;
+        }
+    );
 });
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
