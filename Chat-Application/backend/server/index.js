@@ -148,20 +148,17 @@ app.post("/userLogin", (req, res) => {
                     const user_id = results[0].id;
                     const username = results[0].username;
                     // console.log(id);
-                    const socketToUser = {};
-                    console.log(socketToUser);
+                    // const socketToUser = {};
+                    const socketMap = new Map();
+                    // console.log(socketToUser);
                     const token = jwt.sign({ username }, "jwtSecret", {
                         expiresIn: 300,
                     });
 
                     io.on("connection", (socket) => {
-                        console.log(socket.id);
+                        // console.log(socket.id);
 
                         const socket_id = socket.id;
-
-                        // socket.on("send_username", (username) => {
-                        //     socket.broadcast.emit("receive_username", username);
-                        // });
 
                         socket.on("send_message", (data, res) => {
                             console.log(data);
@@ -174,22 +171,50 @@ app.post("/userLogin", (req, res) => {
 
                                     const sender_id = results[0].id;
                                     // console.log(sender_id);
-                                    socketToUser[socket_id] = sender_id;
 
-                                    console.log(socketToUser);
+                                    socketMap.set(socket_id, sender_id);
+                                    console.log(socketMap);
 
-                                    const sendmsg = Object.keys(
-                                        socketToUser
-                                    ).find(
-                                        (key) => socketToUser[key] === sender_id
+                                    // socketToUser[socket_id] = sender_id;
+
+                                    // console.log(socketToUser);
+
+                                    console.log(data.userInfo.recepient_id);
+
+                                    const recepientSocketId = [...socketMap.keys()].find(
+                                        (sender_id) => socketMap.get(sender_id) === data.userInfo.recepient_id
                                     );
-                                    console.log(sendmsg);
-                                    // if (socket_id) {
-                                    //     io.to(socket_id).emit(
+
+                                    console.log(recepientSocketId);
+                                    
+
+                                    if (recepientSocketId) {
+                                        io.to(recepientSocketId).emit(
+                                            "new message",
+                                            data.userInfo.message
+                                        );
+                                    }
+
+
+                                    // const sendmsg = Object.keys(
+                                    //     socketToUser
+                                    // ).find(
+                                    //     (key) => socketToUser[key] === sender_id
+                                    // );
+                                    // console.log(sendmsg);
+
+                                    // const recepient_id = data.userInfo.recepient_id;
+                                    // if (socketToUser.value === sendmsg) {
+                                    //     io.to(recepient_id).emit(
                                     //         "new message",
-                                    //         data.message
+                                    //         data.userInfo.message
                                     //     );
                                     // }
+
+                                    
+
+
+
 
                                     // const socketConnection = {
                                     //     sender_id: socket_id,
