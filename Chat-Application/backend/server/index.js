@@ -11,7 +11,8 @@ const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
-const Connection = require("mysql2/typings/mysql/lib/Connection");
+const { send } = require("process");
+// const Connection = require("mysql2/typings/mysql/lib/Connection");
 
 // console.log(sessions);
 
@@ -196,46 +197,33 @@ app.get("/UserPage", verifyJWT, (req, res) => {
     });
 });
 
+const socketToUser = {}
+
 io.on("connection", (socket) => {
     console.log(socket.id);
-    // socket.on("send_username", (username) => {
-    //     socket.broadcast.emit("receive_username", username);
-    // });
+    socket.on('login', (user_id) => {
+        socketToUser[socket.id] = user_id;
 
-    socket.on("send_message", (data, res) => {
+    })
+    socket.on('send_message',(data, res) => {
         console.log(data);
+        db.query( // purpose of this query is to get the user_id from the user_login table
+        `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+      (err, results) => { console.log(results);
 
-        db.query(
-            // purpose of this query is to get the user_id from the user_login table
-            `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-            (err, results) => {
-                console.log(results);
+        const user_id = results[0].id;
+        if (err){
+            return res.status(500).send({
+                error: "username not found"
+            })
+        }
+        const socket_id = Object.keys(socketToUser).find(key => socketToUser[key] === user_id);
+        if(socket_id) {
+            io.to(socket_id).emit('new message', data.message)
+        }
+    })
 
-                const user_id = results[0].id;
-                if (err) {
-                    // handle error
-                    return res.status(500).send({
-                        error: "Username not found",
-                    });
-                }
-
-                db.query(
-                    "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
-                    [user_id, data.message, data.time],
-                    (err, result) => {
-                        if (err) {
-                            console.log(err);
-                            res.status(500).send("Error inserting new record");
-                            return;
-                        }
-                        // console.log(result);
-                    }
-                );
-            }
-        );
-        io.to(data.recepient_id).emit("new message", data.message);
-    });
-});
+}));
 
 // socket.on('send message', (data) => {
 //   // Forward the message to the recipient
@@ -275,25 +263,47 @@ app.post("/addContact", (req, res) => {
     );
 });
 
-const users = {};
 
-io.on("connection", function (socket) {
-    db.query(
-        `SELECT username,id FROM user_login WHERE username = ?`,
-        [socket.id],
-        function (error, results) {
-            if (error) throw error;
-            const userId = results[0].id;
-            console.log(userId);
-            users[userId] = socket;
-        }
-    );
-});
-
-console.log(users);
 
 // Airplay occupies the port 5000 for sending and receiving requests!!!
 // App awaits to be started in port 5000. Remember if you are on mac OS, turn off receiving for AirPlay
 server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
+
+
+// db.query(
+//     "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
+//     [user_id, data.message, data.time],
+//     (err, result) => {
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send("Error inserting new record");
+//             return;
+//         }
+//         // console.log(result);
+//     }
+// );
+
+
+    // socket.on("send_message", (data, res) => {
+    //     console.log(data);
+
+    //     db.query(
+    //         // purpose of this query is to get the user_id from the user_login table
+    //         `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
+    //         (err, results) => {
+    //             console.log(results);
+
+    //             const user_id = results[0].id;
+    //             if (err) {
+    //                 // handle error
+    //                 return res.status(500).send({
+    //                     error: "Username not found",
+    //                 });
+    //             }
+
+    //         }
+    //     );
+    //     io.to(data.recepient_id).emit("new message", data.message);
+    // });
