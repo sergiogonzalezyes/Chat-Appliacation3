@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
 const { send } = require("process");
-const jws = require("jws");
+
 // const Connection = require("mysql2/typings/mysql/lib/Connection");
 
 // console.log(sessions);
@@ -304,16 +304,32 @@ const verifyJWT = (req, res, next) => {
         });
     }
 };
-io.on("connection", (socket) => {
-    const jwt = socket.handshake.query.token;
-    console.log(jwt);
-});
+
+const verifyJWTS = (token) => {
+    try {
+        jwt.verify(token, "jwtSecret");
+        return true;
+    } catch (error) {
+        return false;
+    }
+};
 
 app.get("/UserPage", verifyJWT, (req, res) => {
     res.json({
         auth: true,
         decodedJWT: req.decodedJWT,
     });
+});
+
+io.on("connection", (socket) => {
+    const token = socket.handshake.query.token;
+    if (verifyJWTS(token)) {
+        console.log(socket.id);
+        console.log("you are connected");
+    } else {
+        console.log("you are disconnected");
+        socket.disconnect();
+    }
 });
 
 // io.on("connection", (socket) => {
