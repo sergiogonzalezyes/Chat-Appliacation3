@@ -8,7 +8,7 @@ export const LoadContacts = (props) => {
     console.log(response.data);
   })
   .catch(error => {
-    console.error(error);
+    // console.error(error);
   });
 
 return (<div>
