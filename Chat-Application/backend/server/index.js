@@ -12,8 +12,8 @@ const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
 const { send } = require("process");
+const loadContacts = require('./loadContacts');
 
-// const Connection = require("mysql2/typings/mysql/lib/Connection");
 
 // console.log(sessions);
 
