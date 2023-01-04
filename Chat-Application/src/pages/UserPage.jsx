@@ -9,7 +9,7 @@ const socket = io('http://localhost:5000',{
   }
 })
 import axios from "axios";
-
+import {LoadContacts} from "../components/loadContacts";
 
 
 export const UserPage = () => {
@@ -128,17 +128,7 @@ export const UserPage = () => {
     <div className="chatbox">
       <div className="contacts">
         <h1>Contacts</h1>
-        {/* <ScrollToBottom className=""> */}
-        <ul>
-        {savedContacts.map((value,key) => {
-        return (
-          <li onClick={() => {console.log(RecipientName)}} key={key}>
-            {value}
-          </li>
-        )
-       })}
-        </ul>
-        {/* </ScrollToBottom> */}
+       <LoadContacts/>
         <div className="add_user">
           <button className="add_button" type="button" onClick={addContact}>+</button>
         </div>
