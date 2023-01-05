@@ -345,6 +345,8 @@ io.on("connection", (socket) => {
 
                 const sender_id = results[0].id;
 
+                socket.emit('new message' id, message)
+
                 db.query(
                     "INSERT INTO message (user_id, Message, Sent_Date_Time, Recipient_ID) VALUES (?, ?, ?, ?)",
                     [
