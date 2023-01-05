@@ -328,6 +328,7 @@ io.on("connection", (socket) => {
     } else {
         console.log("you are disconnected");
         socket.disconnect();
+        return;
     }
 
     const socket_id = socket.id;
@@ -343,75 +344,6 @@ io.on("connection", (socket) => {
                 console.log(results);
 
                 const sender_id = results[0].id;
-                // console.log(sender_id);
-
-                // socketMap.set(socket_id, sender_id);
-                // console.log(socketMap);
-
-                // socketToUser[socket_id] = sender_id;
-
-                // console.log(socketToUser);
-
-                // console.log(data.userInfo.recepient_id);
-
-                // const recepientSocketId = [
-                //     ...socketMap.keys(),
-                // ].find(
-                //     (sender_id) =>
-                //         socketMap.get(sender_id) ===
-                //         data.userInfo.recepient_id
-                // );
-
-                // console.log(recepientSocketId);
-
-                // if (recepientSocketId) {
-                //     io.to(recepientSocketId).emit(
-                //         "new message",
-                //         data.userInfo.message
-                //     );
-                // }
-
-                // const sendmsg = Object.keys(
-                //     socketToUser
-                // ).find(
-                //     (key) => socketToUser[key] === sender_id
-                // );
-                // console.log(sendmsg);
-
-                // const recepient_id = data.userInfo.recepient_id;
-                // if (socketToUser.value === sendmsg) {
-                //     io.to(recepient_id).emit(
-                //         "new message",
-                //         data.userInfo.message
-                //     );
-                // }
-
-                // const socketConnection = {
-                //     sender_id: socket_id,
-                // };
-
-                // console.log(socketConnection);
-
-                // for (let key in socketConnection) {
-                //     if (key === "sender_id") {
-                //         let socket_id =
-                //             socketConnection[key];
-                //         // console.log(socket_id);
-                //         io.to(socket_id).emit(
-                //             "new message",
-                //             data.userInfo.message
-                //         );
-                //     }
-                // }
-
-                // // socketConnections.push(socketConnection);
-
-                // if (err) {
-                //     // handle error
-                //     return res.status(500).send({
-                //         error: "Username not found",
-                //     });
-                // }
 
                 db.query(
                     "INSERT INTO message (user_id, Message, Sent_Date_Time, Recipient_ID) VALUES (?, ?, ?, ?)",
