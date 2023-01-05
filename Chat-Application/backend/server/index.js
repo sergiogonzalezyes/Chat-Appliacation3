@@ -14,7 +14,6 @@ const jwt = require("jsonwebtoken");
 const { send } = require("process");
 // const loadContacts = require('./loadContacts');
 
-
 // console.log(sessions);
 
 // MYSQL connection
@@ -332,6 +331,7 @@ io.on("connection", (socket) => {
     }
 
     const socket_id = socket.id;
+    console.log(socket_id);
 
     socket.on("send_message", (data, res) => {
         console.log(data);
@@ -340,7 +340,7 @@ io.on("connection", (socket) => {
             // purpose of this query is to get the user_id from the user_login table
             `SELECT username, id FROM user_login WHERE username = '${data.userInfo.sender_id}'`,
             (err, results) => {
-                // console.log(results);
+                console.log(results);
 
                 const sender_id = results[0].id;
                 // console.log(sender_id);
@@ -422,21 +422,19 @@ io.on("connection", (socket) => {
                         data.userInfo.recepient_id,
                     ],
                     (err, result) => {
+                        console.log(result);
                         if (err) {
                             console.log(err);
-                            res.status(500).send(
-                                "Error inserting new record"
-                            );
+                            res.status(500).send("Error inserting new record");
+
                             return;
                         }
-                        // console.log(result);
                     }
                 );
             }
         );
         // io.to(socketConnection[key]).emit("new message", data.message);
     });
-
 });
 
 // io.on("connection", (socket) => {
@@ -508,11 +506,12 @@ app.post("/addContact", (req, res) => {
             }
 
             const username = results[0].username;
+            console.log(results);
 
             res.status(200).send({
                 message: "Added contact successfully",
                 userName: username,
-                recepient_id: recepient_id,
+                recepient_id: results[0].id,
             });
         }
     );
