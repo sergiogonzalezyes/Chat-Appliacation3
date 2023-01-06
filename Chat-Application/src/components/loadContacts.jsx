@@ -3,12 +3,14 @@ import axios from 'axios';
 
 
 export const LoadContacts = (props) => {
+
+  
   axios.get('http://localhost:5000/loadContacts')
   .then(response => {
     console.log(response.data);
   })
   .catch(error => {
-    // console.error(error);
+    console.error(error);
   });
 
 return (<div>
