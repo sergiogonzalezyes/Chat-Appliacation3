@@ -13,6 +13,7 @@ const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
 const { send } = require("process");
 const { useSyncExternalStore } = require("react");
+const { before } = require("node:test");
 
 // const loadContacts = require('./loadContacts');
 
@@ -306,9 +307,13 @@ io.on("connection", (socket) => {
 //   // Forward the message to the recipient
 //   io.to(data.recipientId).emit('new message', data.message);
 // });
-app.get("/loadContacts", (req, res) => {
-    console.log("hey send them this");
-    res.send("hows it going ?");
+app.post("/loadContacts", (req, res) => {
+    console.log(req.body.username);
+    // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
+    res.send("Here we send the list of users that are friends");
+    res.send(
+        "we will also make a query here based on the users ids/username to load their messages"
+    );
 });
 
 app.post("/addContact", (req, res) => {
