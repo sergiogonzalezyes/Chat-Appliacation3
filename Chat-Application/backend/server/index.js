@@ -312,7 +312,7 @@ app.post("/loadContacts", (req, res) => {
     // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
     res.send("Here we send the list of users that are friends");
     res.send(
-        "we will also make a query here based on the users ids/username to load their messages"
+        "we will also make a query here based on the users ids/username to load their messages lol what happened"
     );
 });
 
