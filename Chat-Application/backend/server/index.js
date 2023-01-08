@@ -309,7 +309,7 @@ app.post("/loadContacts", (req, res) => {
 
     const username = req.body.username;
 
-    db.query(`SELECT DISTINCT recipient.id AS 'Recipient ID', recipient.username AS 'Recipient Username'
+    db.query(`SELECT DISTINCT recipient.id AS 'id', recipient.username AS 'username'
     FROM message
     JOIN user_login AS recipient ON recipient.id = message.Recipient_ID
     WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`, [username, username], (err, results) => {

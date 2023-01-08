@@ -2,6 +2,7 @@ import React from "react"
 import axios from 'axios';
 import { useEffect } from "react";
 import { useState } from "react";
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 
 // also if the id of the user is needed to make the query to get the friends list we can use a 
@@ -11,6 +12,7 @@ import { useState } from "react";
 
 export const LoadContacts = (props) => {
   const [UserName, setUserName] = useState('')
+  const [savedContacts, setSavedContacts] = useState([]);
 
 
 
@@ -31,6 +33,9 @@ export const LoadContacts = (props) => {
     axios.post('http://localhost:5000/loadContacts', { username: UserName})
     .then(response => {
       console.log(response);
+
+      const savedContacts = response.data;
+      setSavedContacts(savedContacts);
     })
     .catch(error => {
       console.error(error);
@@ -40,10 +45,16 @@ export const LoadContacts = (props) => {
  
 
 return (<div>
+        <ScrollToBottom className="">
         <ul>
-          <li>{UserName}</li>
-          <li>serg</li>
-          <li>miguel</li>
+        {savedContacts.map((value,key) => {
+        return (
+          <li key={key} className="message_time_div">
+            {value.username}
+          </li>
+        )
+       })}
         </ul>
+        </ScrollToBottom>
       </div>)
 };
