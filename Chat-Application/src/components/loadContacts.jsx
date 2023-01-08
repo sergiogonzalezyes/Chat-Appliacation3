@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect } from "react";
 import { useState } from "react";
 
+
 // also if the id of the user is needed to make the query to get the friends list we can use a 
 // search query using our current username to get the id which in return will use that id to make the query for the list of users 
 

@@ -1,0 +1,4 @@
+SELECT DISTINCT recipient.id AS 'Recipient ID', recipient.username AS 'Recipient Username'
+FROM message
+JOIN user_login AS recipient ON recipient.id = message.Recipient_ID
+WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = 'surmur') AND recipient.username != 'surmur'

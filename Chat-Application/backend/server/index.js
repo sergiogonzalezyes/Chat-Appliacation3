@@ -11,9 +11,6 @@ const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
-const { send } = require("process");
-const { useSyncExternalStore } = require("react");
-const { before } = require("node:test");
 
 // const loadContacts = require('./loadContacts');
 
@@ -308,13 +305,45 @@ io.on("connection", (socket) => {
 //   io.to(data.recipientId).emit('new message', data.message);
 // });
 app.post("/loadContacts", (req, res) => {
-    console.log(req.body.username);
-    // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
-    res.send("Here we send the list of users that are friends");
-    res.send(
-        "we will also make a query here based on the users ids/username to load their messages lol what happened"
-    );
+    // console.log(req.body.username);
+
+    const username = req.body.username;
+
+    db.query(`SELECT DISTINCT recipient.id AS 'Recipient ID', recipient.username AS 'Recipient Username'
+    FROM message
+    JOIN user_login AS recipient ON recipient.id = message.Recipient_ID
+    WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`, [username, username], (err, results) => {
+        console.log(results);
+
+        if (results) {
+            res.send(results);
+        }
+
+        if (results === "") {
+            res.send("No contacts");
+            return;
+        }
+
+        if (err) {
+            // console.log(err);
+            res.status(500).send("Error finding users");
+            return;
+        }
+
+    });
+
+
+    // // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
+    // res.send(contacts, "Here we send the list of users that are friends");
+
+    
+
+
+    // res.send(
+    //     "we will also make a query here based on the users ids/username to load their messages lol what happened"
+    // );
 });
+
 
 app.post("/addContact", (req, res) => {
     const username = req.body.contact_username;
