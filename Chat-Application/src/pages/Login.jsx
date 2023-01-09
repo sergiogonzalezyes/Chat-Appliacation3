@@ -29,6 +29,18 @@ export const Login = () => {
                 console.error(error);
             });
     };
+    useEffect(() => {
+        axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
+          const decodedJWT = response.data.decodedJWT;
+          console.log(decodedJWT);
+          
+          // You can access specific properties of the decoded JWT like this:
+          const username = decodedJWT.username;
+          setUsername(username);
+          
+        })
+    
+      },[])
 
 
     if (loginsuccess === true) {
@@ -37,6 +49,8 @@ export const Login = () => {
 
         return <Navigate to="/UserPage" />;
     }
+
+
 
     return (
         <div className="loginComponent">
