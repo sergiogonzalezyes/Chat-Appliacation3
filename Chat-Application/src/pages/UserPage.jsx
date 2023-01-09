@@ -28,6 +28,9 @@ export const UserPage = () => {
       // You can access specific properties of the decoded JWT like this:
       const username = decodedJWT.username;
       setUserName(username);
+
+      
+
       
     })
 
@@ -48,6 +51,7 @@ export const UserPage = () => {
       console.log(contact_username);
       const recipientId = (response.data.recepient_id)
       setRecipientName(recipientId);
+      console.log(recipientId);
       // (response.data.userName)
 
 
@@ -68,10 +72,6 @@ export const UserPage = () => {
     }
   )}
   
-
-
-
-
 
   function messagesArr () {
     const date = new Date();
@@ -111,7 +111,8 @@ export const UserPage = () => {
     // })
 
     socket.on('new message', (data) => {
-      
+  
+
       console.log(data);
       setSavedMessage((list) => [...list, data])
     })
@@ -129,6 +130,15 @@ export const UserPage = () => {
       <div className="contacts">
         <h1>Contacts</h1>
        <LoadContacts/>
+        <ul>
+          {savedContacts.map((value,key) => {
+            return (
+              <li key={key} className="contact_name">
+                <p>{value}</p>
+              </li>
+            )
+          })}
+        </ul>
         <div className="add_user">
           <button className="add_button" type="button" onClick={addContact}>+</button>
         </div>
@@ -139,7 +149,7 @@ export const UserPage = () => {
         <h1>Messages</h1>
         <ScrollToBottom className="">
         <ul>
-        {/* {savedMessage.map((value,key) => {
+        {savedMessage.map((value,key) => {
         return (
           <li key={key} className="message_time_div">
             <p>{value.username}</p>
@@ -147,7 +157,7 @@ export const UserPage = () => {
             <p className="time">{value.time}</p>
           </li>
         )
-       })} */}
+       })}
         </ul>
         </ScrollToBottom>
       </div>

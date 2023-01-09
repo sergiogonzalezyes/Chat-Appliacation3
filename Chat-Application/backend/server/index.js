@@ -245,6 +245,12 @@ io.on("connection", (socket) => {
                     ],
                     (err, result) => {
                         console.log(result);
+
+                        if (result) {
+                            io.emit("new message", data);
+                        }
+
+
                         if (err) {
                             console.log(err);
                             res.status(500).send("Error inserting new record");
@@ -255,7 +261,7 @@ io.on("connection", (socket) => {
                 );
             }
         );
-        // io.to(socketConnection[key]).emit("new message", data.message);
+        
     });
 });
 

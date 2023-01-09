@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
 import { Navigate } from "react-router-dom";
-// import io from 'socket.io-client';
-// const socket = io.connect('http://localhost:5000')
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:5000')
 
 
 export const Login = () => {
@@ -32,7 +32,8 @@ export const Login = () => {
 
 
     if (loginsuccess === true) {
-        // socket.emit("send_username", username);
+        socket.emit("connection");
+        console.log("connected")
 
         return <Navigate to="/UserPage" />;
     }

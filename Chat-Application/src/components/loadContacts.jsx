@@ -15,7 +15,6 @@ export const LoadContacts = (props) => {
   const [savedContacts, setSavedContacts] = useState([]);
 
 
-
   useEffect(() => {
     axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
       const decodedJWT = response.data.decodedJWT;
@@ -24,7 +23,7 @@ export const LoadContacts = (props) => {
       // You can access specific properties of the decoded JWT like this:
       const username = decodedJWT.username;
       setUserName(username);
-      
+
     })
 
   },[])
@@ -36,6 +35,8 @@ export const LoadContacts = (props) => {
 
       const savedContacts = response.data;
       setSavedContacts(savedContacts);
+      console.log(savedContacts); 
+
     })
     .catch(error => {
       console.error(error);
