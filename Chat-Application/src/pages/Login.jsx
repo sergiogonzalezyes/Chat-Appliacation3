@@ -4,8 +4,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TreeSitter from "../images/Saly-16.png";
 import { Navigate } from "react-router-dom";
-// import io from 'socket.io-client';
-// const socket = io.connect('http://localhost:5000')
+import io from 'socket.io-client'
+const socket = io('http://localhost:5000',{
+  query: {
+    token: localStorage.getItem("token")
+  }
+})
 
 
 export const Login = () => {
@@ -29,6 +33,18 @@ export const Login = () => {
                 console.error(error);
             });
     };
+    useEffect(() => {
+        axios.get('http://localhost:5000/UserPage', {headers:{"x-access-token": localStorage.getItem("token")} }).then((response) => {
+          const decodedJWT = response.data.decodedJWT;
+          console.log(decodedJWT);
+          
+          // You can access specific properties of the decoded JWT like this:
+          const username = decodedJWT.username;
+          setUsername(username);
+          
+        })
+    
+      },[])
 
 
     if (loginsuccess === true) {
@@ -36,6 +52,8 @@ export const Login = () => {
 
         return <Navigate to="/UserPage" />;
     }
+
+
 
     return (
         <div className="loginComponent">
