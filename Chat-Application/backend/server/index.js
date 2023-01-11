@@ -1,17 +1,16 @@
 const express = require("express"); // Node JS web app framework. Primarily back end focused, for building REST API.
 const app = express();
-const bodyParser = require("body-parser"); // NPM package that parses incoming request bodies in a middleware before you handle it.
-const mysql = require("mysql2"); // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
+const bodyParser = require("body-parser"); // NPM package that parses incoming request bodies in a middleware before you handle it. // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
 const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that defines sharing resources of different origins. client/server architecture.
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const http = require("http");
-const { Server } = require("socket.io");
 const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
 const db = require('./Utils/db');
+const io = require('./Utils/socketio');
 
 
 
@@ -21,12 +20,6 @@ app.use(express.json()); // Uing express will allow app to parse incoming reques
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
 
-const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST"],
-    },
-});
 
 app.post("/createUser", (req, res) => {
     // This is the route that will be used to create a new user in the database
@@ -375,41 +368,6 @@ app.post("/addContact", (req, res) => {
 server.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
-
-// db.query(
-//     "INSERT INTO message (user_id, Message, Sent_Date_Time) VALUES (?, ?, ?)",
-//     [user_id, data.message, data.time],
-//     (err, result) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send("Error inserting new record");
-//             return;
-//         }
-//         // console.log(result);
-//     }
-// );
-
-// socket.on("send_message", (data, res) => {
-//     console.log(data);
-
-//     db.query(
-//         // purpose of this query is to get the user_id from the user_login table
-//         `SELECT username, id FROM user_login WHERE username = '${data.username}'`,
-//         (err, results) => {
-//             console.log(results);
-
-//             const user_id = results[0].id;
-//             if (err) {
-//                 // handle error
-//                 return res.status(500).send({
-//                     error: "Username not found",
-//                 });
-//             }
-
-//         }
-//     );
-//     io.to(data.recepient_id).emit("new message", data.message);
-// });
 
 // I wanted to export this function but i could not get it to export properly the end points are currently working. This get request is supposed to get all the
 // users messages and based on the messages get the friends list and by default itll also get some messages
