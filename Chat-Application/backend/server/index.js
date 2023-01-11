@@ -11,25 +11,10 @@ const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
+const db = require('./Utils/db');
 
-// const loadContacts = require('./loadContacts');
 
-// console.log(sessions);
 
-// MYSQL connection
-// This is where we create our connection to the database using appropriate credentials/database name
-// Host Name : "database-chat-app3.ct59e8m8f0qd.us-east-1.rds.amazonaws.com"
-// User : "admin"
-// Password : "skateboard"
-// Database : "chat_application"
-// Port : 3306
-
-const db = mysql.createPool({
-    host: "database-chat-app.ct59e8m8f0qd.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "skateboard",
-    database: "chat_application",
-});
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead.
