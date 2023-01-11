@@ -185,8 +185,9 @@ app.get("/UserPage", verifyJWT, (req, res) => {
 });
 
 io.on("connection", (socket) => {
+    console.log(socket.id);
     const token = socket.handshake.query.token;
-    console.log(token);
+
     if (verifyJWTS(token)) {
         console.log(socket.id);
         console.log("you are connected");
