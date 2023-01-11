@@ -9,17 +9,13 @@ const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
-const db = require('./Utils/db');
-const io = require('./Utils/socketio');
-
-
-
+const db = require("./Utils/db");
+const io = require("./Utils/socketio");
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead.
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
-
 
 app.post("/createUser", (req, res) => {
     // This is the route that will be used to create a new user in the database
@@ -190,6 +186,7 @@ app.get("/UserPage", verifyJWT, (req, res) => {
 
 io.on("connection", (socket) => {
     const token = socket.handshake.query.token;
+    console.log(token);
     if (verifyJWTS(token)) {
         console.log(socket.id);
         console.log("you are connected");
@@ -228,7 +225,6 @@ io.on("connection", (socket) => {
                             io.emit("new message", data);
                         }
 
-
                         if (err) {
                             console.log(err);
                             res.status(500).send("Error inserting new record");
@@ -239,7 +235,6 @@ io.on("connection", (socket) => {
                 );
             }
         );
-        
     });
 });
 
@@ -293,41 +288,39 @@ app.post("/loadContacts", (req, res) => {
 
     const username = req.body.username;
 
-    db.query(`SELECT DISTINCT recipient.id AS 'id', recipient.username AS 'username'
+    db.query(
+        `SELECT DISTINCT recipient.id AS 'id', recipient.username AS 'username'
     FROM message
     JOIN user_login AS recipient ON recipient.id = message.Recipient_ID
-    WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`, [username, username], (err, results) => {
-        console.log(results);
+    WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`,
+        [username, username],
+        (err, results) => {
+            console.log(results);
 
-        if (results) {
-            res.send(results);
+            if (results) {
+                res.send(results);
+            }
+
+            if (results === "") {
+                res.send("No contacts");
+                return;
+            }
+
+            if (err) {
+                // console.log(err);
+                res.status(500).send("Error finding users");
+                return;
+            }
         }
-
-        if (results === "") {
-            res.send("No contacts");
-            return;
-        }
-
-        if (err) {
-            // console.log(err);
-            res.status(500).send("Error finding users");
-            return;
-        }
-
-    });
-
+    );
 
     // // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
     // res.send(contacts, "Here we send the list of users that are friends");
-
-    
-
 
     // res.send(
     //     "we will also make a query here based on the users ids/username to load their messages lol what happened"
     // );
 });
-
 
 app.post("/addContact", (req, res) => {
     const username = req.body.contact_username;
