@@ -10,9 +10,7 @@ const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
 const db = require('./Utils/db');
-const io = require('./Utils/socketio');
-
-
+const { Server } = require("socket.io");
 
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
@@ -20,6 +18,13 @@ app.use(express.json()); // Uing express will allow app to parse incoming reques
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
 
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"],
+    },
+});
 
 app.post("/createUser", (req, res) => {
     // This is the route that will be used to create a new user in the database
@@ -242,6 +247,9 @@ io.on("connection", (socket) => {
         
     });
 });
+
+
+
 
 // io.on("connection", (socket) => {
 //     console.log(socket.id);
