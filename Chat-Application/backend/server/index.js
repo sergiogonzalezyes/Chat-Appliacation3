@@ -3,21 +3,17 @@ const app = express();
 const bodyParser = require("body-parser"); // NPM package that parses incoming request bodies in a middleware before you handle it. // Installs mysql library. Enables us to "createPool" a connection to the server in backend (MYSQL WB)
 const cors = require("cors"); // Cross-Origin-Resource-Sharing; protocol that defines sharing resources of different origins. client/server architecture.
 const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
 const http = require("http");
 const server = http.createServer(app);
 const cookieParser = require("cookie-parser");
-const { createTokens, validateToken } = require("./JWT");
 const jwt = require("jsonwebtoken");
-const db = require('./Utils/db');
+const db = require("./Utils/db");
 const { Server } = require("socket.io");
-
 
 app.use(cors()); // Using CORS will allow resources from the front-end to be shared with the back-end
 app.use(express.json()); // Uing express will allow app to parse incoming requests with JSON payloads. Will return an object instead.
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // this allows incoming url requests to be turned into objects as well, not just JSON requests.
-
 
 const io = new Server(server, {
     cors: {
@@ -198,10 +194,6 @@ io.on("connection", (socket) => {
     if (verifyJWTS(token)) {
         console.log(socket.id);
         console.log("you are connected");
-    } else {
-        console.log("you are disconnected");
-        socket.disconnect();
-        return;
     }
 
     const socket_id = socket.id;
@@ -230,9 +222,8 @@ io.on("connection", (socket) => {
                         console.log(result);
 
                         if (result) {
-                            io.emit("new message", data);
+                            socket.emit("new message", data);
                         }
-
 
                         if (err) {
                             console.log(err);
@@ -244,12 +235,11 @@ io.on("connection", (socket) => {
                 );
             }
         );
-        
+    });
+    socket.on("disconnect", () => {
+        console.log("you are disconnected");
     });
 });
-
-
-
 
 // io.on("connection", (socket) => {
 //     console.log(socket.id);
@@ -301,41 +291,39 @@ app.post("/loadContacts", (req, res) => {
 
     const username = req.body.username;
 
-    db.query(`SELECT DISTINCT recipient.id AS 'id', recipient.username AS 'username'
+    db.query(
+        `SELECT DISTINCT recipient.id AS 'id', recipient.username AS 'username'
     FROM message
     JOIN user_login AS recipient ON recipient.id = message.Recipient_ID
-    WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`, [username, username], (err, results) => {
-        console.log(results);
+    WHERE message.User_ID IN (SELECT id FROM user_login WHERE username = ?) AND recipient.username != ?`,
+        [username, username],
+        (err, results) => {
+            console.log(results);
 
-        if (results) {
-            res.send(results);
+            if (results) {
+                res.send(results);
+            }
+
+            if (results === "") {
+                res.send("No contacts");
+                return;
+            }
+
+            if (err) {
+                // console.log(err);
+                res.status(500).send("Error finding users");
+                return;
+            }
         }
-
-        if (results === "") {
-            res.send("No contacts");
-            return;
-        }
-
-        if (err) {
-            // console.log(err);
-            res.status(500).send("Error finding users");
-            return;
-        }
-
-    });
-
+    );
 
     // // We will use this user name to make a query that will get the messages that this user has talked to before. If the messages exist proced with the rest which is getting the user that will be used to populate the list and their messages
     // res.send(contacts, "Here we send the list of users that are friends");
-
-    
-
 
     // res.send(
     //     "we will also make a query here based on the users ids/username to load their messages lol what happened"
     // );
 });
-
 
 app.post("/addContact", (req, res) => {
     const username = req.body.contact_username;

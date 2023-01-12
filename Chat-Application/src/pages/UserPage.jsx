@@ -110,7 +110,7 @@ export const UserPage = () => {
       
     // })
 
-    socket.on('new message', (data) => {
+    socket.on('connection', (data) => {
   
 
       console.log(data);
